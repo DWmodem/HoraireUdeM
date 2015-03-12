@@ -53,7 +53,7 @@ public class Course {
     }
 
     public String getCourseId(){
-        return getDepartment().getSigle() + getCourseNumber();
+        return getDepartment().getSigle() + " " + getCourseNumber();
     }
 
     public Course(){}
