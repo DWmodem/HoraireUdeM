@@ -1,5 +1,6 @@
 
 CLASS:
+    -Session
     - Department (From JSON)
     - Course (From JSON)
 
