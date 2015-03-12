@@ -27,4 +27,20 @@ public class Session {
     public Session(){
 
     }
+
+    @Override
+    public String toString(){
+        int twoDigitYear = getYear() % 100;
+
+        switch (getSeason()) {
+            case Winter:
+                return "H" + twoDigitYear;
+            case Summer:
+                return "E" + twoDigitYear;
+            case Autumn:
+                return "A" + twoDigitYear;
+            default:
+                throw new NullPointerException("The season is null");
+        }
+    }
 }

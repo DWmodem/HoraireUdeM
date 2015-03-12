@@ -1,4 +1,4 @@
-
+API: http://www.iro.umontreal.ca/~roys/horaires/json/
 CLASS:
     -Session
     - Department (From JSON)
