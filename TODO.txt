@@ -1,0 +1,18 @@
+
+CLASS:
+    - Department (From JSON)
+    - Course (From JSON)
+
+    - Schedule (Contains the list of courses)
+
+
+
+
+Activity:
+    Departments
+    Courses
+    Courses Details
+    Courses Details 2 (Schedule)
+
+    My courses
+    My schedule
