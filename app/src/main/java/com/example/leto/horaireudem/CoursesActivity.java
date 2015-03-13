@@ -1,8 +1,6 @@
 package com.example.leto.horaireudem;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,65 +13,42 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.leto.horaireudem.objects.Course;
 import com.example.leto.horaireudem.objects.Department;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Activity for Departments
- * */
-public class MainActivity extends ActionBarActivity {
+
+public class CoursesActivity extends ActionBarActivity {
 
     // List view
     private ListView listView;
 
     // List view Adapter
-    ArrayAdapter<Department> adapter;
+    ArrayAdapter<String> adapter;
 
     // Search EditText
     EditText inputSearch;
 
     // ArrayList for departments
-    List<Department> departmentList;
+    List<Course> departmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_courses);
 
-        listView = (ListView) findViewById(R.id.list_departments);
+        listView = (ListView) findViewById(R.id.list_courses);
         inputSearch = (EditText) findViewById(R.id.input_search);
 
+        Bundle extras = getIntent().getExtras();
+        String inputString = extras.getString("key");
+        TextView titleDepartment = (TextView) findViewById(R.id.title_department);
+        titleDepartment.setText(inputString);
+
         fillLists();
-
-        /**
-         * Listening to single list item on click
-         * */
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                // Selected item
-                CharSequence item = ((TextView) v).getText().toString();
-
-                // Launching new Activity on selecting single List Item
-                Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
-//
-//              // Sending data to new activity
-                intent.putExtra("key", item);
-                startActivity(intent);
-//                Toast.makeText(context, item, Toast.LENGTH_SHORT).show();
-
-            }
-
-
-
-        });
 
         /**
          * Enabling Search Filter
@@ -83,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int lengthBefore, int lengthAfter) {
                 // When user changed the Text
-                MainActivity.this.adapter.getFilter().filter(s);
+                CoursesActivity.this.adapter.getFilter().filter(s);
             }
 
             @Override
@@ -108,52 +83,33 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    /**
-     * Fill all lists: Departments, Courses, Sessions
-     * */
-
     private void fillLists() {
 
-        // TODO une fonctione generique... qui va ramplir les listes avec les donnees
+        // TODO ramplir la liste avec des courses
 
-        Department d1 = new Department();
-        d1.setSigle("act");
-        d1.setTitle("Actuariat");
-        d1.setCourses(null);
+        String listCourses[] = {
+                "IFT1015 - Programmation 1",
+                "IFT1025 - Programmation 2",
+                "IFT1170 - Programmation Java et applications",
+                "IFT2905 - Interfaces personne-machine",
+                "IFT1015 - Programmation 1",
+                "IFT1025 - Programmation 2",
+                "IFT1170 - Programmation Java et applications"
 
-        Department d2 = new Department();
-        d2.setSigle("aeg");
-        d2.setTitle("Animation");
-        d2.setCourses(null);
+        };
 
-        Department d3 = new Department();
-        d3.setSigle("cep");
-        d3.setTitle("Communication et politique");
-        d3.setCourses(null);
 
-        Department d4 = new Department();
-        d4.setSigle("ift");
-        d4.setTitle("Informatique");
-        d4.setCourses(null);
 
-        List<Department> listDepratments = new ArrayList<Department>();
-        listDepratments.add(d4);
-        listDepratments.add(d1);
-        listDepratments.add(d2);
-        listDepratments.add(d3);
-        listDepratments.add(d2);
-        listDepratments.add(d1);
-
-        adapter = new ArrayAdapter<Department>(this, R.layout.department_item, listDepratments);
+        adapter = new ArrayAdapter<String>(this, R.layout.course_item, listCourses);
         listView.setAdapter(adapter);
 
-     }
+    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_courses, menu);
         return true;
     }
 
@@ -171,4 +127,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
