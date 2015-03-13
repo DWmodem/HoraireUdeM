@@ -1,0 +1,40 @@
+//Les noms des attributs et des tables sont tels qu'ils apparaissent dans les fichiers JSON
+
+Departement:
+	
+	sigle 					ex: "ift", 
+	titre 					ex: "Informatique", 
+	nbcours 				ex: "135" 
+
+Cours:
+	_id						  ex: "1"
+	sigle 					ex: "ift",
+	coursnum 				ex: "2905",
+	section 				ex: "A",
+	type 					  ex: "TH",
+	titre 					ex: "Interfaces personne-machine",
+	trimestre				ex: "H15",
+	status 					ex: "Ouvert",
+	session 				ex: "Session régulière",
+	credits 				ex: "3 crédits",
+	annulation 			ex: "2015-01-22",
+	abandon 				ex: "2015-03-13",
+	abandonlimite 	ex: "2015-03-13",
+	description 		ex: "Concept et langages des interfaces. Programmation par événements. Modèle de l&#039;usager. Design et programmation d&#039;interfaces graphiques. Impact sur les multimédia, la collaboration et la communication.",
+
+PeriodeCours:
+	
+	#_id					  ex: "1"
+	date 					  ex: "2015-01-08",
+	jour 					  ex: "jeudi",
+	heuredebut 			ex: "10:30",
+	heurefin 				ex: "11:29",
+	local 					ex: "1140 Pav. AndrÃ©-Aisenstadt",
+	prof 					  ex: "Personnel",
+	description 		ex: "TH"
+	
+Modèle Relationel:
+
+Departement(_sigle, titre, nbcours)
+Cours(_id, sigle, coursnum, section, type, titre, trimestre, status, session, credits, annulation, abandon, abandonlimite description)
+PeriodeCours(#_id, _date , jour, heuredebut, heurefin, local, prof, description)
