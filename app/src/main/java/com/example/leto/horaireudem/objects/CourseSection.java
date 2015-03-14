@@ -10,7 +10,7 @@ public class CourseSection {
     private CourseSectionStatus status;
     private int credit;
     private String section;
-    private CourseSectionType sectionType;
+    private SectionType sectionType;
     private Date cancel;
     private Date drop;
     private Date dropLimit;
@@ -48,11 +48,11 @@ public class CourseSection {
         this.section = section;
     }
 
-    public CourseSectionType getSectionType() {
+    public SectionType getSectionType() {
         return sectionType;
     }
 
-    public void setSectionType(CourseSectionType sectionType) {
+    public void setSectionType(SectionType sectionType) {
         this.sectionType = sectionType;
     }
 
