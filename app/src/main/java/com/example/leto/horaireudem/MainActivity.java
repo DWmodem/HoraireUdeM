@@ -2,6 +2,7 @@ package com.example.leto.horaireudem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -39,6 +40,9 @@ public class MainActivity extends ActionBarActivity {
     // ArrayList for departments
     List<Department> departmentList;
 
+    UDMDatabaseManager dbh;
+    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,8 @@ public class MainActivity extends ActionBarActivity {
         listView = (ListView) findViewById(R.id.list_departments);
         inputSearch = (EditText) findViewById(R.id.input_search);
 
+        dbh = new UDMDatabaseManager(this);
+        db = dbh.getWritableDatabase();
         fillLists();
 
         /**
