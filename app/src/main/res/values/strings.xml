@@ -6,5 +6,6 @@
     <string name="search_department">Search department</string>
     <string name="search_course">Search course</string>
     <string name="title_activity_courses">CoursesActivity</string>
+    <string name="title_activity_departments">DepartmentsActivity</string>
     <string name="department_titre">%1$s!</string>
 </resources>
