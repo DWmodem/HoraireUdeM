@@ -3,11 +3,15 @@ package com.example.leto.horaireudem.misc;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.leto.horaireudem.DepartmentsActivity;
+import com.example.leto.horaireudem.MainActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,18 +21,16 @@ public class UDMJsonData extends ReadData {
 
     private String LOG_TAG = UDMJsonData.class.getSimpleName();
     private Uri destinationUri;
-    private String[] tags;
-    private List<String> items;
+    public List<Object> items;
 
-    public List<String> getItems() {
-        return items;
-    }
-
-    public UDMJsonData(String uri, String[] tags)  {
+    public UDMJsonData(String uri)  {
         super(null);
         destinationUri = CreateUri(uri);
-        this.tags = tags;
-        items = new ArrayList<String>();
+        items = new ArrayList<Object>();
+    }
+
+    public List<Object> getItems() {
+        return items;
     }
 
     private Uri CreateUri(String url) {
@@ -43,7 +45,7 @@ public class UDMJsonData extends ReadData {
 
         DownloadJsonData downloadData = new DownloadJsonData();
         downloadData.execute(destinationUri.toString());
-        Log.v(LOG_TAG, "Built URI : " + destinationUri.toString());
+//        Log.v(LOG_TAG, "Built URI : " + destinationUri.toString());
 
     }
 
@@ -62,36 +64,41 @@ public class UDMJsonData extends ReadData {
 
         try {
 
+            // Read json data
             JSONArray jsonData = new JSONArray(getData());
 
+            // Loop array
             for (int i = 0; i < jsonData.length() ; i++) {
 
+                // Read JSON objects
                 JSONObject obj = jsonData.getJSONObject(i);
-                // Read JSON tags
-                items.add(obj.getString(tags[0]));
-                Log.v(LOG_TAG, "Data row: " + obj.getString(tags[0]));
+                items.add(obj);
+                Log.v(LOG_TAG, "Row data : " + items.get(i).toString());
             }
 
-
-        } catch (JSONException jsone) {
-            jsone.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace();
             Log.e(LOG_TAG, "Error processing Json data...");
         }
+
     }
 
     public class DownloadJsonData extends DownloadData {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return super.doInBackground(params);
-        }
 
         @Override
         protected void onPostExecute(String webData) {
             super.onPostExecute(webData);
             processResult();
         }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String[] par = { destinationUri.toString() };
+            return super.doInBackground(par);
+        }
+
     }
+
 
 }

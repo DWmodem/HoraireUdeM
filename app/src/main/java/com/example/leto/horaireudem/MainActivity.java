@@ -1,20 +1,20 @@
 package com.example.leto.horaireudem;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.leto.horaireudem.misc.UDMJsonData;
 
 /**
  * Main Activity for tests ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * */
 public class MainActivity extends ActionBarActivity {
 
-    public static final String URL_API_UDEM = "http://www-labs.iro.umontreal.ca/";
+    public static final String URL_API_UDEM = "http://www-labs.iro.umontreal.ca/~roys/horaires/json/";
 
     public static final String TAG_TRIMESTER  = "trimestre";
     public static final String TAG_ACRONYM    = "sigle";
@@ -23,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String TAG_TITLE      = "titre";
 
+    // Data Base
     UDMDatabaseManager dbh;
     SQLiteDatabase db;
 
@@ -32,36 +33,30 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(getApplicationContext(), "On peut aller dans une autre activity", Toast.LENGTH_LONG).show();
-
         // Connection DataBase
         dbh = new UDMDatabaseManager(this);
         db = dbh.getWritableDatabase();
 
-//        // Launching new Activity
-//        Intent intent = new Intent(getApplicationContext(), DepartmentsActivity.class);
-////        Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
-//
-//        // Sending data to new activity
-//        intent.putExtra(TRIMESTER_PARAM, "A14");
-//        startActivity(intent);
+        // Launching new Activity
+        // if data base is empty go to Departments
+        Intent intent = new Intent(getApplicationContext(), DepartmentsActivity.class);
 
-//        Read the JSON files
-
-        String uri = URL_API_UDEM + "~roys/horaires/json/sigles.json";
-
-        UDMJsonData data = new UDMJsonData(uri, new String[]{TAG_TITLE, TAG_ACRONYM});
-        data.execute();
+        // Sending data to new activity
+        intent.putExtra(TAG_TRIMESTER, "H15");
+        startActivity(intent);
 
 
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -78,4 +73,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

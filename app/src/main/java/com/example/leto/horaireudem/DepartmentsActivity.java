@@ -1,8 +1,9 @@
 package com.example.leto.horaireudem;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -14,25 +15,33 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.leto.horaireudem.misc.NavigationAdapter;
+import com.example.leto.horaireudem.misc.SpinnerNavItem;
 import com.example.leto.horaireudem.objects.Department;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class DepartmentsActivity extends ActionBarActivity {
+public class DepartmentsActivity extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
+    // Log view class
+    private String LOG_TAG = DepartmentsActivity.class.getSimpleName();
+
+    // Action bar
+    private ActionBar actionBar;
+    // Navigation Spinner [ Winter Summer Autumn ]
+    private ArrayList<SpinnerNavItem> navSpinner;
+    // List view Adapter
+    private ArrayAdapter<Department> departmentAdapter;
+    // Navigation adapter
+    private NavigationAdapter navAdapter;
     // List view
     private ListView listView;
-
-    // List view Adapter
-    ArrayAdapter<Department> adapter;
-
     // Search EditText
-    EditText inputSearch;
-
+    private EditText inputSearch;
     // ArrayList for departments
-    List<Department> departmentList;
+    private List<Department> departmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +51,28 @@ public class DepartmentsActivity extends ActionBarActivity {
         listView = (ListView) findViewById(R.id.list_departments);
         inputSearch = (EditText) findViewById(R.id.input_search);
 
-        fillLists();
+
+        // Action Bar settings
+        actionBar = getSupportActionBar();
+        // Hide the action bar title
+        actionBar.setDisplayShowTitleEnabled(false);
+        // Enabling Spinner dropdown navigation
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+
+        // Adding Drop-down Navigation
+        addBarNavigation();
+
+        String uri = MainActivity.URL_API_UDEM + "sigles.json";
+
+//        UDMJsonData data = new UDMJsonData(uri);
+//        data.execute();
+//        Log.v(LOG_TAG, "cornel : " + departments.size());
+
+        // Fill the View List
+        fillViewList();
+
+
 
         /**
          * Listening to single list item on click
@@ -78,7 +108,7 @@ public class DepartmentsActivity extends ActionBarActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int lengthBefore, int lengthAfter) {
                 // When user changed the Text
-                DepartmentsActivity.this.adapter.getFilter().filter(s);
+                DepartmentsActivity.this.departmentAdapter.getFilter().filter(s);
             }
 
             @Override
@@ -107,7 +137,7 @@ public class DepartmentsActivity extends ActionBarActivity {
      * Fill all lists: Departments, Courses, Sessions
      * */
 
-    private void fillLists() {
+    private void fillViewList() {
 
         // TODO une fonctione generique... qui va ramplir les listes avec les donnees
 
@@ -131,16 +161,27 @@ public class DepartmentsActivity extends ActionBarActivity {
         d4.setTitle("Informatique");
         d4.setCourses(null);
 
-        List<Department> listDepratments = new ArrayList<Department>();
-        listDepratments.add(d4);
-        listDepratments.add(d1);
-        listDepratments.add(d2);
-        listDepratments.add(d3);
-        listDepratments.add(d2);
-        listDepratments.add(d1);
+        departmentList = new ArrayList<Department>();
 
-        adapter = new ArrayAdapter<Department>(this, R.layout.department_item, listDepratments);
-        listView.setAdapter(adapter);
+        departmentList.add(d4);
+        departmentList.add(d1);
+        departmentList.add(d2);
+        departmentList.add(d3);
+        departmentList.add(d2);
+        departmentList.add(d1);
+
+        //        Read the JSON files
+
+
+
+
+
+        // Loop array
+
+
+
+        departmentAdapter = new ArrayAdapter<Department>(this, R.layout.department_item, departmentList);
+        listView.setAdapter(departmentAdapter);
     }
 
 
@@ -164,5 +205,27 @@ public class DepartmentsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Adding Drop-down Navigation
+    private void addBarNavigation() {
+
+        // Spinner navigation settings
+        navSpinner = new ArrayList<SpinnerNavItem>();
+        navSpinner.add(new SpinnerNavItem("Autumn ", 2014));
+        navSpinner.add(new SpinnerNavItem("Winter ", 2015));
+        navSpinner.add(new SpinnerNavItem("Summer ", 2015));
+
+        // title drop down adapter
+        navAdapter = new NavigationAdapter(getApplicationContext(), navSpinner);
+        // Set the selected navigation item
+        // Assigning the spinner navigation
+        actionBar.setListNavigationCallbacks(navAdapter, this);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(int i, long l) {
+        return false;
     }
 }

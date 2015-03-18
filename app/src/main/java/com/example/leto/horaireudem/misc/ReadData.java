@@ -54,6 +54,22 @@ public class ReadData {
 
         public class DownloadData extends AsyncTask<String, Void, String> {
 
+            protected void onPostExecute(String webData) {
+                data = webData;
+                Log.v(LOG_TAG, "Data returned was: " + data);
+
+                if (data == null) {
+                    if (url == null) {
+                        downloadStatus = DownloadStatus.NOT_INITIALISED;
+                    } else {
+                        downloadStatus = DownloadStatus.FAILED_OR_EMPTY;
+                    }
+                } else {
+                    // succes
+                    downloadStatus = DownloadStatus.OK;
+                }
+            }
+
             protected String doInBackground(String... params) {
 
                 HttpURLConnection urlConnection = null;
@@ -76,7 +92,7 @@ public class ReadData {
                         return null;
 
                     StringBuffer buffer = new StringBuffer();
-                    reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
 
                     String line;
                     while ((line = reader.readLine()) != null) {
@@ -105,20 +121,6 @@ public class ReadData {
                 }
             }
 
-            protected void onPostExecute(String webData) {
-                data = webData;
-                Log.v(LOG_TAG, "Data returned was: " + data);
 
-                if (data == null) {
-                    if (url == null) {
-                        downloadStatus = DownloadStatus.NOT_INITIALISED;
-                    } else {
-                        downloadStatus = DownloadStatus.FAILED_OR_EMPTY;
-                    }
-                } else {
-                    // succes
-                    downloadStatus = DownloadStatus.OK;
-                }
-            }
         }
     }
