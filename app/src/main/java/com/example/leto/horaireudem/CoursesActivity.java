@@ -1,54 +1,73 @@
 package com.example.leto.horaireudem;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.leto.horaireudem.misc.NavigationAdapter;
+import com.example.leto.horaireudem.misc.SpinnerNavItem;
+import com.example.leto.horaireudem.misc.UDMJsonData;
 import com.example.leto.horaireudem.objects.Course;
-import com.example.leto.horaireudem.objects.Department;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
-public class CoursesActivity extends ActionBarActivity {
+public class CoursesActivity extends ActionBarActivity implements ActionBar.OnNavigationListener, Callable {
+
+    // Log view class
+    private String LOG_TAG = CoursesActivity.class.getSimpleName();
+
+    // Action bar
+    private ActionBar actionBar;
+    // Navigation Spinner [ Winter Summer Autumn ]
+    private ArrayList<SpinnerNavItem> navSpinner;
+    // List view Adapter
+    private ArrayAdapter<Course> courseAdapter;
+    // Navigation adapter
+    private NavigationAdapter navAdapter;
+    // ArrayList for departments
+    private List<Course> courseList;
 
     // List view
     private ListView listView;
-
-    // List view Adapter
-    ArrayAdapter<String> adapter;
-
     // Search EditText
-    EditText inputSearch;
-
-    // ArrayList for departments
-    List<Course> departmentList;
+    private EditText inputSearch;
+    // Department Title
+    private TextView DepartmentTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        listView = (ListView) findViewById(R.id.list_courses);
+        listView = (ListView) findViewById(R.id.list_view_courses);
         inputSearch = (EditText) findViewById(R.id.input_search);
+        DepartmentTitle = (TextView) findViewById(R.id.title_department);
 
         Bundle extras = getIntent().getExtras();
-        String inputString = extras.getString("key");
-        TextView titleDepartment = (TextView) findViewById(R.id.title_department);
-        titleDepartment.setText(inputString);
+        String tagTitle = extras.getString(MainActivity.TAG_TITLE);
+        String tagSigle = extras.getString(MainActivity.TAG_SIGLE);
 
-        fillLists();
+        DepartmentTitle.setText(tagTitle);
+
+
+        String url = MainActivity.URL_API_UDEM + "A14-" + tagSigle.toLowerCase().trim() + ".json";
+        fillViewList(url);
 
         /**
          * Enabling Search Filter
@@ -58,7 +77,9 @@ public class CoursesActivity extends ActionBarActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int lengthBefore, int lengthAfter) {
                 // When user changed the Text
-                CoursesActivity.this.adapter.getFilter().filter(s);
+                if (CoursesActivity.this.courseAdapter != null) {
+                    CoursesActivity.this.courseAdapter.getFilter().filter(s);
+                }
             }
 
             @Override
@@ -83,25 +104,10 @@ public class CoursesActivity extends ActionBarActivity {
         });
     }
 
-    private void fillLists() {
+    private void fillViewList(String url) {
 
-        // TODO ramplir la liste avec des courses
-
-        String listCourses[] = {
-                "IFT1015 - Programmation 1",
-                "IFT1025 - Programmation 2",
-                "IFT1170 - Programmation Java et applications",
-                "IFT2905 - Interfaces personne-machine",
-                "IFT1015 - Programmation 1",
-                "IFT1025 - Programmation 2",
-                "IFT1170 - Programmation Java et applications"
-
-        };
-
-
-
-        adapter = new ArrayAdapter<String>(this, R.layout.course_item, listCourses);
-        listView.setAdapter(adapter);
+        UDMJsonData data = new UDMJsonData(url);
+        data.execute(this);
 
     }
 
@@ -128,5 +134,36 @@ public class CoursesActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void OnCallback(UDMJsonData data) {
 
+        // Convert JSON to object. Sort the list.
+        courseList = new ArrayList<Course>();
+        try {
+            for (JSONObject c : data.getItems())
+                courseList.add(new Course(c));
+        }
+        catch (JSONException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        Collections.sort(courseList, new Comparator<Course>() {
+
+            @Override
+            public int compare(Course first, Course second) {
+                return first.getTitle().compareTo(second.getTitle());
+            }
+        });
+
+        Log.v(LOG_TAG, String.format("%s courses loaded.", courseList.size()));
+        courseAdapter = new ArrayAdapter<Course>(this, R.layout.course_item, courseList);
+        listView.setAdapter(courseAdapter);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(int i, long l) {
+        return false;
+    }
 }

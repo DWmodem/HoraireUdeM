@@ -57,7 +57,6 @@ public class ReadData {
             protected void onPostExecute(String webData) {
                 data = webData;
                 Log.v(LOG_TAG, "Data returned was: " + data);
-
                 if (data == null) {
                     if (url == null) {
                         downloadStatus = DownloadStatus.NOT_INITIALISED;
@@ -88,11 +87,12 @@ public class ReadData {
                     urlConnection.connect();
 
                     InputStream inputStream = urlConnection.getInputStream();
-                    if (inputStream == null)
-                        return null;
+                    if (inputStream == null) {
+                         return null;
+                    }
 
                     StringBuffer buffer = new StringBuffer();
-                    reader = new BufferedReader(new InputStreamReader(inputStream));
+                    reader = new BufferedReader(new InputStreamReader(inputStream, "UTF8"));
 
                     String line;
                     while ((line = reader.readLine()) != null) {

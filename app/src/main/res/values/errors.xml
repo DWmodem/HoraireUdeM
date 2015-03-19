@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="FILE_IS_EMPTY">No data has been loaded yet...</string>
     <string name="no_connection">Error</string>
     <string name="ok_connection">Error</string>
 </resources>

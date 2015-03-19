@@ -19,9 +19,9 @@ public class MainActivity extends ActionBarActivity{
     public static final String URL_API_UDEM = "http://www-labs.iro.umontreal.ca/~roys/horaires/json/";
 
     public static final String TAG_TRIMESTER  = "trimestre";
-    public static final String TAG_ACRONYM    = "sigle";
-    public static final String TAG_COURSE_NUM = "section";
-    public static final String TAG_SECTION    = "coursnum";
+    public static final String TAG_SIGLE      = "sigle";
+    public static final String TAG_COURSE_NUM = "coursnum";
+    public static final String TAG_SECTION    = "section";
 
     public static final String TAG_TITLE      = "titre";
 
@@ -41,10 +41,6 @@ public class MainActivity extends ActionBarActivity{
         db = dbh.getWritableDatabase();
 
 
-
-
-
-
         // Launching new Activity
         // if data base is empty go to Departments
         Intent intent = new Intent(getApplicationContext(), DepartmentsActivity.class);
@@ -52,8 +48,6 @@ public class MainActivity extends ActionBarActivity{
         // Sending data to new activity
         intent.putExtra(TAG_TRIMESTER, "H15");
         startActivity(intent);
-
-
 
     }
 

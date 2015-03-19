@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.leto.horaireudem.misc.NavigationAdapter;
 import com.example.leto.horaireudem.misc.SpinnerNavItem;
@@ -43,12 +42,13 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
     private ArrayAdapter<Department> departmentAdapter;
     // Navigation adapter
     private NavigationAdapter navAdapter;
+    // ArrayList for departments
+    private List<Department> departmentList;
+
     // List view
     private ListView listView;
     // Search EditText
     private EditText inputSearch;
-    // ArrayList for departments
-    private List<Department> departmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,6 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
         listView = (ListView) findViewById(R.id.list_departments);
         inputSearch = (EditText) findViewById(R.id.input_search);
 
-
         // Action Bar settings
         actionBar = getSupportActionBar();
         // Hide the action bar title
@@ -66,20 +65,14 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
         // Enabling Spinner dropdown navigation
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-
         // Adding Drop-down Navigation
         addBarNavigation();
 
-        String uri = MainActivity.URL_API_UDEM + "sigles.json";
-
-//        UDMJsonData data = new UDMJsonData(uri);
-//        data.execute();
-//        Log.v(LOG_TAG, "cornel : " + departments.size());
+        // Build a URL for json file
+        String url = MainActivity.URL_API_UDEM + "sigles.json";
 
         // Fill the View List
-        fillViewList();
-
-
+        fillViewList(url);
 
         /**
          * Listening to single list item on click
@@ -91,16 +84,15 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 // Selected item
-                CharSequence item = ((TextView) v).getText().toString();
+                Department dep = (Department) parent.getItemAtPosition(position);
 
                 // Launching new Activity on selecting single List Item
                 Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
-//
-//              // Sending data to new activity
-                intent.putExtra("key", item);
-                startActivity(intent);
-//                Toast.makeText(context, item, Toast.LENGTH_SHORT).show();
 
+                // Sending data to CourseActivity
+                intent.putExtra(MainActivity.TAG_SIGLE, dep.getSigle());
+                intent.putExtra(MainActivity.TAG_TITLE, dep.getTitle());
+                startActivity(intent);
             }
 
 
@@ -146,8 +138,8 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
      * Fill all lists: Departments, Courses, Sessions
      * */
 
-    private void fillViewList() {
-        UDMJsonData data = new UDMJsonData(MainActivity.URL_API_UDEM + "sigles.json");
+    private void fillViewList(String url) {
+        UDMJsonData data = new UDMJsonData(url);
         data.execute(this);
     }
 

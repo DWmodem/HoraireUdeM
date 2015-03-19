@@ -1,11 +1,18 @@
 package com.example.leto.horaireudem.objects;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
  * Created by Justin on 2015-03-12.
  */
 public class Course {
+
+    public static final String JSON_TITLE_TAG = "titre";
+    public static final String JSON_COURSE_NUM_TAG = "coursnum";
+
     private Department department;
     private int courseNumber;
     private String title;
@@ -56,10 +63,13 @@ public class Course {
         return getDepartment().getSigle() + " " + getCourseNumber();
     }
 
-    public Course(){}
+    public Course(JSONObject json) throws JSONException {
+        setTitle(json.getString(JSON_TITLE_TAG));
+        setCourseNumber(json.getInt(JSON_COURSE_NUM_TAG));
+    }
 
     @Override
     public String toString(){
-        return getCourseId() + " - " + getTitle();
+        return getCourseNumber() + " - " + getTitle();
     }
 }
