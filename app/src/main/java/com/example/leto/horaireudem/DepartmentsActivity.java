@@ -212,7 +212,6 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
         return super.onOptionsItemSelected(item);
     }
 
-    // test
     // Adding Drop-down Navigation
     private void addBarNavigation() {
 
