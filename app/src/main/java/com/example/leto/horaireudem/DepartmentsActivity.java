@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +18,14 @@ import android.widget.TextView;
 
 import com.example.leto.horaireudem.misc.NavigationAdapter;
 import com.example.leto.horaireudem.misc.SpinnerNavItem;
+import com.example.leto.horaireudem.misc.UDMJsonData;
 import com.example.leto.horaireudem.objects.Department;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class DepartmentsActivity extends ActionBarActivity implements ActionBar.OnNavigationListener {
+public class DepartmentsActivity extends ActionBarActivity implements ActionBar.OnNavigationListener, Callable {
 
     // Log view class
     private String LOG_TAG = DepartmentsActivity.class.getSimpleName();
@@ -139,7 +141,10 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
 
     private void fillViewList() {
 
-        // TODO une fonctione generique... qui va ramplir les listes avec les donnees
+
+
+        UDMJsonData data = new UDMJsonData(MainActivity.URL_API_UDEM + "sigles.json");
+        data.execute(this);
 
         Department d1 = new Department();
         d1.setSigle("act");
@@ -227,5 +232,10 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
     @Override
     public boolean onNavigationItemSelected(int i, long l) {
         return false;
+    }
+
+    @Override
+    public void OnCallback(UDMJsonData data) {
+        Log.v(LOG_TAG, "test data : " + data.getItems().size());
     }
 }

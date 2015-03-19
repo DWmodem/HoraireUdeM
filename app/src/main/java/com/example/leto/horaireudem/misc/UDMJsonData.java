@@ -3,15 +3,12 @@ package com.example.leto.horaireudem.misc;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.leto.horaireudem.DepartmentsActivity;
-import com.example.leto.horaireudem.MainActivity;
+import com.example.leto.horaireudem.Callable;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,15 +18,20 @@ public class UDMJsonData extends ReadData {
 
     private String LOG_TAG = UDMJsonData.class.getSimpleName();
     private Uri destinationUri;
-    public List<Object> items;
+    private Callable callback;
+    public List<JSONObject> items;
+
+    protected UDMJsonData getThis(){
+        return  this;
+    }
 
     public UDMJsonData(String uri)  {
         super(null);
         destinationUri = CreateUri(uri);
-        items = new ArrayList<Object>();
+        items = new ArrayList<JSONObject>();
     }
 
-    public List<Object> getItems() {
+    public List<JSONObject> getItems() {
         return items;
     }
 
@@ -39,10 +41,10 @@ public class UDMJsonData extends ReadData {
         return builder.build();
     }
 
-    public void execute() {
+    public void execute(Callable c) {
 
         super.setUrl(destinationUri.toString());
-
+        callback = c;
         DownloadJsonData downloadData = new DownloadJsonData();
         downloadData.execute(destinationUri.toString());
 //        Log.v(LOG_TAG, "Built URI : " + destinationUri.toString());
@@ -73,7 +75,7 @@ public class UDMJsonData extends ReadData {
                 // Read JSON objects
                 JSONObject obj = jsonData.getJSONObject(i);
                 items.add(obj);
-                Log.v(LOG_TAG, "Row data : " + items.get(i).toString());
+                Log.v(LOG_TAG, "donnees : " + items.get(i).toString());
             }
 
         } catch(Exception e) {
@@ -89,6 +91,7 @@ public class UDMJsonData extends ReadData {
         protected void onPostExecute(String webData) {
             super.onPostExecute(webData);
             processResult();
+            callback.OnCallback(getThis());
         }
 
         @Override

@@ -12,7 +12,9 @@ import android.view.MenuItem;
 /**
  * Main Activity for tests ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity{
+
+    private String LOG_TAG = MainActivity.class.getSimpleName();
 
     public static final String URL_API_UDEM = "http://www-labs.iro.umontreal.ca/~roys/horaires/json/";
 
@@ -30,12 +32,18 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Connection DataBase
         dbh = new UDMDatabaseManager(this);
         db = dbh.getWritableDatabase();
+
+
+
+
+
 
         // Launching new Activity
         // if data base is empty go to Departments
@@ -73,5 +81,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
