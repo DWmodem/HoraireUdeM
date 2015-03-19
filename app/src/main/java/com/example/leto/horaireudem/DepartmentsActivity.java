@@ -115,10 +115,9 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
             @Override
             public void onTextChanged(CharSequence s, int start, int lengthBefore, int lengthAfter) {
                 // When user changed the Text
-                if (s != null)
+                if (DepartmentsActivity.this.departmentAdapter != null) {
                     DepartmentsActivity.this.departmentAdapter.getFilter().filter(s);
-                else
-                    DepartmentsActivity.this.departmentAdapter.getFilter().filter("");
+                }
             }
 
             @Override

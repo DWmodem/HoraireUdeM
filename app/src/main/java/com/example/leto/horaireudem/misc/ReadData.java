@@ -65,7 +65,7 @@ public class ReadData {
                         downloadStatus = DownloadStatus.FAILED_OR_EMPTY;
                     }
                 } else {
-                    // succes
+                    // success
                     downloadStatus = DownloadStatus.OK;
                 }
             }
@@ -81,7 +81,7 @@ public class ReadData {
                 try {
 
                     URL url = new URL(params[0]);
-                    Log.e(LOG_TAG, "URL Path : " + params[0]);
+                    Log.v(LOG_TAG, "URL Path : " + params[0]);
 
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");

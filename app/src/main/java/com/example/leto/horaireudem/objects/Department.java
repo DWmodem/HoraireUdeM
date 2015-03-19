@@ -9,6 +9,9 @@ import java.util.List;
  * Created by Justin on 2015-03-12.
  */
 public class Department {
+    public static final String JSON_SIGLE_TAG = "sigle";
+    public static final String JSON_TITLE_TAG = "titre";
+
     private String sigle;
     private String title;
     private List<Course> courses;
@@ -42,8 +45,8 @@ public class Department {
     }
 
     public Department(JSONObject json) throws JSONException{
-        setSigle(json.getString("sigle"));
-        setTitle(json.getString("titre"));
+        setSigle(json.getString(JSON_SIGLE_TAG));
+        setTitle(json.getString(JSON_TITLE_TAG));
     }
 
     @Override
