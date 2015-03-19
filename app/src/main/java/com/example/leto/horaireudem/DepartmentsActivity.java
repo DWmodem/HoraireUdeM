@@ -21,7 +21,12 @@ import com.example.leto.horaireudem.misc.SpinnerNavItem;
 import com.example.leto.horaireudem.misc.UDMJsonData;
 import com.example.leto.horaireudem.objects.Department;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -110,7 +115,8 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
             @Override
             public void onTextChanged(CharSequence s, int start, int lengthBefore, int lengthAfter) {
                 // When user changed the Text
-                DepartmentsActivity.this.departmentAdapter.getFilter().filter(s);
+                //TODO Manage null
+                //DepartmentsActivity.this.departmentAdapter.getFilter().filter(s);
             }
 
             @Override
@@ -140,53 +146,8 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
      * */
 
     private void fillViewList() {
-
-
-
         UDMJsonData data = new UDMJsonData(MainActivity.URL_API_UDEM + "sigles.json");
         data.execute(this);
-
-        Department d1 = new Department();
-        d1.setSigle("act");
-        d1.setTitle("Actuariat");
-        d1.setCourses(null);
-
-        Department d2 = new Department();
-        d2.setSigle("aeg");
-        d2.setTitle("Animation");
-        d2.setCourses(null);
-
-        Department d3 = new Department();
-        d3.setSigle("cep");
-        d3.setTitle("Communication et politique");
-        d3.setCourses(null);
-
-        Department d4 = new Department();
-        d4.setSigle("ift");
-        d4.setTitle("Informatique");
-        d4.setCourses(null);
-
-        departmentList = new ArrayList<Department>();
-
-        departmentList.add(d4);
-        departmentList.add(d1);
-        departmentList.add(d2);
-        departmentList.add(d3);
-        departmentList.add(d2);
-        departmentList.add(d1);
-
-        //        Read the JSON files
-
-
-
-
-
-        // Loop array
-
-
-
-        departmentAdapter = new ArrayAdapter<Department>(this, R.layout.department_item, departmentList);
-        listView.setAdapter(departmentAdapter);
     }
 
 
@@ -236,6 +197,26 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
 
     @Override
     public void OnCallback(UDMJsonData data) {
-        Log.v(LOG_TAG, "test data : " + data.getItems().size());
+        // Convert JSON to object. Sort the list.
+        departmentList = new ArrayList<Department>();
+        try {
+            for (JSONObject d : data.getItems())
+                departmentList.add(new Department(d));
+        }
+        catch (JSONException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        Collections.sort(departmentList, new Comparator<Department>() {
+            @Override
+            public int compare(Department lhs, Department rhs) {
+                return lhs.getSigle().compareTo(rhs.getSigle());
+            }
+        });
+
+        Log.v(LOG_TAG, String.format("%s departments loaded.", departmentList.size()));
+        departmentAdapter = new ArrayAdapter<Department>(this, R.layout.department_item, departmentList);
+        listView.setAdapter(departmentAdapter);
     }
 }

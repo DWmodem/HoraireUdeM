@@ -1,5 +1,8 @@
 package com.example.leto.horaireudem.objects;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -11,7 +14,7 @@ public class Department {
     private List<Course> courses;
 
     public String getSigle() {
-        return sigle;
+        return sigle == null ? null : sigle.toUpperCase();
     }
 
     public void setSigle(String sigle) {
@@ -38,8 +41,13 @@ public class Department {
 
     }
 
+    public Department(JSONObject json) throws JSONException{
+        setSigle(json.getString("sigle"));
+        setTitle(json.getString("titre"));
+    }
+
     @Override
     public String toString(){
-        return getTitle();
+        return getSigle() + " - " + getTitle();
     }
 }
