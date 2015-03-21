@@ -15,8 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.leto.horaireudem.misc.NavigationAdapter;
-import com.example.leto.horaireudem.misc.SpinnerNavItem;
+import com.example.leto.horaireudem.misc.SessionNavigationAdapter;
 import com.example.leto.horaireudem.misc.UDMJsonData;
 import com.example.leto.horaireudem.objects.Department;
 
@@ -29,19 +28,18 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class DepartmentsActivity extends ActionBarActivity implements ActionBar.OnNavigationListener, Callable {
+public class DepartmentsActivity extends ActionBarActivity
+        implements ActionBar.OnNavigationListener, Callable {
 
     // Log view class
     private String LOG_TAG = DepartmentsActivity.class.getSimpleName();
 
     // Action bar
     private ActionBar actionBar;
-    // Navigation Spinner [ Winter Summer Autumn ]
-    private ArrayList<SpinnerNavItem> navSpinner;
     // List view Adapter
     private ArrayAdapter<Department> departmentAdapter;
     // Navigation adapter
-    private NavigationAdapter navAdapter;
+    private SessionNavigationAdapter navAdapter;
     // ArrayList for departments
     private List<Department> departmentList;
 
@@ -61,9 +59,7 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
         // Action Bar settings
         actionBar = getSupportActionBar();
         // Hide the action bar title
-        actionBar.setDisplayShowTitleEnabled(false);
-        // Enabling Spinner dropdown navigation
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setDisplayShowTitleEnabled(true);
 
         // Adding Drop-down Navigation
         addBarNavigation();
@@ -120,15 +116,6 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
             @Override
             public void afterTextChanged(Editable editable) {
                 // TODO afterTextChanged method
-//                if (inputSearch.getText().toString().trim().length() > 0) {
-//                    if (Integer.parseInt(inputSearch.getText().toString().trim()) < 20 ||
-//                            Integer.parseInt(inputSearch.getText().toString().trim()) > 120) {
-//                        inputSearch.setTextColor(Color.GREEN);
-//                    } else {
-//                        inputSearch.setTextColor(Color.RED);
-//                    }
-//                }
-
             }
 
         });
@@ -147,7 +134,7 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_departments, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -169,17 +156,6 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
     // Adding Drop-down Navigation
     private void addBarNavigation() {
 
-        // Spinner navigation settings
-        navSpinner = new ArrayList<SpinnerNavItem>();
-        navSpinner.add(new SpinnerNavItem("Autumn ", 2014));
-        navSpinner.add(new SpinnerNavItem("Winter ", 2015));
-        navSpinner.add(new SpinnerNavItem("Summer ", 2015));
-
-        // title drop down adapter
-        navAdapter = new NavigationAdapter(getApplicationContext(), navSpinner);
-        // Set the selected navigation item
-        // Assigning the spinner navigation
-        actionBar.setListNavigationCallbacks(navAdapter, this);
     }
 
 
@@ -209,7 +185,7 @@ public class DepartmentsActivity extends ActionBarActivity implements ActionBar.
         });
 
         Log.v(LOG_TAG, String.format("%s departments loaded.", departmentList.size()));
-        departmentAdapter = new ArrayAdapter<Department>(this, R.layout.department_item, departmentList);
+        departmentAdapter = new ArrayAdapter<Department>(this, R.layout.item_department, departmentList);
         listView.setAdapter(departmentAdapter);
     }
 }

@@ -3,12 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.leto.horaireudem.MainActivity">
 
-    <!-- Search -->
-    <item android:id="@+id/action_search"
-        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
-        android:title="@string/action_search"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+    <!--&lt;!&ndash; Search &ndash;&gt;-->
+    <!--<item android:id="@+id/action_search"-->
+        <!--android:icon="@drawable/abc_ic_search_api_mtrl_alpha"-->
+        <!--android:title="@string/action_search"-->
+        <!--app:showAsAction="ifRoom|collapseActionView"-->
+        <!--app:actionViewClass="android.support.v7.widget.SearchView" />-->
+
+    <!-- Calendar -->
+    <item android:id="@+id/action_calendar"
+        android:icon="@mipmap/ic_go_to_today"
+        android:title="@string/action_calendar"
+        app:showAsAction="always" />
+
+    <!-- Schedule -->
+    <item android:id="@+id/action_schedule"
+        android:title="@string/action_schedule"
+        app:showAsAction="never"/>
+
+    <!-- Timetable -->
+    <item android:id="@+id/action_timetable"
+        android:title="@string/action_timetable"
+        app:showAsAction="never"/>
+
+    <!-- Add a new course -->
+    <item android:id="@+id/action_add_new_course"
+        android:title="@string/action_add_new_course"
+        app:showAsAction="never" />
+
+    <!-- Synchronize with google -->
+    <item android:id="@+id/action_synchronize"
+        android:title="@string/action_synchronize"
+        app:showAsAction="never" />
+
+    <!-- Sharing -->
+    <item android:id="@+id/action_share"
+        android:title="@string/action_share"
+        app:showAsAction="never"/>
+
+    <!-- Log out -->
+    <item android:id="@+id/action_logout"
+        android:title="@string/action_log_out"
+        app:showAsAction="never" />
 
     <!-- Settings -->
     <item android:id="@+id/action_settings"

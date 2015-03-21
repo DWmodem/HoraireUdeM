@@ -75,7 +75,7 @@ public class UDMJsonData extends ReadData {
                 // Read JSON objects
                 JSONObject obj = jsonData.getJSONObject(i);
                 items.add(obj);
-                Log.v(LOG_TAG, "donnees : " + items.get(i).toString());
+                Log.v(LOG_TAG, "row data : " + items.get(i).toString());
             }
 
         } catch(Exception e) {
