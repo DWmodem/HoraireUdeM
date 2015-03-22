@@ -37,8 +37,6 @@ public class CoursesActivity extends ActionBarActivity
 
     // Action bar
     private ActionBar actionBar;
-    // Navigation Spinner [ Winter Summer Autumn ]
-    private ArrayList<Session> navSpinner;
     // List view Adapter
     private ArrayAdapter<Course> courseAdapter;
     // Navigation adapter
@@ -126,58 +124,11 @@ public class CoursesActivity extends ActionBarActivity
 
     // Adding Drop-down Navigation
     private void addBarNavigation() {
-
-        Time time = new Time();
-        time.setToNow();
-
-        int currentPeriod = time.year;
-        int lastPeriod = 0;
-        int nextPeriod = 0;
-
-        Session lastSession = new Session();
-        Session currentSession= new Session();
-        Session nextSession = new Session();
-
-        switch (time.month) {
-
-            case 1: case 2: case 3: case 4:
-                lastSession.setSeason(SessionSeason.Autumn);
-                currentSession.setSeason(SessionSeason.Winter);
-                nextSession.setSeason(SessionSeason.Summer);
-                lastPeriod = currentPeriod - 1;
-                nextPeriod = currentPeriod;
-                break;
-            case 5: case 6: case 7: case 8:
-                lastSession.setSeason(SessionSeason.Winter);
-                currentSession.setSeason(SessionSeason.Summer);
-                nextSession.setSeason(SessionSeason.Autumn);
-                lastPeriod = currentPeriod;
-                nextPeriod = currentPeriod;
-                break;
-            case 9: case 10: case 11: case 12:
-                lastSession.setSeason(SessionSeason.Summer);
-                currentSession.setSeason(SessionSeason.Autumn);
-                nextSession.setSeason(SessionSeason.Winter);
-                lastPeriod = currentPeriod;
-                nextPeriod = currentPeriod + 1;
-                break;
-        }
-
-        // Spinner navigation settings
-        navSpinner = new ArrayList<Session>();
-
-        lastSession.setYear(lastPeriod);
-        currentSession.setYear(currentPeriod);
-        nextSession.setYear(nextPeriod);
-
-        navSpinner.add(lastSession);
-        navSpinner.add(currentSession);
-        navSpinner.add(nextSession);
-
         // title drop down adapter
-        navAdapter = new SessionNavigationAdapter(getApplicationContext(), navSpinner);
+        navAdapter = new SessionNavigationAdapter(getApplicationContext(), addSessions());
         // Assigning the spinner navigation
         actionBar.setListNavigationCallbacks(navAdapter, this);
+        actionBar.setSelectedNavigationItem(1);
     }
 
 
@@ -230,9 +181,65 @@ public class CoursesActivity extends ActionBarActivity
         listView.setAdapter(courseAdapter);
     }
 
+    private ArrayList<Session> addSessions() {
+
+        // Navigation Spinner [ Winter Summer Autumn ]
+        ArrayList<Session> navSpinner;
+
+        Time time = new Time();
+        time.setToNow();
+
+        int currentPeriod = time.year;
+        int lastPeriod = 0;
+        int nextPeriod = 0;
+
+        Session lastSession = new Session();
+        Session currentSession= new Session();
+        Session nextSession = new Session();
+
+        switch (time.month) {
+
+            case 1: case 2: case 3: case 4:
+                lastSession.setSeason(SessionSeason.Autumn);
+                currentSession.setSeason(SessionSeason.Winter);
+                nextSession.setSeason(SessionSeason.Summer);
+                lastPeriod = currentPeriod - 1;
+                nextPeriod = currentPeriod;
+                break;
+            case 5: case 6: case 7: case 8:
+                lastSession.setSeason(SessionSeason.Winter);
+                currentSession.setSeason(SessionSeason.Summer);
+                nextSession.setSeason(SessionSeason.Autumn);
+                lastPeriod = currentPeriod;
+                nextPeriod = currentPeriod;
+                break;
+            case 9: case 10: case 11: case 12:
+                lastSession.setSeason(SessionSeason.Summer);
+                currentSession.setSeason(SessionSeason.Autumn);
+                nextSession.setSeason(SessionSeason.Winter);
+                lastPeriod = currentPeriod;
+                nextPeriod = currentPeriod + 1;
+                break;
+        }
+
+        // Spinner navigation settings
+        navSpinner = new ArrayList<Session>();
+
+        lastSession.setYear(lastPeriod);
+        currentSession.setYear(currentPeriod);
+        nextSession.setYear(nextPeriod);
+
+        navSpinner.add(lastSession);
+        navSpinner.add(currentSession);
+        navSpinner.add(nextSession);
+
+        return navSpinner;
+
+    }
 
     @Override
     public boolean onNavigationItemSelected(int i, long l) {
+
         return false;
     }
 }

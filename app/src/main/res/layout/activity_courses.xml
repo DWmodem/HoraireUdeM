@@ -9,26 +9,26 @@
     tools:context="com.example.leto.horaireudem.CoursesActivity">
 
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/title_department"
-        android:text="@string/department_titre"
-        android:textColor="@android:color/holo_red_light" />
-
     <EditText
         android:id="@+id/input_search"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/search_course"
-        android:inputType="textVisiblePassword"
-        android:layout_below="@+id/title_department" />
+        android:inputType="textVisiblePassword" />
 
-    <ListView
-        android:id="@+id/list_courses"
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_search" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/title_department"
+        android:layout_below="@+id/input_search"
+        android:text="@string/department_titre"
+        android:textColor="@android:color/holo_red_light" />
+
+    <ListView
+        android:id="@+id/list_view_courses"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_department" />
 
 </RelativeLayout>

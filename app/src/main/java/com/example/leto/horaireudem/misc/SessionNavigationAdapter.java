@@ -23,11 +23,15 @@ public class SessionNavigationAdapter extends BaseAdapter {
     private ArrayList<Session> session;
     private Context context;
 
-
     public SessionNavigationAdapter(Context context,
                                     ArrayList<Session> session) {
         this.session = session;
         this.context = context;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return super.isEnabled(position);
     }
 
     @Override
@@ -58,11 +62,6 @@ public class SessionNavigationAdapter extends BaseAdapter {
 
         sessionYear = (TextView) convertView.findViewById(R.id.session_year);
         sessionYear.setText("" + session.get(position).getYear());
-
-        // Set the selected navigation item
-        if(position == 2){
-           convertView.setActivated(true);
-        }
 
         return convertView;
     }
