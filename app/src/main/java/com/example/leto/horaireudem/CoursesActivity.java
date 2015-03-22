@@ -124,11 +124,13 @@ public class CoursesActivity extends ActionBarActivity
 
     // Adding Drop-down Navigation
     private void addBarNavigation() {
+
         // title drop down adapter
         navAdapter = new SessionNavigationAdapter(getApplicationContext(), addSessions());
         // Assigning the spinner navigation
         actionBar.setListNavigationCallbacks(navAdapter, this);
         actionBar.setSelectedNavigationItem(1);
+
     }
 
 
