@@ -65,7 +65,7 @@ public class DepartmentsActivity extends ActionBarActivity
         addBarNavigation();
 
         // Build a URL for json file
-        String url = MainActivity.URL_API_UDEM + "sigles.json";
+        String url = Config.URL_API_UDEM + "sigles.json";
 
         // Fill the View List
         fillViewList(url);
@@ -86,8 +86,8 @@ public class DepartmentsActivity extends ActionBarActivity
                 Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
 
                 // Sending data to CourseActivity
-                intent.putExtra(MainActivity.TAG_SIGLE, dep.getSigle());
-                intent.putExtra(MainActivity.TAG_TITLE, dep.getTitle());
+                intent.putExtra(Config.TAG_SIGLE, dep.getSigle());
+                intent.putExtra(Config.TAG_TITLE, dep.getTitle());
                 startActivity(intent);
             }
 
