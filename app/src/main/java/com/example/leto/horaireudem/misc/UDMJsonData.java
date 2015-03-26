@@ -62,8 +62,6 @@ public class UDMJsonData extends ReadData {
             return;
         }
 
-        // TODO : Read the data for different tags
-
         try {
 
             // Read json data

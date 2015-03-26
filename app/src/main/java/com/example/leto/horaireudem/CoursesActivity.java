@@ -37,6 +37,8 @@ public class CoursesActivity extends ActionBarActivity
 
     // Action bar
     private ActionBar actionBar;
+    // Navigation Spinner [ Winter Summer Autumn ]
+    ArrayList<Session> navSpinner;
     // List view Adapter
     private ArrayAdapter<Course> courseAdapter;
     // Navigation adapter
@@ -68,8 +70,9 @@ public class CoursesActivity extends ActionBarActivity
         DepartmentTitle = (TextView) findViewById(R.id.title_department);
 
         Bundle extras = getIntent().getExtras();
-        String tagTitle = extras.getString(MainActivity.TAG_TITLE);
-        String tagSigle = extras.getString(MainActivity.TAG_SIGLE);
+        String tagTitle = extras.getString(Config.TAG_TITLE);
+        String tagSigle = extras.getString(Config.TAG_SIGLE);
+        String tagSession = extras.getString(Config.TAG_SESSION);
 
         // Set Department title
         DepartmentTitle.setText(tagTitle);
@@ -77,7 +80,7 @@ public class CoursesActivity extends ActionBarActivity
         // Adding Drop-down Navigation
         addBarNavigation();
 
-        String url = MainActivity.URL_API_UDEM + "A14-" + tagSigle.toLowerCase().trim() + ".json";
+        String url = Config.URL_API_UDEM + "H15-" + tagSigle.toLowerCase().trim() + ".json";
         fillViewList(url);
 
         /**
@@ -101,17 +104,7 @@ public class CoursesActivity extends ActionBarActivity
             @Override
             public void afterTextChanged(Editable editable) {
                 // TODO afterTextChanged method
-//                if (inputSearch.getText().toString().trim().length() > 0) {
-//                    if (Integer.parseInt(inputSearch.getText().toString().trim()) < 20 ||
-//                            Integer.parseInt(inputSearch.getText().toString().trim()) > 120) {
-//                        inputSearch.setTextColor(Color.GREEN);
-//                    } else {
-//                        inputSearch.setTextColor(Color.RED);
-//                    }
-//                }
-
             }
-
         });
     }
 
@@ -125,10 +118,15 @@ public class CoursesActivity extends ActionBarActivity
     // Adding Drop-down Navigation
     private void addBarNavigation() {
 
-        // title drop down adapter
-        navAdapter = new SessionNavigationAdapter(getApplicationContext(), addSessions());
+        // Session navigation
+        navSpinner = new ArrayList<Session>();
+        addSessions();
+
+        // Session adapter
+        navAdapter = new SessionNavigationAdapter(getApplicationContext(), navSpinner);
         // Assigning the spinner navigation
         actionBar.setListNavigationCallbacks(navAdapter, this);
+        // Assigning default value
         actionBar.setSelectedNavigationItem(1);
 
     }
@@ -183,10 +181,7 @@ public class CoursesActivity extends ActionBarActivity
         listView.setAdapter(courseAdapter);
     }
 
-    private ArrayList<Session> addSessions() {
-
-        // Navigation Spinner [ Winter Summer Autumn ]
-        ArrayList<Session> navSpinner;
+    private void addSessions() {
 
         Time time = new Time();
         time.setToNow();
@@ -196,7 +191,7 @@ public class CoursesActivity extends ActionBarActivity
         int nextPeriod = 0;
 
         Session lastSession = new Session();
-        Session currentSession= new Session();
+        Session currentSession = new Session();
         Session nextSession = new Session();
 
         switch (time.month) {
@@ -224,9 +219,6 @@ public class CoursesActivity extends ActionBarActivity
                 break;
         }
 
-        // Spinner navigation settings
-        navSpinner = new ArrayList<Session>();
-
         lastSession.setYear(lastPeriod);
         currentSession.setYear(currentPeriod);
         nextSession.setYear(nextPeriod);
@@ -234,14 +226,12 @@ public class CoursesActivity extends ActionBarActivity
         navSpinner.add(lastSession);
         navSpinner.add(currentSession);
         navSpinner.add(nextSession);
-
-        return navSpinner;
-
     }
 
     @Override
-    public boolean onNavigationItemSelected(int i, long l) {
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 
-        return false;
+       return true;
+
     }
 }

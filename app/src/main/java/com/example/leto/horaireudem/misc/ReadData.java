@@ -55,8 +55,9 @@ public class ReadData {
         public class DownloadData extends AsyncTask<String, Void, String> {
 
             protected void onPostExecute(String webData) {
+
                 data = webData;
-                Log.v(LOG_TAG, "Data returned was: " + data);
+
                 if (data == null) {
                     if (url == null) {
                         downloadStatus = DownloadStatus.NOT_INITIALISED;

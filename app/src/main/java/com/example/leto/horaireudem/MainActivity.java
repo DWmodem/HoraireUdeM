@@ -10,20 +10,11 @@ import android.view.MenuItem;
 
 
 /**
- * Main Activity for tests ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * Main Activity
  * */
 public class MainActivity extends ActionBarActivity{
 
     private String LOG_TAG = MainActivity.class.getSimpleName();
-
-    public static final String URL_API_UDEM = "http://www-labs.iro.umontreal.ca/~roys/horaires/json/";
-
-    public static final String TAG_TRIMESTER  = "trimestre";
-    public static final String TAG_SIGLE      = "sigle";
-    public static final String TAG_COURSE_NUM = "coursnum";
-    public static final String TAG_SECTION    = "section";
-
-    public static final String TAG_TITLE      = "titre";
 
     // Data Base
     UDMDatabaseManager dbh;
@@ -46,7 +37,7 @@ public class MainActivity extends ActionBarActivity{
         Intent intent = new Intent(getApplicationContext(), DepartmentsActivity.class);
 
         // Sending data to new activity
-        intent.putExtra(TAG_TRIMESTER, "H15");
+        intent.putExtra(Config.TAG_TRIMESTER, "H15");
         startActivity(intent);
 
     }
