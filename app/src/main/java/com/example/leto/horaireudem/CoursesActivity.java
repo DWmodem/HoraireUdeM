@@ -65,7 +65,7 @@ public class CoursesActivity extends ActionBarActivity
         // Enabling Spinner dropdown navigation
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        listView = (ListView) findViewById(R.id.list_courses);
+        listView = (ListView) findViewById(R.id.list_view_courses);
         inputSearch = (EditText) findViewById(R.id.input_search);
         DepartmentTitle = (TextView) findViewById(R.id.title_department);
 
