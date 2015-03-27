@@ -52,16 +52,27 @@ public class SessionNavigationAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-        LayoutInflater mInflater = (LayoutInflater)
-                context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        convertView = mInflater.inflate(R.layout.item_session_navigation, null);
+            LayoutInflater mInflater = (LayoutInflater)
+            context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            convertView = mInflater.inflate(R.layout.item_session_navigation, null);
         }
 
+        return setViews(position, convertView, parent);
+    }
+
+    private View setViews(int position, View convertView, ViewGroup parent) {
+
+        String resKey = "season_" + session.get(position).getSeason().toString().toLowerCase();
+        int resId = context.getResources().getIdentifier(resKey,"string",context.getPackageName());
+        String season = context.getResources().getString(resId);
+
         sessionTitle = (TextView) convertView.findViewById(R.id.session_title);
-        sessionTitle.setText(session.get(position).getSeason().toString());
+        sessionTitle.setText(season);
 
         sessionYear = (TextView) convertView.findViewById(R.id.session_year);
         sessionYear.setText("" + session.get(position).getYear());
+
+        convertView.setTag(session.get(position).getSeason());
 
         return convertView;
     }
@@ -75,12 +86,6 @@ public class SessionNavigationAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.item_session_navigation, null);
         }
 
-        sessionTitle = (TextView) convertView.findViewById(R.id.session_title);
-        sessionTitle.setText(session.get(position).getSeason().toString());
-
-        sessionYear = (TextView) convertView.findViewById(R.id.session_year);
-        sessionYear.setText("" + session.get(position).getYear());
-
-        return convertView;
+        return setViews(position, convertView, parent);
     }
 }
