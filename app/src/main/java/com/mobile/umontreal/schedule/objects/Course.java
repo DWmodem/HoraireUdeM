@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem.objects;
+package com.mobile.umontreal.schedule.objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +12,9 @@ public class Course {
 
     public static final String JSON_TITLE_TAG = "titre";
     public static final String JSON_COURSE_NUM_TAG = "coursnum";
+    public static final String JSON_COURSE_SESSION = "trimestre";
+    public static final String JSON_COURSE_SECTIONS = "sections";
+
 
     private Department department;
     private int courseNumber;
@@ -61,6 +64,10 @@ public class Course {
 
     public String getCourseId(){
         return getDepartment().getSigle() + " " + getCourseNumber();
+    }
+
+    public Course() {
+
     }
 
     public Course(JSONObject json) throws JSONException {

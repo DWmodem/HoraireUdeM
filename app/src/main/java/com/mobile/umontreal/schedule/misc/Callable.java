@@ -1,6 +1,6 @@
-package com.example.leto.horaireudem;
+package com.mobile.umontreal.schedule.misc;
 
-import com.example.leto.horaireudem.misc.UDMJsonData;
+import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 
 /**
  * Created by Corneliu on 19-Mar-2015.

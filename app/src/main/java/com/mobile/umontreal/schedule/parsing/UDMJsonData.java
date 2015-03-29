@@ -1,11 +1,12 @@
-package com.example.leto.horaireudem.misc;
+package com.mobile.umontreal.schedule.parsing;
 
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.leto.horaireudem.Callable;
+import com.mobile.umontreal.schedule.misc.Callable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class UDMJsonData extends ReadData {
             JSONArray jsonData = new JSONArray(getData());
 
             // Loop array
-            for (int i = 0; i < jsonData.length() ; i++) {
+            for (int i = 0; i < jsonData.length(); i++) {
 
                 // Read JSON objects
                 JSONObject obj = jsonData.getJSONObject(i);
@@ -76,8 +77,8 @@ public class UDMJsonData extends ReadData {
                 Log.v(LOG_TAG, "row data : " + items.get(i).toString());
             }
 
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (JSONException jsonexception) {
+            jsonexception.printStackTrace();
             Log.e(LOG_TAG, "Error processing Json data...");
         }
 
@@ -86,19 +87,16 @@ public class UDMJsonData extends ReadData {
     public class DownloadJsonData extends DownloadData {
 
         @Override
+        protected String doInBackground(String... params) {
+            return super.doInBackground(params);
+        }
+
+        @Override
         protected void onPostExecute(String webData) {
             super.onPostExecute(webData);
             processResult();
             callback.OnCallback(getThis());
         }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String[] par = { destinationUri.toString() };
-            return super.doInBackground(par);
-        }
-
     }
 
 

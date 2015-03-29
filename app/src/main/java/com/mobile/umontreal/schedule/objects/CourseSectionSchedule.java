@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem.objects;
+package com.mobile.umontreal.schedule.objects;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem.misc;
+package com.mobile.umontreal.schedule.misc;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.leto.horaireudem.R;
-import com.example.leto.horaireudem.objects.Session;
+import com.mobile.umontreal.schedule.R;
+import com.mobile.umontreal.schedule.objects.Session;
 
 import java.util.ArrayList;
 

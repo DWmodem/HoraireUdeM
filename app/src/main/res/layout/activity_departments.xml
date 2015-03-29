@@ -2,25 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.leto.horaireudem.DepartmentsActivity">
+    android:paddingLeft="0dip"
+    android:paddingRight="0dip"
+    android:paddingTop="0dip"
+    android:paddingBottom="0dip"
+    tools:context="com.mobile.umontreal.schedule.DepartmentsActivity">
 
-    <EditText
-        android:id="@+id/input_search"
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_department"
-        android:inputType="textVisiblePassword" />
+        android:layout_height="fill_parent"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        android:background="@color/table_background_color">
 
-    <ListView
-        android:id="@+id/list_departments"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/input_search"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <!-- Row 1 with single column -->
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal">
+            <EditText
+                android:id="@+id/input_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_department"
+                android:inputType="textVisiblePassword"
+                android:textSize="14sp"
+                android:textColorHint="@color/table_text_color"
+                android:textColor="@color/table_text_color"
+                android:padding="18dip"/>
+        </TableRow>
+
+        <!-- Row 2 with single column -->
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
+            <ListView
+                android:id="@+id/list_departments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="0dip"/>
+        </TableRow>
+
+    </TableLayout>
 
 </RelativeLayout>

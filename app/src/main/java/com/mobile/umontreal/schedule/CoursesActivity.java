@@ -1,25 +1,28 @@
-package com.example.leto.horaireudem;
+package com.mobile.umontreal.schedule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.leto.horaireudem.misc.SessionNavigationAdapter;
-import com.example.leto.horaireudem.misc.UDMJsonData;
-import com.example.leto.horaireudem.objects.Course;
-import com.example.leto.horaireudem.objects.Session;
-import com.example.leto.horaireudem.objects.SessionSeason;
+import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
+import com.mobile.umontreal.schedule.parsing.UDMJsonData;
+import com.mobile.umontreal.schedule.objects.Course;
+import com.mobile.umontreal.schedule.objects.Session;
+import com.mobile.umontreal.schedule.objects.SessionSeason;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +57,9 @@ public class CoursesActivity extends ActionBarActivity
     // Department Title
     private TextView DepartmentTitle;
 
+    // Session name
+    private String tagSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,7 @@ public class CoursesActivity extends ActionBarActivity
         actionBar.setDisplayShowTitleEnabled(false);
         // Enabling Spinner dropdown navigation
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         listView = (ListView) findViewById(R.id.list_view_courses);
         inputSearch = (EditText) findViewById(R.id.input_search);
@@ -72,6 +79,31 @@ public class CoursesActivity extends ActionBarActivity
 
         // Adding Drop-down Navigation
         addBarNavigation();
+
+        /**
+         * Listening to single list item on click
+         * */
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                // Selected item
+                Bundle extras = getIntent().getExtras();
+                Course c = (Course) parent.getItemAtPosition(position);
+
+                // Launching new Activity on selecting single List Item
+                Intent intent = new Intent(getApplicationContext(), DetailsCourseActivity.class);
+
+                // Sending data to CourseActivity
+                intent.putExtra(Config.TAG_SIGLE, extras.getString(Config.TAG_SIGLE));
+                intent.putExtra(Config.TAG_COURSE_NUM, ""+c.getCourseNumber());
+                intent.putExtra(Config.TAG_SESSION, tagSession);
+                startActivity(intent);
+            }
+
+        });
 
         /**
          * Enabling Search Filter
@@ -105,6 +137,8 @@ public class CoursesActivity extends ActionBarActivity
 
     }
 
+
+
     // Adding Drop-down Navigation
     private void addBarNavigation() {
 
@@ -120,7 +154,6 @@ public class CoursesActivity extends ActionBarActivity
         actionBar.setListNavigationCallbacks(navAdapter, this);
         // Assigning default value
         actionBar.setSelectedNavigationItem(1);
-
     }
 
 
@@ -138,12 +171,17 @@ public class CoursesActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (item.getItemId()) {
 
-        return super.onOptionsItemSelected(item);
+            case R.id.action_settings:
+                return true;
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -157,7 +195,7 @@ public class CoursesActivity extends ActionBarActivity
         }
         catch (JSONException e)
         {
-            throw new RuntimeException(e);
+             e.printStackTrace();
         }
 
         Collections.sort(courseList, new Comparator<Course>() {
@@ -168,7 +206,12 @@ public class CoursesActivity extends ActionBarActivity
             }
         });
 
-        Log.v(LOG_TAG, String.format("%s courses loaded.", courseList.size()));
+        if (courseList.size() == 0) {
+            Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
+                    Toast.LENGTH_LONG).show();
+        }
+
+//        Log.v(LOG_TAG, String.format("%s courses loaded.", courseList.size()));
         courseAdapter = new ArrayAdapter<Course>(this, R.layout.item_course, courseList);
         listView.setAdapter(courseAdapter);
     }
@@ -227,21 +270,17 @@ public class CoursesActivity extends ActionBarActivity
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 
-        Session selectedItem = navSpinner.get(itemPosition);
-
         Bundle extras = getIntent().getExtras();
-        String tagTitle = extras.getString(Config.TAG_TITLE);
-        String tagSigle = extras.getString(Config.TAG_SIGLE);
 
         // Set Department title
-        DepartmentTitle.setText(tagTitle);
+        DepartmentTitle.setText(extras.getString(Config.TAG_TITLE));
 
-        Toast.makeText(getApplicationContext(), selectedItem.toString(), Toast.LENGTH_SHORT).show();
+        // Session type
+        tagSession = navSpinner.get(itemPosition).toString();
 
         // Read JSON Data
-        String url = Config.URL_API_UDEM + selectedItem.toString() + "-"
-                + tagSigle.toLowerCase().trim() + ".json";
-        fillViewList(url);
+        fillViewList(Config.URL_API_UDEM + tagSession + "-" +
+                extras.getString(Config.TAG_SIGLE).toLowerCase().trim() + ".json");
 
         return true;
     }

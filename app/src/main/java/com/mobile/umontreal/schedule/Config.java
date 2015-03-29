@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem;
+package com.mobile.umontreal.schedule;
 
 /**
  * Created by Corneliu on 25-Mar-2015.
@@ -12,7 +12,7 @@ public class Config {
     // Base URL for API
     public static final String URL_API_UDEM = "http://www-labs.iro.umontreal.ca/~roys/horaires/json/";
 
-    // Shorthand for tags
+    // JSON Node names
 
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/sigles.json
     public static final String TAG_TRIMESTER        = "trimestre";

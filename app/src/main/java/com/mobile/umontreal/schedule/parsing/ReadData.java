@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem.misc;
+package com.mobile.umontreal.schedule.parsing;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -89,7 +89,7 @@ public class ReadData {
 
                     InputStream inputStream = urlConnection.getInputStream();
                     if (inputStream == null) {
-                         return null;
+                        return null;
                     }
 
                     StringBuffer buffer = new StringBuffer();
@@ -103,7 +103,7 @@ public class ReadData {
                     return buffer.toString();
 
                 } catch (IOException e){
-                    Log.e(LOG_TAG, "Error: ", e);
+                    Log.e(LOG_TAG, "Error e: ", e);
                     return null;
 
                 } finally {
@@ -121,7 +121,5 @@ public class ReadData {
                     }
                 }
             }
-
-
         }
     }

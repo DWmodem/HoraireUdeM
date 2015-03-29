@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.leto.horaireudem" >
+    package="com.mobile.umontreal.schedule" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -8,29 +8,37 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-        android:windowSoftInputMode="stateHidden" >
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.mobile.umontreal.schedule.MainActivity"
             android:label="@string/app_name" >
+
         </activity>
         <activity
-            android:name=".CoursesActivity"
+            android:name="com.mobile.umontreal.schedule.CoursesActivity"
             android:label="@string/title_activity_courses"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:parentActivityName=".MainActivity" >
-            <meta-data android:name="android.support.UI_OPTIONS"
+            android:windowSoftInputMode="stateHidden"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
                 android:value="splitActionBarWhenNarrow" />
 
         </activity>
         <activity
-            android:name=".DepartmentsActivity"
-            android:label="@string/title_activity_departments" >
+            android:name="com.mobile.umontreal.schedule.DepartmentsActivity"
+            android:label="@string/title_activity_departments"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name="com.mobile.umontreal.schedule.DetailsCourseActivity"
+            android:label="@string/title_activity_details_course" >
+
         </activity>
     </application>
 

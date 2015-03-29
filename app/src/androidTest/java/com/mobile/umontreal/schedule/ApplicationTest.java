@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem;
+package com.mobile.umontreal.schedule;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

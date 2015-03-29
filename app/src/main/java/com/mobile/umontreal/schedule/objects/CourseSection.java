@@ -1,4 +1,7 @@
-package com.example.leto.horaireudem.objects;
+package com.mobile.umontreal.schedule.objects;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -6,6 +9,16 @@ import java.util.Date;
  * Created by Justin on 2015-03-12.
  */
 public class CourseSection {
+
+    public static final String JSON_COURSE_SECTIONS = "sections";
+
+    public static final String JSON_SECTION_TITLE = "section";
+    public static final String JSON_SECTION_TYPE = "type";
+    public static final String JSON_SECTION_CANCELLATION = "annulation";
+    public static final String JSON_SECTION_DROP = "abandon";
+    public static final String JSON_SECTION_DROP_LIMIT = "abandonlimite";
+    public static final String JSON_SECTION_DESCRIPTION = "description";
+
     private Course course;
     private CourseSectionStatus status;
     private int credit;
@@ -89,6 +102,11 @@ public class CourseSection {
     }
 
     public CourseSection(){
+
+    }
+
+    public CourseSection(JSONObject json) throws JSONException {
+        setSection(json.getString(JSON_SECTION_TITLE));
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.leto.horaireudem;
+package com.mobile.umontreal.schedule;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.leto.horaireudem.misc.SessionNavigationAdapter;
-import com.example.leto.horaireudem.misc.UDMJsonData;
-import com.example.leto.horaireudem.objects.Department;
+import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
+import com.mobile.umontreal.schedule.parsing.UDMJsonData;
+import com.mobile.umontreal.schedule.objects.Department;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +61,7 @@ public class DepartmentsActivity extends ActionBarActivity
         actionBar = getSupportActionBar();
         // Hide the action bar title
         actionBar.setDisplayShowTitleEnabled(true);
+
 
         // Adding Drop-down Navigation
         addBarNavigation();
@@ -174,7 +176,7 @@ public class DepartmentsActivity extends ActionBarActivity
         }
         catch (JSONException e)
         {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         Collections.sort(departmentList, new Comparator<Department>() {
