@@ -9,5 +9,7 @@ public enum CourseSectionScheduleType {
     TP,
     Laboratory,
     Midterms,
-    Finals
+    Finals;
+
+
 }

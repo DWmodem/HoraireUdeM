@@ -100,6 +100,7 @@ public class CoursesActivity extends ActionBarActivity
                 intent.putExtra(Config.TAG_SIGLE, extras.getString(Config.TAG_SIGLE));
                 intent.putExtra(Config.TAG_COURSE_NUM, ""+c.getCourseNumber());
                 intent.putExtra(Config.TAG_SESSION, tagSession);
+                intent.putExtra(Config.TAG_COURSE_TITLE, c.getTitle());
                 startActivity(intent);
             }
 
@@ -169,7 +170,6 @@ public class CoursesActivity extends ActionBarActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         switch (item.getItemId()) {
 
@@ -273,7 +273,7 @@ public class CoursesActivity extends ActionBarActivity
         Bundle extras = getIntent().getExtras();
 
         // Set Department title
-        DepartmentTitle.setText(extras.getString(Config.TAG_TITLE));
+        DepartmentTitle.setText(extras.getString(Config.TAG_COURSE_TITLE));
 
         // Session type
         tagSession = navSpinner.get(itemPosition).toString();

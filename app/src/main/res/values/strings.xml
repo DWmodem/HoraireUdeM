@@ -14,7 +14,9 @@
     <string name="course_cancellation">Cancellation: </string>
     <string name="course_drop">Course drop: </string>
     <string name="course_drop_limit">Drop limit: </string>
-    <string name="course_button_title">Next </string>
+
+    <string name="course_button_next">+Follow</string>
+    <string name="course_button_back">-Back</string>
 
     <string name="action_calendar">Calendar</string>
     <string name="action_search" >Search</string>

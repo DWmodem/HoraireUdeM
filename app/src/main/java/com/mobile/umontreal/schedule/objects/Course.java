@@ -73,6 +73,8 @@ public class Course {
     public Course(JSONObject json) throws JSONException {
         setTitle(json.getString(JSON_TITLE_TAG));
         setCourseNumber(json.getInt(JSON_COURSE_NUM_TAG));
+
+
     }
 
     @Override

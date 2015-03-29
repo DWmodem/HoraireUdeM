@@ -44,8 +44,8 @@
             android:hint="@string/search_course"
             android:inputType="textVisiblePassword"
             android:textSize="14sp"
-            android:textColorHint="@color/table_text_color"
-            android:textColor="@color/table_text_color"
+            android:textColorHint="@color/accent_color"
+            android:textColor="@color/input_search_color"
             android:padding="18dip"/>
     </TableRow>
 

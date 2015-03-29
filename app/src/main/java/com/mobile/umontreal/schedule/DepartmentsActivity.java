@@ -89,7 +89,7 @@ public class DepartmentsActivity extends ActionBarActivity
 
                 // Sending data to CourseActivity
                 intent.putExtra(Config.TAG_SIGLE, dep.getSigle());
-                intent.putExtra(Config.TAG_TITLE, dep.getTitle());
+                intent.putExtra(Config.TAG_COURSE_TITLE, dep.getTitle());
                 startActivity(intent);
             }
 

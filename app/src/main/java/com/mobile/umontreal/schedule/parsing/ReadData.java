@@ -93,10 +93,11 @@ public class ReadData {
                     }
 
                     StringBuffer buffer = new StringBuffer();
-                    reader = new BufferedReader(new InputStreamReader(inputStream, "UTF8"));
+                    reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
                     String line;
                     while ((line = reader.readLine()) != null) {
+                        line = line.replaceAll("&#039;", "'");
                         buffer.append(line + "\n");
                     }
 

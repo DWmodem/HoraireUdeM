@@ -7,4 +7,5 @@ package com.mobile.umontreal.schedule.objects;
 public enum SectionType {
     Theory,
     Demo
+
 }

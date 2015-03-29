@@ -20,7 +20,7 @@ public class Config {
     public static final String TAG_COURSE_NUM       = "coursnum";
 
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/H15-ift.json
-    public static final String TAG_TITLE            = "titre";
+    public static final String TAG_COURSE_TITLE     = "titre";
 
     //http://www-labs.iro.umontreal.ca/~roys/horaires/json/H15-ift-2905.json
     public static final String TAG_SECTIONS         = "sections";
@@ -34,6 +34,9 @@ public class Config {
     public static final String TAG_SESSION          = "trimestre";
 
     // Shorthand for some units of time
+    public static final String DATE_FORMAT_PARSING  = "yyyy-mm-dd";
+    public static final String DATE_FORMAT_OUT      = "dd MMMM yyyy";
+
     public static final long SECOND_MILLIS          = 1000;
     public static final long MINUTE_MILLIS          = 60 * SECOND_MILLIS;
     public static final long HOUR_MILLIS            = 60 * MINUTE_MILLIS;

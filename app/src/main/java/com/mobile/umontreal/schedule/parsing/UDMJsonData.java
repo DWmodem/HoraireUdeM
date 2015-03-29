@@ -65,16 +65,23 @@ public class UDMJsonData extends ReadData {
 
         try {
 
-            // Read json data
-            JSONArray jsonData = new JSONArray(getData());
+            JSONArray jsonData = null;
 
-            // Loop array
-            for (int i = 0; i < jsonData.length(); i++) {
+            try {
+                jsonData = new JSONArray(getData());
+                // Loop array
+                for (int i = 0; i < jsonData.length(); i++) {
 
-                // Read JSON objects
-                JSONObject obj = jsonData.getJSONObject(i);
-                items.add(obj);
-                Log.v(LOG_TAG, "row data : " + items.get(i).toString());
+                    // Read JSON objects
+                    JSONObject jsonObject = jsonData.getJSONObject(i);
+                    items.add(jsonObject);
+                    Log.v(LOG_TAG, "row data : " + items.get(i).toString());
+                }
+            }
+
+            catch (JSONException e) {
+                JSONObject jsonObject = new JSONObject(getData());
+                items.add(jsonObject);
             }
 
         } catch (JSONException jsonexception) {

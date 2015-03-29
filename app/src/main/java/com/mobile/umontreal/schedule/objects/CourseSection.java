@@ -1,9 +1,15 @@
 package com.mobile.umontreal.schedule.objects;
 
+import com.mobile.umontreal.schedule.Config;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Justin on 2015-03-12.
@@ -28,6 +34,22 @@ public class CourseSection {
     private Date drop;
     private Date dropLimit;
     private String description;
+    private String type;
+
+    private List<CourseSection> sectionList;
+
+    public List<CourseSection> getSectionList() {
+        return sectionList;
+    }
+
+    public String getType() {
+
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Course getCourse() {
         return course;
@@ -98,6 +120,7 @@ public class CourseSection {
     }
 
     public void setDescription(String description) {
+
         this.description = description;
     }
 
@@ -105,8 +128,41 @@ public class CourseSection {
 
     }
 
+    public List<CourseSection> getCoursesSection() { return sectionList; }
+
     public CourseSection(JSONObject json) throws JSONException {
-        setSection(json.getString(JSON_SECTION_TITLE));
+
+        sectionList = new ArrayList<CourseSection>();
+
+        // Getting JSON Array node
+        JSONArray sections = json.getJSONArray(JSON_COURSE_SECTIONS);
+        SimpleDateFormat format = new SimpleDateFormat(Config.DATE_FORMAT_PARSING);
+
+        try {
+
+            // looping through All Contacts
+            for (int i = 0; i < sections.length(); i++) {
+
+                JSONObject c = sections.getJSONObject(i);
+
+                Date dateCancellation = format.parse(c.getString(JSON_SECTION_CANCELLATION));
+                Date dateDrop = format.parse(c.getString(JSON_SECTION_DROP));
+                Date dateDropLimit = format.parse(c.getString(JSON_SECTION_DROP_LIMIT));
+
+                CourseSection courseSection = new CourseSection();
+
+                courseSection.setSection(c.getString(JSON_SECTION_TITLE));
+                courseSection.setType(c.getString(JSON_SECTION_TYPE));
+                courseSection.setCancel(dateCancellation);
+                courseSection.setDrop(dateDrop);
+                courseSection.setDropLimit(dateDropLimit);
+                courseSection.setDescription(c.getString(JSON_SECTION_DESCRIPTION));
+                sectionList.add(courseSection);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
