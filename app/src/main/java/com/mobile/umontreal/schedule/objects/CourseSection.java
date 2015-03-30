@@ -36,16 +36,13 @@ public class CourseSection {
     private String description;
     private String type;
 
-    private List<CourseSection> sectionList;
+    private List<String> sectionList;
 
-    public List<CourseSection> getSectionList() {
+    public List<String> getSectionList() {
         return sectionList;
     }
 
-    public String getType() {
-
-        return type;
-    }
+    public String getType() { return type; }
 
     public void setType(String type) {
         this.type = type;
@@ -128,11 +125,11 @@ public class CourseSection {
 
     }
 
-    public List<CourseSection> getCoursesSection() { return sectionList; }
+    public List<String> getCoursesSection() { return sectionList; }
 
     public CourseSection(JSONObject json) throws JSONException {
 
-        sectionList = new ArrayList<CourseSection>();
+        sectionList = new ArrayList<String>();
 
         // Getting JSON Array node
         JSONArray sections = json.getJSONArray(JSON_COURSE_SECTIONS);
@@ -145,19 +142,21 @@ public class CourseSection {
 
                 JSONObject c = sections.getJSONObject(i);
 
-                Date dateCancellation = format.parse(c.getString(JSON_SECTION_CANCELLATION));
-                Date dateDrop = format.parse(c.getString(JSON_SECTION_DROP));
-                Date dateDropLimit = format.parse(c.getString(JSON_SECTION_DROP_LIMIT));
+                if (i == 0) {
 
-                CourseSection courseSection = new CourseSection();
+                    Date dateCancellation = format.parse(c.getString(JSON_SECTION_CANCELLATION));
+                    Date dateDrop = format.parse(c.getString(JSON_SECTION_DROP));
+                    Date dateDropLimit = format.parse(c.getString(JSON_SECTION_DROP_LIMIT));
 
-                courseSection.setSection(c.getString(JSON_SECTION_TITLE));
-                courseSection.setType(c.getString(JSON_SECTION_TYPE));
-                courseSection.setCancel(dateCancellation);
-                courseSection.setDrop(dateDrop);
-                courseSection.setDropLimit(dateDropLimit);
-                courseSection.setDescription(c.getString(JSON_SECTION_DESCRIPTION));
-                sectionList.add(courseSection);
+                    this.setType(c.getString(JSON_SECTION_TYPE));
+                    this.setCancel(dateCancellation);
+                    this.setDrop(dateDrop);
+                    this.setDropLimit(dateDropLimit);
+                    this.setDescription(c.getString(JSON_SECTION_DESCRIPTION));
+
+                 }
+
+                sectionList.add(c.getString(JSON_SECTION_TITLE));
             }
 
         } catch (Exception e) {

@@ -98,6 +98,7 @@ public class ReadData {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         line = line.replaceAll("&#039;", "'");
+                        line = line.replaceAll("<br />", "\n");
                         buffer.append(line + "\n");
                     }
 

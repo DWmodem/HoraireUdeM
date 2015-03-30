@@ -140,8 +140,6 @@ public class CoursesActivity extends ActionBarActivity
 
     }
 
-
-
     // Adding Drop-down Navigation
     private void addBarNavigation() {
 

@@ -7,6 +7,8 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +20,6 @@ import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class DetailsCourseActivity extends ActionBarActivity
         implements ActionBar.OnNavigationListener, Callable {
@@ -30,15 +29,21 @@ public class DetailsCourseActivity extends ActionBarActivity
 
     // Action bar
     private ActionBar actionBar;
-    // ArrayList for sections
-    private List<CourseSection> courseSectionList;
-    private TextView description;
-    // Course title
+    // Course title and description
     private TextView courseTitre;
+    private TextView description;
     // Course dates
     private TextView dateCancellation;
     private TextView dateDrop;
     private TextView dateDropLimit;
+    private TextView dateCancellationView;
+    private TextView dateDropView;
+    private TextView dateDropLimitView;
+    // Section
+    private CourseSection courseSection;
+
+    // Buttons
+    private Button butNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,10 @@ public class DetailsCourseActivity extends ActionBarActivity
         dateCancellation = (TextView) findViewById(R.id.course_cancellation_value);
         dateDrop = (TextView) findViewById(R.id.course_drop_value);
         dateDropLimit = (TextView) findViewById(R.id.course_drop_limit_value);
+        dateCancellationView = (TextView) findViewById(R.id.course_cancellation);
+        dateDropView = (TextView) findViewById(R.id.course_drop_limit);
+        dateDropLimitView = (TextView) findViewById(R.id.course_drop);
+        butNext = (Button) findViewById(R.id.course_button_next);
 
 
         // Action Bar settings
@@ -73,8 +82,6 @@ public class DetailsCourseActivity extends ActionBarActivity
         UDMJsonData data = new UDMJsonData(url);
         data.execute(this);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,29 +127,44 @@ public class DetailsCourseActivity extends ActionBarActivity
     public void OnCallback(UDMJsonData data) {
 
         // Convert JSON to object. Sort the list.
-        courseSectionList = new ArrayList<CourseSection>();
-
         try {
             for (JSONObject c : data.getItems())
-                courseSectionList.add(new CourseSection(c));
+                 courseSection = new CourseSection(c);
         }
         catch (JSONException e)
         {
+
             e.printStackTrace();
         }
 
-        if (courseSectionList.size() == 0) {
+        if (courseSection == null) {
+
+            // Hide visibility for views
+            description.setVisibility(View.GONE);
+            dateCancellationView.setVisibility(View.GONE);
+            dateDropView.setVisibility(View.GONE);
+            dateDropLimitView.setVisibility(View.GONE);
+            butNext.setVisibility(View.GONE);
+
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
         } else {
 
-            CourseSection section = courseSectionList.get(0).getCoursesSection().get(0);
+            description.setText(courseSection.getDescription());
+            dateCancellation.setText(DateFormat.
+                    format(Config.DATE_FORMAT_OUT, courseSection.getCancel()).toString());
+            dateDrop.setText(DateFormat.
+                    format(Config.DATE_FORMAT_OUT, courseSection.getDrop()).toString());
+            dateDropLimit.setText(DateFormat.
+                    format(Config.DATE_FORMAT_OUT, courseSection.getDropLimit()).toString());
 
-            description.setText(section.getDescription());
-            dateCancellation.setText(DateFormat.format(Config.DATE_FORMAT_OUT, section.getCancel()).toString());
-            dateDrop.setText(DateFormat.format(Config.DATE_FORMAT_OUT, section.getDrop()).toString());
-            dateDropLimit.setText(DateFormat.format(Config.DATE_FORMAT_OUT, section.getDropLimit()).toString());
+            butNext.setOnClickListener(new View.OnClickListener() {
 
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), "click performed...",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }
