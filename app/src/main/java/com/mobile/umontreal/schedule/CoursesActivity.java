@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
@@ -182,16 +183,20 @@ public class CoursesActivity extends ActionBarActivity
 
         switch (item.getItemId()) {
 
-            case R.id.action_settings:
-                return true;
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:
-                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item);
+                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
+    }
+
 
     @Override
     public void OnCallback(UDMJsonData data) {

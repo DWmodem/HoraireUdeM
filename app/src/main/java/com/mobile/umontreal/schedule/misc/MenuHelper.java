@@ -1,5 +1,6 @@
 package com.mobile.umontreal.schedule.misc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
@@ -71,7 +72,7 @@ public class MenuHelper {
         return true;
     }
 
-    public static boolean onOptionsItemSelected(Context context, MenuItem item) {
+    public static boolean onOptionsItemSelected(Context context, MenuItem item, Activity activity) {
         //
         //Handle action bar item clicks here. The action bar will
         //automatically handle clicks on the Home/Up button, so long
@@ -134,6 +135,7 @@ public class MenuHelper {
             {
                 Toast.makeText(context, "Login Item clicked", Toast.LENGTH_SHORT).show();
                 Log.d("MENUITEM", "Login has been run");
+                GoogleIntegrationManager.loginAction(activity);
                 return true;
             }
             default:

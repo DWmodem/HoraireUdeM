@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
@@ -155,7 +156,12 @@ public class DepartmentsActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return MenuHelper.onOptionsItemSelected(getApplicationContext(), item);
+        return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
     }
 
     // Adding Drop-down Navigation

@@ -45,6 +45,13 @@ public class Config {
     //Google login status
     public static boolean isLoggedIn                = false;
 
+    //Google login constants
+    public static final int REQUEST_CODE_PICK_ACCOUNT      = 1000;
+    public static final int RESULT_OK                      = -1;
+    public static final int RESULT_CANCELED                = 0;
+
+    //User's google account email
+    public static String userEmail;
 
 
 }

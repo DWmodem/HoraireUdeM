@@ -2,6 +2,7 @@ package com.mobile.umontreal.schedule;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
+import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 
 
@@ -62,8 +64,14 @@ public class MainActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        return MenuHelper.onOptionsItemSelected(getApplicationContext(), item);
+        return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
+    }
+
 
 
 }

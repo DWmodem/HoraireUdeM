@@ -1,5 +1,6 @@
 package com.mobile.umontreal.schedule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSection;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
@@ -106,16 +108,19 @@ public class DetailsCourseActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
 
-            case R.id.action_settings:
-                return true;
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:
                 //General menu apparatus
-                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item);
+                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
     }
 
     @Override
