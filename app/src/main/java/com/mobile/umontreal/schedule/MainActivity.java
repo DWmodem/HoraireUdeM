@@ -2,6 +2,7 @@ package com.mobile.umontreal.schedule;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,8 +13,10 @@ import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
+import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.parsing.ServiceHandler;
 
 import org.json.JSONArray;
@@ -64,6 +67,9 @@ public class MainActivity extends ListActivity {
 
         // Calling async task to get json
         new GetContacts().execute();
+        Toast.makeText(this, "App started", Toast.LENGTH_SHORT).show();
+        Log.d("MENUITEM","App started" );
+
 
     }
 
@@ -165,27 +171,27 @@ public class MainActivity extends ListActivity {
     }
 
 
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
+        //Common create options menu code is in MenuHelper
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        MenuHelper.onCreateOptionsMenu(menu, inflater);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+
+        //Common prepare options menu code is in MenuHelper
+        MenuHelper.onPrepareOptionsMenu(menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    return MenuHelper.onOptionsItemSelected(getApplicationContext(), item);
     }
 
 

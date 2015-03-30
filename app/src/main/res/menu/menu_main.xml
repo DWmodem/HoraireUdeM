@@ -46,6 +46,11 @@
         android:title="@string/action_log_out"
         app:showAsAction="never" />
 
+    <!-- Log in -->
+    <item android:id="@+id/action_login"
+        android:title="@string/action_log_in"
+        app:showAsAction="never" />
+
     <!-- Settings -->
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"

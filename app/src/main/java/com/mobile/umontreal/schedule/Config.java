@@ -42,6 +42,9 @@ public class Config {
     public static final long HOUR_MILLIS            = 60 * MINUTE_MILLIS;
     public static final long DAY_MILLIS             = 24 * HOUR_MILLIS;
 
+    //Google login status
+    public static boolean isLoggedIn                = false;
+
 
 
 }

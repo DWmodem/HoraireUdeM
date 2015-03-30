@@ -5,11 +5,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSection;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 
@@ -76,9 +78,18 @@ public class DetailsCourseActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        //Common create options menu code is in MenuHelper
+        MenuInflater inflater = getMenuInflater();
+        MenuHelper.onCreateOptionsMenu(menu, inflater);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+
+        //Common prepare options menu code is in MenuHelper
+        MenuHelper.onPrepareOptionsMenu(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -95,7 +106,8 @@ public class DetailsCourseActivity extends ActionBarActivity
                 this.finish();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                //General menu apparatus
+                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item);
         }
     }
 

@@ -27,6 +27,7 @@
     <string name="action_share">Share to</string>
     <string name="action_settings">Settings</string>
     <string name="action_log_out">Log out</string>
+    <string name="action_log_in">Log in</string>
 
     <string name="season_winter">Winter</string>
     <string name="season_summer">Summer</string>
