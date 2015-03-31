@@ -4,10 +4,11 @@
     <string name="title_activity_departments">Departments</string>
     <string name="title_activity_courses">Courses</string>
     <string name="title_activity_details_course">Course details</string>
+    <string name="title_activity_full_details_course">Full details for course</string>
 
     <string name="department_titre">Department title</string>
 
-    <string name="course_titre">Course name</string>
+    <string name="course_title">Course name</string>
     <string name="course_description">Course description</string>
     <string name="course_section">Section: </string>
     <string name="course_type">Type: </string>
@@ -16,7 +17,7 @@
     <string name="course_drop_limit">Drop limit: </string>
 
     <string name="course_button_next">+Follow</string>
-    <string name="course_button_back">-Back</string>
+    <string name="course_button_back">Back</string>
 
     <string name="action_calendar">Calendar</string>
     <string name="action_search" >Search</string>
@@ -35,7 +36,7 @@
 
     <string name="search_department">Search department</string>
     <string name="search_course">Search course</string>
-    <string name="title_activity_full_details_course">Full details for course</string>
+
     <string name="hello_world">Hello world!</string>
 
 <!-- TODO: Remove or change this placeholder text -->

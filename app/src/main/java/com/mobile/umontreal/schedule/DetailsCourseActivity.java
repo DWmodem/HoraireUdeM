@@ -45,7 +45,8 @@ public class DetailsCourseActivity extends ActionBarActivity
     private CourseSection courseSection;
 
     // Buttons
-    private Button butNext;
+    private Button buttonNext;
+    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class DetailsCourseActivity extends ActionBarActivity
         dateCancellationView = (TextView) findViewById(R.id.course_cancellation);
         dateDropView = (TextView) findViewById(R.id.course_drop_limit);
         dateDropLimitView = (TextView) findViewById(R.id.course_drop);
-        butNext = (Button) findViewById(R.id.course_button_next);
-
+        buttonNext = (Button) findViewById(R.id.course_button_next);
+        buttonBack = (Button) findViewById(R.id.course_button_back);
 
         // Action Bar settings
         actionBar = getSupportActionBar();
@@ -70,13 +71,13 @@ public class DetailsCourseActivity extends ActionBarActivity
         actionBar.setDisplayShowTitleEnabled(true);
 
         // Set title in ActionBar
-        String tagAcronym = extras.getString(Config.TAG_SIGLE);
-        String tagCourseNum = extras.getString(Config.TAG_COURSE_NUM);
-        String tagSession = extras.getString(Config.TAG_SESSION);
+        String tagAcronym = extras.getString(Config.JSON_SIGLE);
+        String tagCourseNum = extras.getString(Config.JSON_COURSE_NUM);
+        String tagSession = extras.getString(Config.JSON_SESSION);
         actionBar.setTitle(tagAcronym + " " + tagCourseNum + "-" + tagSession);
 
         // Set name of course
-        courseTitre.setText(extras.getString(Config.TAG_COURSE_TITLE));
+        courseTitre.setText(extras.getString(Config.JSON_COURSE_TITLE));
 
         // Build a URL for json file
         String url = Config.URL_API_UDEM + tagSession + "-" + tagAcronym.toLowerCase() + "-" + tagCourseNum + ".json";
@@ -113,7 +114,6 @@ public class DetailsCourseActivity extends ActionBarActivity
                 this.finish();
                 return true;
             default:
-                //General menu apparatus
                 return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
         }
     }
@@ -149,25 +149,41 @@ public class DetailsCourseActivity extends ActionBarActivity
             dateCancellationView.setVisibility(View.GONE);
             dateDropView.setVisibility(View.GONE);
             dateDropLimitView.setVisibility(View.GONE);
-            butNext.setVisibility(View.GONE);
+            buttonNext.setVisibility(View.GONE);
+            buttonBack.setVisibility(View.VISIBLE);
 
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
+
+            buttonBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         } else {
 
             description.setText(courseSection.getDescription());
             dateCancellation.setText(DateFormat.
-                    format(Config.DATE_FORMAT_OUT, courseSection.getCancel()).toString());
+                    format(Config.PRINT_DATE_FORMAT, courseSection.getCancel()).toString());
             dateDrop.setText(DateFormat.
-                    format(Config.DATE_FORMAT_OUT, courseSection.getDrop()).toString());
+                    format(Config.PRINT_DATE_FORMAT, courseSection.getDrop()).toString());
             dateDropLimit.setText(DateFormat.
-                    format(Config.DATE_FORMAT_OUT, courseSection.getDropLimit()).toString());
+                    format(Config.PRINT_DATE_FORMAT, courseSection.getDropLimit()).toString());
 
-            butNext.setOnClickListener(new View.OnClickListener() {
+            buttonNext.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), "click performed...",
-                            Toast.LENGTH_LONG).show();
+
+                    Bundle extras = getIntent().getExtras();
+                    // Launching new Activity
+                    Intent intent = new Intent(getApplicationContext(), FullDetailsCourseActivity.class);
+
+                    // Sending data to FullCourseActivity
+                    intent.putExtra(Config.JSON_SIGLE, extras.getString(Config.JSON_SIGLE));
+                    intent.putExtra(Config.JSON_COURSE_NUM, extras.getString(Config.JSON_COURSE_NUM));
+                    intent.putExtra(Config.JSON_SESSION, extras.getString(Config.JSON_SESSION));
+                    startActivity(intent);
                 }
             });
         }

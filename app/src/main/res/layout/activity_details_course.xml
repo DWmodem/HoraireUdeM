@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="0dip"
-    android:paddingRight="0dip"
-    android:paddingTop="0dip"
-    android:paddingBottom="0dip"
+    android:paddingLeft="@dimen/table_row_padding_left"
+    android:paddingRight="@dimen/table_row_padding_right"
+    android:paddingTop="@dimen/table_row_padding_top"
+    android:paddingBottom="@dimen/table_row_padding_bottom"
     tools:context="com.mobile.umontreal.schedule.DetailsCourseActivity">
 
 <TableLayout
@@ -16,7 +16,7 @@
     android:stretchColumns="*"
     android:background="@color/table_background_color">
 
-    <!-- Row 1 with single column -->
+    <!-- Row 1 with single column :: Title -->
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -24,16 +24,16 @@
         android:background="@color/table_title_background_color">
         <TextView
             android:id="@+id/course_title"
-            android:text="@string/course_titre"
+            android:text="@string/course_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_title_size"
             android:layout_span="2"
             android:textColor="@color/table_title_color"
-            android:padding="18dip"/>
+            android:padding="@dimen/padding_table_row"/>
     </TableRow>
 
-    <!-- Row 2 with single column -->
+    <!-- Row 2 with single column :: Description -->
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -43,11 +43,11 @@
             android:text="@string/course_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_description_size"
             android:textColor="@color/table_text_color"
             android:lineSpacingMultiplier="1.5"
             android:layout_span="2"
-            android:padding="18dip"/>
+            android:padding="@dimen/padding_table_row"/>
     </TableRow>
 
     <!-- Row 3 with 2 columns -->
@@ -61,7 +61,7 @@
             android:id="@+id/course_cancellation"
             android:text="@string/course_cancellation"
             android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_date_size"
             android:textColor="@color/table_text_bold_color"
             android:gravity="right"/>
 
@@ -69,7 +69,7 @@
             android:id="@+id/course_cancellation_value"
             android:text=""
             android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_date_size"
             android:textColor="@color/table_text_bold_color"
             android:gravity="center"/>
     </TableRow>
@@ -85,7 +85,7 @@
             android:id="@+id/course_drop"
             android:text="@string/course_drop"
             android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_date_size"
             android:textColor="@color/table_text_bold_color"
             android:gravity="right"/>
 
@@ -93,7 +93,7 @@
             android:id="@+id/course_drop_value"
             android:text=""
             android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_date_size"
             android:textColor="@color/table_text_bold_color"
             android:gravity="center"/>
     </TableRow>
@@ -109,7 +109,7 @@
             android:id="@+id/course_drop_limit"
             android:text="@string/course_drop_limit"
             android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_date_size"
             android:textColor="@color/table_text_bold_color"
             android:gravity="right"/>
 
@@ -117,7 +117,7 @@
             android:id="@+id/course_drop_limit_value"
             android:text=""
             android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_date_size"
             android:textColor="@color/table_text_bold_color"
             android:gravity="center"/>
     </TableRow>
@@ -125,17 +125,31 @@
     <!-- Row 6 with single column -->
     <TableRow
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_span="2"
-        android:gravity="right">
+        android:layout_width="wrap_content">
+
+        <Button
+            android:id="@+id/course_button_back"
+            android:visibility="invisible"
+            android:text="@string/course_button_back"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/text_button_size"
+            android:textColor="@color/button_text_color"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="left"
+            android:layout_margin="@dimen/padding_button_layout_margin_size"
+            android:background="@color/button_background_color"/>
 
         <Button
             android:id="@+id/course_button_next"
             android:text="@string/course_button_next"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/text_button_size"
             android:textColor="@color/button_text_color"
-            android:layout_margin="18dip"
+            android:gravity="center"
+            android:layout_margin="@dimen/padding_button_layout_margin_size"
             android:background="@color/button_background_color"/>
     </TableRow>
 

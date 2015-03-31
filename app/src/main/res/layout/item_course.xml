@@ -3,6 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:textSize="14sp"
+    android:textSize="@dimen/text_item_list_view"
     android:textColor="@color/table_text_bold_color"
-    android:padding="18dip" />
+    android:padding="@dimen/padding_item_list_view" />

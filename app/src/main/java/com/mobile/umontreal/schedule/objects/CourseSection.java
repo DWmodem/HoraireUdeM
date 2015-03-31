@@ -16,15 +16,6 @@ import java.util.List;
  */
 public class CourseSection {
 
-    public static final String JSON_COURSE_SECTIONS = "sections";
-
-    public static final String JSON_SECTION_TITLE = "section";
-    public static final String JSON_SECTION_TYPE = "type";
-    public static final String JSON_SECTION_CANCELLATION = "annulation";
-    public static final String JSON_SECTION_DROP = "abandon";
-    public static final String JSON_SECTION_DROP_LIMIT = "abandonlimite";
-    public static final String JSON_SECTION_DESCRIPTION = "description";
-
     private Course course;
     private CourseSectionStatus status;
     private int credit;
@@ -132,8 +123,8 @@ public class CourseSection {
         sectionList = new ArrayList<String>();
 
         // Getting JSON Array node
-        JSONArray sections = json.getJSONArray(JSON_COURSE_SECTIONS);
-        SimpleDateFormat format = new SimpleDateFormat(Config.DATE_FORMAT_PARSING);
+        JSONArray sections = json.getJSONArray(Config.JSON_SECTIONS);
+        SimpleDateFormat format = new SimpleDateFormat(Config.PARSING_DATE_FORMAT);
 
         try {
 
@@ -144,19 +135,19 @@ public class CourseSection {
 
                 if (i == 0) {
 
-                    Date dateCancellation = format.parse(c.getString(JSON_SECTION_CANCELLATION));
-                    Date dateDrop = format.parse(c.getString(JSON_SECTION_DROP));
-                    Date dateDropLimit = format.parse(c.getString(JSON_SECTION_DROP_LIMIT));
+                    Date dateCancellation = format.parse(c.getString(Config.JSON_SECTION_CANCELLATION));
+                    Date dateDrop = format.parse(c.getString(Config.JSON_SECTION_DROP));
+                    Date dateDropLimit = format.parse(c.getString(Config.JSON_SECTION_DROP_LIMIT));
 
-                    this.setType(c.getString(JSON_SECTION_TYPE));
+                    this.setType(c.getString(Config.JSON_SECTION_TYPE));
                     this.setCancel(dateCancellation);
                     this.setDrop(dateDrop);
                     this.setDropLimit(dateDropLimit);
-                    this.setDescription(c.getString(JSON_SECTION_DESCRIPTION));
+                    this.setDescription(c.getString(Config.JSON_SECTION_DESCRIPTION));
 
                  }
 
-                sectionList.add(c.getString(JSON_SECTION_TITLE));
+                sectionList.add(c.getString(Config.JSON_SECTION_TITLE));
             }
 
         } catch (Exception e) {

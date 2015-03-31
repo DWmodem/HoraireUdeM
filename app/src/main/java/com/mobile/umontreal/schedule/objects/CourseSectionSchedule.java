@@ -16,27 +16,15 @@ import java.util.List;
  */
 public class CourseSectionSchedule {
 
-    public static final String JSON_SECTION_TITLE = "section";
-
-    public static final String JSON_COURSE_TITLE = "titre";
-    public static final String JSON_COURSE_TYPE = "type";
-    public static final String JSON_COURSE_STATUS = "status";
-    public static final String JSON_COURSE_CREDITS = "credits";
-    public static final String JSON_COURSE_DESCRIPTION = "description";
-
-    public static final String JSON_COURSE_SCHEDULE = "horaire";
-
     private CourseSection section;
     private Date dateDebut;
     private Date dateFin;
     private String local;
+    private String prof;
+
     private CourseSectionScheduleType type;
 
-    private List<CourseSectionSchedule> courseSectionScheduleList;
-
-    public CourseSection getSection() {
-        return section;
-    }
+    private List<CourseSectionSchedule> scheduleList;
 
     public void setSection(CourseSection section) {
         this.section = section;
@@ -74,42 +62,117 @@ public class CourseSectionSchedule {
         this.type = type;
     }
 
+    public String getProf() {
+        return prof;
+    }
+
+    public void setProf(String prof) {
+        this.prof = prof;
+    }
+
+    public List<CourseSectionSchedule> getScheduleList() {
+        return scheduleList;
+    }
+
     public CourseSectionSchedule(){
 
     }
 
     public CourseSectionSchedule(JSONObject json) throws JSONException {
 
-        courseSectionScheduleList = new ArrayList<CourseSectionSchedule>();
+        // Getting JSON data node
+        String title                = json.getString(Config.JSON_COURSE_TITLE);
+        int courseNum               = json.getInt(Config.JSON_COURSE_NUM);
+        String status               = json.getString(Config.JSON_COURSE_STATUS);
+        String credits              = json.getString(Config.JSON_COURSE_CREDITS);
+        String sectionType          = json.getString(Config.JSON_SECTION_TYPE);
+        String sessionType          = json.getString(Config.JSON_SESSION_TYPE);
+        String dateCancel           = json.getString(Config.JSON_SECTION_CANCELLATION);
+        String dateDropValue        = json.getString(Config.JSON_SECTION_DROP);
+        String dateDropLimitValue   = json.getString(Config.JSON_SECTION_DROP_LIMIT);
+        String description          = json.getString(Config.JSON_COURSE_DESCRIPTION);
 
-        // Getting JSON Array node
-        JSONArray sections = json.getJSONArray(JSON_COURSE_SCHEDULE);
-        SimpleDateFormat format = new SimpleDateFormat(Config.DATE_FORMAT_PARSING);
+        // Create a course field
+        Course course = new Course();
+        course.setTitle(title);
+        course.setCourseNumber(courseNum);
+
+        // Create a section field
+        section = new CourseSection();
+        section.setCourse(course);
+
+        // Set course status
+        if (status.equals("Ouvert")) {
+            section.setStatus(CourseSectionStatus.Open);
+
+        } else {
+            section.setStatus(CourseSectionStatus.Closed);
+        }
+
+        // Set section type
+        if (sectionType.equals("TH")) {
+            section.setSectionType(SectionType.Theory);
+        }
+
+        else if (sectionType.equals("LAB")) {
+            section.setSectionType(SectionType.Demo);
+        }
+
+        else {}
+
+        section.setCredit(Integer.valueOf(credits.charAt(0)));
+        section.setType(sessionType);
+
+        // Date fields
+        SimpleDateFormat format = new SimpleDateFormat(Config.PARSING_DATE_FORMAT);
 
         try {
-
-            // looping through All Contacts
-            for (int i = 0; i < sections.length(); i++) {
-
-                JSONObject c = sections.getJSONObject(i);
-
-//                Date dateCancellation = format.parse(c.getString(JSON_SECTION_CANCELLATION));
-//                Date dateDrop = format.parse(c.getString(JSON_SECTION_DROP));
-//                Date dateDropLimit = format.parse(c.getString(JSON_SECTION_DROP_LIMIT));
-//
-//                CourseSectionSchedule courseShedule = new CourseSectionSchedule();
-//
-//                courseShedule.setSection(c.getString(JSON_SECTION_TITLE));
-//                courseShedule.setType(c.getString(JSON_SECTION_TYPE));
-//                courseShedule.setCancel(dateCancellation);
-//                courseShedule.setDrop(dateDrop);
-//                courseShedule.setDropLimit(dateDropLimit);
-//                courseShedule.setDescription(c.getString(JSON_COURSE_DESCRIPTION));
-//                courseSectionScheduleList.add(courseShedule);
-            }
+            section.setCancel(format.parse(dateCancel));
+            section.setDrop(format.parse(dateDropValue));
+            section.setDropLimit(format.parse(dateDropLimitValue));
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // Set description
+        section.setDescription(description);
+
+        // Create a schedule fields
+        JSONArray schedule = json.getJSONArray(Config.JSON_COURSE_SCHEDULE);
+
+        scheduleList = new ArrayList<CourseSectionSchedule>();
+
+        // Date fields
+        SimpleDateFormat scheduleDateFormat = new SimpleDateFormat(Config.SCHEDULE_DATE_FORMAT);
+
+        // looping through All Contacts
+        for (int i = 0; i < schedule.length(); i++) {
+
+            JSONObject c = schedule.getJSONObject(i);
+
+            try {
+
+                String dateDebut            = json.getString(Config.JSON_SCHEDULE_DATE);
+                String dateFin              = json.getString(Config.JSON_SCHEDULE_DATE);
+                String day                  = json.getString(Config.JSON_SCHEDULE_DAY);
+                String local                = json.getString(Config.JSON_SCHEDULE_LOCAL);
+                String prof                 = json.getString(Config.JSON_SCHEDULE_PROF);
+                String scheduleDescription  = json.getString(Config.JSON_SCHEDULE_DESCRIPTION);
+
+                dateDebut.concat(json.getString(Config.JSON_SCHEDULE_STARTED_HOUR));
+                dateFin.concat(json.getString(Config.JSON_SCHEDULE_FINISHED_HOUR));
+
+                this.setDateDebut(scheduleDateFormat.parse(dateDebut));
+                this.setDateFin(scheduleDateFormat.parse(dateFin));
+                this.setLocal(local);
+                this.setProf(prof);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            scheduleList.add(this);
         }
 
     }

@@ -1,5 +1,7 @@
 package com.mobile.umontreal.schedule.objects;
 
+import com.mobile.umontreal.schedule.Config;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,12 +11,6 @@ import java.util.List;
  * Created by Justin on 2015-03-12.
  */
 public class Course {
-
-    public static final String JSON_TITLE_TAG = "titre";
-    public static final String JSON_COURSE_NUM_TAG = "coursnum";
-    public static final String JSON_COURSE_SESSION = "trimestre";
-    public static final String JSON_COURSE_SECTIONS = "sections";
-
 
     private Department department;
     private int courseNumber;
@@ -71,10 +67,8 @@ public class Course {
     }
 
     public Course(JSONObject json) throws JSONException {
-        setTitle(json.getString(JSON_TITLE_TAG));
-        setCourseNumber(json.getInt(JSON_COURSE_NUM_TAG));
-
-
+        setTitle(json.getString(Config.JSON_COURSE_TITLE));
+        setCourseNumber(json.getInt(Config.JSON_COURSE_NUM));
     }
 
     @Override

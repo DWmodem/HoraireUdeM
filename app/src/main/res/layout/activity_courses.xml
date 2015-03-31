@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="0dip"
-    android:paddingRight="0dip"
-    android:paddingTop="0dip"
-    android:paddingBottom="0dip"
+    android:paddingLeft="@dimen/table_row_padding_left"
+    android:paddingRight="@dimen/table_row_padding_right"
+    android:paddingTop="@dimen/table_row_padding_top"
+    android:paddingBottom="@dimen/table_row_padding_bottom"
     tools:context="com.mobile.umontreal.schedule.CoursesActivity">
 
 <TableLayout
@@ -16,7 +16,7 @@
     android:stretchColumns="*"
     android:background="@color/table_background_color">
 
-    <!-- Row 1 with single column -->
+    <!-- Row 1 with single column :: Title -->
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -28,11 +28,11 @@
             android:layout_height="wrap_content"
             android:text="@string/department_titre"
             android:textColor="@color/table_title_color"
-            android:textSize="16sp"
-            android:padding="18dip"/>
+            android:textSize="@dimen/text_title_size"
+            android:padding="@dimen/padding_table_row"/>
     </TableRow>
 
-    <!-- Row 2 with single column -->
+    <!-- Row 2 with single column :: Filter search -->
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -43,13 +43,13 @@
             android:layout_height="wrap_content"
             android:hint="@string/search_course"
             android:inputType="textVisiblePassword"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_search_size"
             android:textColorHint="@color/accent_color"
             android:textColor="@color/input_search_color"
-            android:padding="18dip"/>
+            android:padding="@dimen/padding_table_row"/>
     </TableRow>
 
-    <!-- Row 2 with single column -->
+    <!-- Row 2 with single column :: List view-->
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent">

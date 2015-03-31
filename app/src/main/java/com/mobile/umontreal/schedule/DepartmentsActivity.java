@@ -65,10 +65,6 @@ public class DepartmentsActivity extends ActionBarActivity
         // Hide the action bar title
         actionBar.setDisplayShowTitleEnabled(true);
 
-
-        // Adding Drop-down Navigation
-        addBarNavigation();
-
         // Build a URL for json file
         String url = Config.URL_API_UDEM + "sigles.json";
 
@@ -91,8 +87,8 @@ public class DepartmentsActivity extends ActionBarActivity
                 Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
 
                 // Sending data to CourseActivity
-                intent.putExtra(Config.TAG_SIGLE, dep.getSigle());
-                intent.putExtra(Config.TAG_COURSE_TITLE, dep.getTitle());
+                intent.putExtra(Config.JSON_SIGLE, dep.getSigle());
+                intent.putExtra(Config.JSON_COURSE_TITLE, dep.getTitle());
                 startActivity(intent);
             }
 
@@ -156,17 +152,20 @@ public class DepartmentsActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
-    }
-
-    // Adding Drop-down Navigation
-    private void addBarNavigation() {
-
     }
 
 

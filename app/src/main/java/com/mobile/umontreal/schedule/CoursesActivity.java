@@ -22,10 +22,10 @@ import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
-import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 import com.mobile.umontreal.schedule.objects.Course;
 import com.mobile.umontreal.schedule.objects.Session;
 import com.mobile.umontreal.schedule.objects.SessionSeason;
+import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,10 +100,10 @@ public class CoursesActivity extends ActionBarActivity
                 Intent intent = new Intent(getApplicationContext(), DetailsCourseActivity.class);
 
                 // Sending data to CourseActivity
-                intent.putExtra(Config.TAG_SIGLE, extras.getString(Config.TAG_SIGLE));
-                intent.putExtra(Config.TAG_COURSE_NUM, ""+c.getCourseNumber());
-                intent.putExtra(Config.TAG_SESSION, tagSession);
-                intent.putExtra(Config.TAG_COURSE_TITLE, c.getTitle());
+                intent.putExtra(Config.JSON_SIGLE, extras.getString(Config.JSON_SIGLE));
+                intent.putExtra(Config.JSON_COURSE_NUM, ""+c.getCourseNumber());
+                intent.putExtra(Config.JSON_SESSION, tagSession);
+                intent.putExtra(Config.JSON_COURSE_TITLE, c.getTitle());
                 startActivity(intent);
             }
 
@@ -197,7 +197,6 @@ public class CoursesActivity extends ActionBarActivity
         GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
     }
 
-
     @Override
     public void OnCallback(UDMJsonData data) {
 
@@ -287,14 +286,14 @@ public class CoursesActivity extends ActionBarActivity
         Bundle extras = getIntent().getExtras();
 
         // Set Department title
-        DepartmentTitle.setText(extras.getString(Config.TAG_COURSE_TITLE));
+        DepartmentTitle.setText(extras.getString(Config.JSON_COURSE_TITLE));
 
         // Session type
         tagSession = navSpinner.get(itemPosition).toString();
 
         // Read JSON Data
         fillViewList(Config.URL_API_UDEM + tagSession + "-" +
-                extras.getString(Config.TAG_SIGLE).toLowerCase().trim() + ".json");
+                extras.getString(Config.JSON_SIGLE).toLowerCase().trim() + ".json");
 
         return true;
     }
