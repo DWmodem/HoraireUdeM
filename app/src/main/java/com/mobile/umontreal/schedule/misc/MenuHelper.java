@@ -2,6 +2,7 @@ package com.mobile.umontreal.schedule.misc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.R;
+import com.mobile.umontreal.schedule.SettingsActivity;
 
 /**
  * Created by Philippe on 29/03/2015.
@@ -85,8 +87,11 @@ public class MenuHelper {
         switch(item.getItemId()){
             case R.id.action_settings:
             {
-                Toast.makeText(context, "Settings Item clicked", Toast.LENGTH_SHORT).show();
                 Log.d("MENUITEM", "Settings has been run");
+//  Toast.makeText(context, "Settings Item clicked", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(activity, SettingsActivity.class);
+                activity.startActivity(myIntent);
+
                 return true;
             }
             case R.id.action_calendar:
