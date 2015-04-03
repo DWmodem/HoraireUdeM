@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.misc.Callable;
-import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
+import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSection;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;

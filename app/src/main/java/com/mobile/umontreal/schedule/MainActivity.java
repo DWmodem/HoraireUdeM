@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
-import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
+import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 
 
@@ -72,6 +72,10 @@ public class MainActivity extends ListActivity {
         GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
     }
 
+    //Starts the getUsername asynctask
+    protected void getUsername(){
+        GoogleIntegrationManager.getUsername(this);
+    }
 
 
 }

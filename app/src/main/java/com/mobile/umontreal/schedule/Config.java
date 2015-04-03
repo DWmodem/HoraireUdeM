@@ -74,7 +74,8 @@ public class Config {
     //User's google account email
     public static String userEmail;
 
-
+    //Scope
+    public static final String SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 
 
 }

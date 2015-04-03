@@ -7,12 +7,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Switch;
 import android.widget.Toast;
+
 
 import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.SettingsActivity;
+import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 
 /**
  * Created by Philippe on 29/03/2015.
