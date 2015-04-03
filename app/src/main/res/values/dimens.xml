@@ -22,6 +22,7 @@
     <dimen name="text_item_list_view">14sp</dimen>
 
     <dimen name="text_button_size">14sp</dimen>
+    <dimen name="text_tab_size">12sp</dimen>
 
     <dimen name="padding_title_size">18dp</dimen>
     <dimen name="padding_table_row">18dp</dimen>

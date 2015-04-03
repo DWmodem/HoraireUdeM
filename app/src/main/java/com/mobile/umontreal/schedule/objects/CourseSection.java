@@ -27,9 +27,9 @@ public class CourseSection {
     private String description;
     private String type;
 
-    private List<String> sectionList;
+    private ArrayList<String> sectionList;
 
-    public List<String> getSectionList() {
+    public ArrayList<String> getSectionList() {
         return sectionList;
     }
 

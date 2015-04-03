@@ -1,4 +1,4 @@
-package com.mobile.umontreal.schedule.misc;
+package com.mobile.umontreal.schedule.adapters;
 
 import android.app.Activity;
 import android.content.Context;

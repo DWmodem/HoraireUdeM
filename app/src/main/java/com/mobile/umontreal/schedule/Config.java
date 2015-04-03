@@ -24,6 +24,10 @@ public class Config {
     public static final String JSON_COURSE_CREDITS          = "credits";
     public static final String JSON_COURSE_DESCRIPTION      = "description";
 
+    public static final String JSON_COURSE_STATUS_OPEN      = "Ouvert";
+    public static final String JSON_COURSE_TYPE_THEORY      = "TH";
+
+
     public static final String JSON_COURSE_SCHEDULE         = "horaire";
 
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/H15-ift.json

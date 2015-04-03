@@ -4,6 +4,6 @@
     <string name="FILE_IS_EMPTY">No data has been loaded yet...</string>
     <string name="DATA_IS_NOT_AVAILABLE">The data is not available...</string>
 
-    <string name="no_connection">Error</string>
-    <string name="ok_connection">Error</string>
+    <string name="INTERNET_CONNECTION_ERROR">Please connect to working Internet connection</string>
+
 </resources>

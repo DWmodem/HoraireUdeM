@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
-import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
+import com.mobile.umontreal.schedule.adapters.SessionNavigationAdapter;
 import com.mobile.umontreal.schedule.objects.Course;
 import com.mobile.umontreal.schedule.objects.Session;
 import com.mobile.umontreal.schedule.objects.SessionSeason;
@@ -45,7 +45,7 @@ public class CoursesActivity extends ActionBarActivity
     // Action bar
     private ActionBar actionBar;
     // Navigation Spinner [ Winter Summer Autumn ]
-    ArrayList<Session> navSpinner;
+    private ArrayList<Session> navSpinner;
     // List view Adapter
     private ArrayAdapter<Course> courseAdapter;
     // Navigation adapter

@@ -10,7 +10,7 @@
 
     <string name="course_title">Course name</string>
     <string name="course_description">Course description</string>
-    <string name="course_section">Section: </string>
+    <string name="course_section">Section</string>
     <string name="course_type">Type: </string>
     <string name="course_cancellation">Cancellation: </string>
     <string name="course_drop">Course drop: </string>
@@ -18,6 +18,10 @@
 
     <string name="course_button_next">+Follow</string>
     <string name="course_button_back">Back</string>
+    <string name="course_button_add">+</string>
+
+    <string name="schedule_theory">Theory</string>
+    <string name="schedule_demo">Demo</string>
 
     <string name="action_calendar">Calendar</string>
     <string name="action_search" >Search</string>
@@ -41,6 +45,11 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_stream">Stream</string>
+    <string name="tab_messages">Messages</string>
+    <string name="tab_notifications">Notifications</string>
+    <string name="tab_photos">Photos</string>
+    <string name="title_activity_demo_fragment">DemoFragmentActivity</string>
 
 
 

@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,13 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.mobile.umontreal.schedule.adapters.SessionNavigationAdapter;
 import com.mobile.umontreal.schedule.misc.Callable;
+import com.mobile.umontreal.schedule.misc.ConnectionDetector;
 import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
-import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
-import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 import com.mobile.umontreal.schedule.objects.Department;
+import com.mobile.umontreal.schedule.parsing.UDMJsonData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +38,9 @@ public class DepartmentsActivity extends ActionBarActivity
 
     // Log view class
     private String LOG_TAG = DepartmentsActivity.class.getSimpleName();
+
+    // Connection Internet Detector
+    private ConnectionDetector connection;
 
     // Action bar
     private ActionBar actionBar;
@@ -57,13 +61,30 @@ public class DepartmentsActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departments);
 
+        // Internet Connection is not present
+        connection = new ConnectionDetector(getApplicationContext());
+
         listView = (ListView) findViewById(R.id.list_departments);
         inputSearch = (EditText) findViewById(R.id.input_search);
 
         // Action Bar settings
         actionBar = getSupportActionBar();
-        // Hide the action bar title
+        // Show the action bar title
         actionBar.setDisplayShowTitleEnabled(true);
+
+        if (!connection.isConnectingToInternet()) {
+
+            Toast.makeText(getApplicationContext(),
+                    R.string.INTERNET_CONNECTION_ERROR,
+                    Toast.LENGTH_LONG).show();
+
+            // stop executing code by return
+            return;
+        }
+
+        Toast.makeText(getApplicationContext(),
+                "connection to interent : " + connection.isConnectingToInternet(),
+                Toast.LENGTH_LONG).show();
 
         // Build a URL for json file
         String url = Config.URL_API_UDEM + "sigles.json";
@@ -91,9 +112,6 @@ public class DepartmentsActivity extends ActionBarActivity
                 intent.putExtra(Config.JSON_COURSE_TITLE, dep.getTitle());
                 startActivity(intent);
             }
-
-
-
         });
 
         /**
@@ -194,7 +212,7 @@ public class DepartmentsActivity extends ActionBarActivity
             }
         });
 
-        Log.v(LOG_TAG, String.format("%s departments loaded.", departmentList.size()));
+//        Log.v(LOG_TAG, String.format("%s departments loaded.", departmentList.size()));
         departmentAdapter = new ArrayAdapter<Department>(this, R.layout.item_department, departmentList);
         listView.setAdapter(departmentAdapter);
     }

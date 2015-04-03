@@ -24,7 +24,7 @@ public class CourseSectionSchedule {
 
     private CourseSectionScheduleType type;
 
-    private List<CourseSectionSchedule> scheduleList;
+    private List<CourseSectionSchedule> schedule;
 
     public void setSection(CourseSection section) {
         this.section = section;
@@ -70,8 +70,8 @@ public class CourseSectionSchedule {
         this.prof = prof;
     }
 
-    public List<CourseSectionSchedule> getScheduleList() {
-        return scheduleList;
+    public List<CourseSectionSchedule> getSchedule() {
+        return schedule;
     }
 
     public CourseSectionSchedule(){
@@ -102,7 +102,7 @@ public class CourseSectionSchedule {
         section.setCourse(course);
 
         // Set course status
-        if (status.equals("Ouvert")) {
+        if (status.equals(Config.JSON_COURSE_STATUS_OPEN)) {
             section.setStatus(CourseSectionStatus.Open);
 
         } else {
@@ -110,15 +110,13 @@ public class CourseSectionSchedule {
         }
 
         // Set section type
-        if (sectionType.equals("TH")) {
+        if (sectionType.equals(Config.JSON_COURSE_TYPE_THEORY)) {
             section.setSectionType(SectionType.Theory);
         }
 
-        else if (sectionType.equals("LAB")) {
+        else {
             section.setSectionType(SectionType.Demo);
         }
-
-        else {}
 
         section.setCredit(Integer.valueOf(credits.charAt(0)));
         section.setType(sessionType);
@@ -138,18 +136,21 @@ public class CourseSectionSchedule {
         // Set description
         section.setDescription(description);
 
-        // Create a schedule fields
-        JSONArray schedule = json.getJSONArray(Config.JSON_COURSE_SCHEDULE);
+        // Set section
+        this.setSection(section);
 
-        scheduleList = new ArrayList<CourseSectionSchedule>();
+        // Create a schedule fields
+        JSONArray scheduleFields = json.getJSONArray(Config.JSON_COURSE_SCHEDULE);
+
+        schedule = new ArrayList<CourseSectionSchedule>();
 
         // Date fields
         SimpleDateFormat scheduleDateFormat = new SimpleDateFormat(Config.SCHEDULE_DATE_FORMAT);
 
         // looping through All Contacts
-        for (int i = 0; i < schedule.length(); i++) {
+        for (int i = 0; i < scheduleFields.length(); i++) {
 
-            JSONObject c = schedule.getJSONObject(i);
+            JSONObject c = scheduleFields.getJSONObject(i);
 
             try {
 
@@ -172,7 +173,7 @@ public class CourseSectionSchedule {
                 e.printStackTrace();
             }
 
-            scheduleList.add(this);
+            schedule.add(this);
         }
 
     }
