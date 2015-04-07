@@ -40,4 +40,16 @@
             android:text="Example application"
             android:textSize="16sp" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/schedule_check"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/schedule_title"
+        android:layout_alignStart="@+id/schedule_title"
+        android:layout_marginLeft="238dp"
+        android:layout_marginStart="238dp" />
+
+
 </RelativeLayout>

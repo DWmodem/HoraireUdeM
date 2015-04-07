@@ -46,7 +46,6 @@ public class DetailsCourseActivity extends ActionBarActivity
 
     // Buttons
     private Button buttonNext;
-    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class DetailsCourseActivity extends ActionBarActivity
         dateDropView = (TextView) findViewById(R.id.course_drop_limit);
         dateDropLimitView = (TextView) findViewById(R.id.course_drop);
         buttonNext = (Button) findViewById(R.id.course_button_next);
-        buttonBack = (Button) findViewById(R.id.course_button_back);
 
         // Action Bar settings
         actionBar = getSupportActionBar();
@@ -149,13 +147,12 @@ public class DetailsCourseActivity extends ActionBarActivity
             dateCancellationView.setVisibility(View.GONE);
             dateDropView.setVisibility(View.GONE);
             dateDropLimitView.setVisibility(View.GONE);
-            buttonNext.setVisibility(View.GONE);
-            buttonBack.setVisibility(View.VISIBLE);
+            buttonNext.setText(R.string.course_button_back);
 
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
 
-            buttonBack.setOnClickListener(new View.OnClickListener() {
+            buttonNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onBackPressed();
@@ -165,11 +162,11 @@ public class DetailsCourseActivity extends ActionBarActivity
 
             description.setText(courseSection.getDescription());
             dateCancellation.setText(DateFormat.
-                    format(Config.PRINT_DATE_FORMAT, courseSection.getCancel()).toString());
+                    format(Config.PATTERN_FOR_PRINT_DATA, courseSection.getCancel()).toString());
             dateDrop.setText(DateFormat.
-                    format(Config.PRINT_DATE_FORMAT, courseSection.getDrop()).toString());
+                    format(Config.PATTERN_FOR_PRINT_DATA, courseSection.getDrop()).toString());
             dateDropLimit.setText(DateFormat.
-                    format(Config.PRINT_DATE_FORMAT, courseSection.getDropLimit()).toString());
+                    format(Config.PATTERN_FOR_PRINT_DATA, courseSection.getDropLimit()).toString());
 
             buttonNext.setOnClickListener(new View.OnClickListener() {
 

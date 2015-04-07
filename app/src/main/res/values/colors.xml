@@ -26,11 +26,11 @@
     <color name="button_text_color">#fff</color>
     <color name="input_search_color">#304FFE</color>
 
-    <color name="nav_background">#ffffffff</color>
-    <color name="nav_text_color">@color/body_text_1</color>
-    <color name="nav_text_color_selected">@color/theme_primary</color>
-    <color name="nav_icon_tint">#888</color>
-    <color name="nav_icon_tint_selected">@color/theme_primary</color>
+    <color name="navdrawer_background">#ffffffff</color>
+    <color name="navdrawer_text_color">@color/body_text_1</color>
+    <color name="navdrawer_text_color_selected">@color/theme_primary</color>
+    <color name="navdrawer_icon_tint">#888</color>
+    <color name="navdrawer_icon_tint_selected">@color/theme_primary</color>
 
     <color name="refresh_progress_1">@color/theme_accent_2</color>
     <color name="refresh_progress_2">@color/theme_accent_1</color>

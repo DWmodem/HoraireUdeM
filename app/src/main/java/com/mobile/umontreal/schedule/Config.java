@@ -1,5 +1,10 @@
 package com.mobile.umontreal.schedule;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by Corneliu on 25-Mar-2015.
  * General configuration
@@ -54,9 +59,35 @@ public class Config {
 
     // Shorthand for some units of time
     public static final String PARSING_DATE_FORMAT          = "yyyy-mm-dd";
-    public static final String PRINT_DATE_FORMAT            = "dd MMMM yyyy";
-    public static final String SCHEDULE_DATE_FORMAT         = "yyyy-mm-dd HH:mm";
+    public static final String PATTERN_FOR_PRINT_DATA       = "dd MMMM yyyy";
 
+    public static final String SCHEDULE_PATTERN_DATE_TIME   = "yyyy-mm-dd HH:mm";
+    public static final String SCHEDULE_PATTERN_DATE        = "yyyy-mm-dd";
+    public static final String SCHEDULE_PATTERN_HOUR        = "HH:mm";
+    public static final String SCHEDULE_PATTERN_DAY         = "E";
+
+    public static final Locale TIME_LOCALE_FR               = new Locale("fr", "FR");
+    public static final Locale TIME_LOCALE_EN               = new Locale("en", "US");
+
+    public static Date parsingDate(String date, String format) throws ParseException {
+//
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
+//        return dateFormat.parse(date);
+
+        SimpleDateFormat originalFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
+        SimpleDateFormat targetFormat = new SimpleDateFormat(format, TIME_LOCALE_EN);
+        Date dateOrignial = originalFormat.parse(date);
+        String dateTarged = targetFormat.format(dateOrignial);
+        return originalFormat.parse(dateTarged);
+
+    }
+
+    public String printDateTime (String pattern, Locale locale) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+        return simpleDateFormat.format(new Date());
+
+    }
 
     public static final long SECOND_MILLIS                  = 1000;
     public static final long MINUTE_MILLIS                  = 60 * SECOND_MILLIS;
@@ -67,15 +98,14 @@ public class Config {
     public static boolean isLoggedIn                        = false;
 
     //Google login constants
-    public static final int REQUEST_CODE_PICK_ACCOUNT      = 1000;
-    public static final int RESULT_OK                      = -1;
-    public static final int RESULT_CANCELED                = 0;
+    public static final int REQUEST_CODE_PICK_ACCOUNT       = 1000;
+    public static final int RESULT_OK                       = -1;
+    public static final int RESULT_CANCELED                 = 0;
 
     //User's google account email
     public static String userEmail;
 
     //Scope
     public static final String SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
-
 
 }

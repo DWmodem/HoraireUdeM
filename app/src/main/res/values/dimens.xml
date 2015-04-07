@@ -28,6 +28,7 @@
     <dimen name="padding_table_row">18dp</dimen>
     <dimen name="padding_button_layout_margin_size">18dp</dimen>
     <dimen name="padding_item_list_view">18dp</dimen>
+    <dimen name="padding_top_element">14dp</dimen>
 
 
 
