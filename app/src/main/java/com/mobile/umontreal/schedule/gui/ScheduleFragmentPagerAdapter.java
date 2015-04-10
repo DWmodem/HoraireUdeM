@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
+import com.mobile.umontreal.schedule.objects.SectionType;
 
 import java.util.List;
 
@@ -29,12 +30,12 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public int getCount() {
-        return tabNumber;
+         return tabNumber;
     }
 
 
     public Fragment getItem(int position) {
-        return ArrayListFragment.createNewFragmentToDisplay(position, scheduleList.get(position).getSchedule());
+         return ArrayListFragment.createNewFragmentToDisplay(position, scheduleList.get(position).getSchedule());
     }
 
 //    @Override
@@ -46,7 +47,10 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
 
         // Generate title based on item position
-        return tabTitles[position];
+        if (scheduleList.get(position).getCourseSection().getSectionType() == SectionType.Theory) {
+            return tabTitles[position];
+        } else {
+            return tabTitles[position];
+        }
     }
-
 }

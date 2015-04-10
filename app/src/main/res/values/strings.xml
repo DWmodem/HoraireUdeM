@@ -23,6 +23,8 @@
 
     <string name="schedule_theory">Theory</string>
     <string name="schedule_demo">Demo</string>
+    <string name="schedule_midterm">Midterm</string>
+    <string name="schedule_final">Final exam</string>
 
     <string name="action_calendar">Calendar</string>
     <string name="action_search" >Search</string>
@@ -45,12 +47,15 @@
     <string name="hello_world">Hello world!</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_stream">Stream</string>
     <string name="tab_messages">Messages</string>
     <string name="tab_notifications">Notifications</string>
     <string name="tab_photos">Photos</string>
-    <string name="title_activity_demo_fragment">DemoFragmentActivity</string>
+
+
+
+
+
 
 
 

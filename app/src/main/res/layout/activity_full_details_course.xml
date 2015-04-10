@@ -2,12 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingLeft="@dimen/table_row_padding_left"
     android:paddingRight="@dimen/table_row_padding_right"
     android:paddingTop="@dimen/table_row_padding_top"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.mobile.umontreal.schedule.CoursesActivity">
 
     <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_title_size"
+                android:layout_span="2"
                 android:textColor="@color/table_title_color"
                 android:padding="@dimen/padding_table_row"/>
 
@@ -58,10 +61,9 @@
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/schedule_viewer"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:background="@color/table_background_color"
                 android:layout_weight="1" />
 
         </TableRow>
@@ -80,7 +82,6 @@
                 android:textColor="@color/button_text_color"
                 android:gravity="center"
                 android:background="@color/button_background_color" />
-
 
         </TableRow>
 

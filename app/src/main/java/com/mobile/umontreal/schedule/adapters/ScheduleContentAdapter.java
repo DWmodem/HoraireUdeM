@@ -2,7 +2,6 @@ package com.mobile.umontreal.schedule.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
-        Log.v("ConvertView", String.valueOf(position));
 
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,13 +60,31 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
         }
 
         Schedule schedule = scheduleList.get(position);
+
+        String description = schedule.getDescription();
+
         holder.schedule_date.setText(
                 Config.printDateTime(Config.PATTERN_FOR_PRINT_DATA, schedule.getStartDate()));
         holder.schedule_hours.setText(
                 Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getStartHour()) + " - " +
                         Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getEndHour()));
         holder.schedule_local.setText(schedule.getLocation());
-        holder.schedule_prof.setText(schedule.getProfessor());
+
+        if (description.equals("Examen final")) {
+            convertView.setBackgroundResource(R.color.accent_color);
+            holder.schedule_prof.setText(R.string.schedule_final);
+        }
+        else if (description.equals("Examen intra")) {
+            convertView.setBackgroundResource(R.color.theme_accent_1_light);
+            holder.schedule_prof.setText(R.string.schedule_midterm);
+        }
+        else {
+            convertView.setBackgroundResource(R.color.window_background);
+            holder.schedule_prof.setText(schedule.getProfessor());
+
+        }
+
+
 
 
         return convertView;

@@ -29,6 +29,10 @@ public class CourseSectionSchedule {
         this.section = section;
     }
 
+    public CourseSection getCourseSection() {
+        return section;
+    }
+
     public Date getDateDebut() {
         return dateDebut;
     }
@@ -170,9 +174,6 @@ public class CourseSectionSchedule {
                 schedule.setEndHour(Config.parsingDate(endHour,
                         Config.SCHEDULE_PATTERN_HOUR));
 
-//                schedule.setDay(Config.parsingDate(getWeek(day),
-//                        Config.SCHEDULE_PATTERN_DAY));
-
                 schedule.setProfessor(prof);
                 schedule.setLocation(local);
                 schedule.setDescription(scheduleDescription);
@@ -185,29 +186,6 @@ public class CourseSectionSchedule {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private String getWeek(String date) {
-
-        String week ="";
-
-        if (date.equals("lundi")) {
-            week ="Monday";
-        } else if (date.equals("mardi")) {
-            week ="Tuesday";
-        } else if (date.equals("mercredi")) {
-            week ="Wednesday";
-        } else if (date.equals("jeudi")) {
-            week ="Thursday";
-        } else if (date.equals("vendredi")) {
-            week ="Friday";
-        } else if (date.equals("samedi")) {
-            week ="Saturday";
-        } else {
-            week ="Sunday";
-        }
-
-        return week;
     }
 
     @Override
