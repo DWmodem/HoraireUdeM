@@ -30,6 +30,13 @@
     <dimen name="padding_item_list_view">18dp</dimen>
     <dimen name="padding_top_element">14dp</dimen>
 
+    <dimen name="margin_bottom_view_pager">48dp</dimen>
+
+    <dimen name="title_height">48dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="search_height">48dp</dimen>
+    <dimen name="schedule_height">78dp</dimen>
+
 
 
 

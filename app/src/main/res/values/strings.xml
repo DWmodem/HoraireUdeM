@@ -18,7 +18,8 @@
 
     <string name="course_button_next">+Follow</string>
     <string name="course_button_back">Back</string>
-    <string name="course_button_add">+</string>
+    <string name="course_button_add">Add the course</string>
+    <string name="course_button_edit">Edit</string>
 
     <string name="schedule_theory">Theory</string>
     <string name="schedule_demo">Demo</string>

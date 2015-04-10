@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.objects.Schedule;
 
@@ -34,9 +34,9 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
     private class ViewHolder {
         TextView schedule_date;
-        TextView schedule_title;
-        TextView schedule_description;
-        CheckBox schedule_check;
+        TextView schedule_hours;
+        TextView schedule_local;
+        TextView schedule_prof;
     }
 
     @Override
@@ -51,11 +51,10 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
             holder = new ViewHolder();
             holder.schedule_date = (TextView) convertView.findViewById(R.id.schedule_date);
-            holder.schedule_title = (TextView) convertView.findViewById(R.id.schedule_title);
-            holder.schedule_description = (TextView) convertView.findViewById(R.id.schedule_description);
-            holder.schedule_check = (CheckBox) convertView.findViewById(R.id.schedule_check);
+            holder.schedule_hours = (TextView) convertView.findViewById(R.id.schedule_hours);
+            holder.schedule_local = (TextView) convertView.findViewById(R.id.schedule_local);
+            holder.schedule_prof = (TextView) convertView.findViewById(R.id.schedule_prof);
             convertView.setTag(holder);
-
 
         }
         else {
@@ -63,8 +62,13 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
         }
 
         Schedule schedule = scheduleList.get(position);
-        holder.schedule_title.setText(" (" +  schedule.getProfessor() + ")");
-        holder.schedule_description.setText(schedule.getLocation());
+        holder.schedule_date.setText(
+                Config.printDateTime(Config.PATTERN_FOR_PRINT_DATA, schedule.getStartDate()));
+        holder.schedule_hours.setText(
+                Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getStartHour()) + " - " +
+                        Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getEndHour()));
+        holder.schedule_local.setText(schedule.getLocation());
+        holder.schedule_prof.setText(schedule.getProfessor());
 
 
         return convertView;

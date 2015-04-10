@@ -82,10 +82,10 @@ public class Config {
 
     }
 
-    public String printDateTime (String pattern, Locale locale) {
+    public static String printDateTime (String pattern, Date date) {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
-        return simpleDateFormat.format(new Date());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        return simpleDateFormat.format(date);
 
     }
 

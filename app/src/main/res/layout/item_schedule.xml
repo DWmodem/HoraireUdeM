@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:padding="6dip" >
+        android:layout_height="@dimen/schedule_height"
+        android:padding="6dip">
 
         <TextView
             android:id="@+id/schedule_date"
-            android:text="Tomorrow"
+            android:text="2014-09-04"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/schedule_height"
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:gravity="center|top"
@@ -16,40 +17,38 @@
             android:layout_marginRight="7dip" />
 
         <TextView
-            android:id="@+id/schedule_title"
-            android:layout_width="fill_parent"
-            android:layout_height="26dip"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/schedule_hours"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/schedule_date"
+            android:gravity="center_vertical"
+            android:text="Hours"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/schedule_local"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/schedule_hours"
             android:layout_toRightOf="@id/schedule_date"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="Description"
+            android:text="Local"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/schedule_description"
-            android:layout_width="wrap_content"
+            android:id="@+id/schedule_prof"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/schedule_title"
+            android:layout_below="@id/schedule_local"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignWithParentIfMissing="true"
             android:layout_toRightOf="@id/schedule_date"
-            android:gravity="center_vertical"
-            android:text="Example application"
-            android:textSize="16sp" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/schedule_check"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/schedule_title"
-        android:layout_alignStart="@+id/schedule_title"
-        android:layout_marginLeft="238dp"
-        android:layout_marginStart="238dp" />
-
+            android:singleLine="true"
+            android:text="Prof"
+            android:textSize="12sp" />
 
 </RelativeLayout>

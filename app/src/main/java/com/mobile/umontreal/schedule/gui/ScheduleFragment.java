@@ -57,7 +57,7 @@ public class ScheduleFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_schedule, container, false);
 
-        TextView scheduleTitle = (TextView) view.findViewById(R.id.schedule_title);
+        TextView scheduleTitle = (TextView) view.findViewById(R.id.schedule_prof);
         scheduleTitle.setText("Title plus dddddddddd" + getArguments().toString());
         return view;
     }

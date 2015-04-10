@@ -48,7 +48,7 @@ public class ContentFragment extends Fragment {
         Bundle args = getArguments();
 
         if (args != null) {
-            TextView title = (TextView) view.findViewById(R.id.schedule_title);
+            TextView title = (TextView) view.findViewById(R.id.schedule_prof);
             title.setText("Title: " + args.getCharSequence(KEY_TITLE));
 
             int indicatorColor = args.getInt(KEY_INDICATOR_COLOR);
@@ -57,7 +57,7 @@ public class ContentFragment extends Fragment {
             indicatorColorView.setTextColor(indicatorColor);
 
             int dividerColor = args.getInt(KEY_DIVIDER_COLOR);
-            TextView dividerColorView = (TextView) view.findViewById(R.id.schedule_description);
+            TextView dividerColorView = (TextView) view.findViewById(R.id.schedule_local);
             dividerColorView.setText("Divider: #" + Integer.toHexString(dividerColor));
             dividerColorView.setTextColor(dividerColor);
         }

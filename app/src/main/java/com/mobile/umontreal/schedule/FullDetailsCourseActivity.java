@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -35,6 +36,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     // Action bar
     private ActionBar actionBar;
 
+
     private ArrayList<String> sectionList;
     private ArrayList<CourseSectionSchedule> courseScheduleList;
 
@@ -42,6 +44,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     private Context mContext;
     private Vector<View> pages;
     private ViewPager viewPager;
+    private TextView courseTitle;
 
     private Integer callback_count = 0;
     private String[] tabs;
@@ -53,39 +56,15 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         mContext = this;
         pages = new Vector<View>();
 
-
         // Action Bar settings
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
 
+        // Set name of course
+        courseTitle = (TextView) findViewById(R.id.course_title);
+
         InitializeTabStrip();
-
-
-//        // Attach the page change listener to tab strip and **not** the view pager inside the activity
-//        tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//
-//            // This method will be invoked when a new page becomes selected.
-//            @Override
-//            public void onPageSelected(int position) {
-//                Toast.makeText(FullDetailsCourseActivity.this,
-//                        "Selected page position: " + position, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            // This method will be invoked when the current page is scrolled
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                // Code goes here
-//            }
-//
-//            // Called when the scroll state changes:
-//            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//                // Code goes here
-//            }
-//
-//        });
     }
 
     private void InitializeTabStrip() {
@@ -99,6 +78,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 //        // Get the ViewPager and set it's PagerAdapter so that it can display items
 //        viewPager = (ViewPager) findViewById(R.id.schedule_viewer);
         sectionList = extras.getStringArrayList(Config.JSON_SECTIONS);
+        courseTitle.setText(extras.getString(Config.JSON_COURSE_TITLE));
 
         if (sectionList.size() > 0) {
 
@@ -109,6 +89,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
             // Build a URL for json file
             String url;
+//            String tabTitle = this.getResources().getString(R.string.course_section);
 
             for (int i = 0; i < sectionList.size(); i++) {
 
@@ -139,22 +120,36 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
         // Give the PagerSlidingTabStrip the ViewPager
         PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        tabsStrip.setIndicatorColorResource(R.color.color_primary);
+        tabsStrip.setIndicatorColorResource(R.color.white);
         tabsStrip.setDividerColorResource(R.color.white);
         tabsStrip.setViewPager(viewPager);
 
-//        //        Attach the view pager to the tab strip
-//        for (int i = 0; i < pages.size(); i++) {
-//
-//            ListView view = (ListView) pages.get(i);
-//
-//            view.setAdapter(
-//                    new ScheduleContentAdapter(mContext, this,
-//                            android.R.layout.simple_list_item_1,
-//                            courseScheduleList.get(i).getSchedule()));
-//
-//            pages.setElementAt(view, i);
-//        }
+
+
+        // Attach the page change listener to tab strip and **not** the view pager inside the activity
+        tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            // This method will be invoked when a new page becomes selected.
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(FullDetailsCourseActivity.this,
+                        "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            // This method will be invoked when the current page is scrolled
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Code goes here
+            }
+
+            // Called when the scroll state changes:
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Code goes here
+            }
+
+        });
     }
 
 
@@ -193,32 +188,25 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     public void OnCallback(UDMJsonData data) {
 
         // Convert JSON to object. Sort the list.
-
-        int i = 0;
-
         try {
-            for (JSONObject csc : data.getItems()) {
-
+            for (JSONObject csc : data.getItems())
                 courseScheduleList.add(new CourseSectionSchedule(csc));
-            }
+
+            if ((-- callback_count)<= 0)
+                InitializeListViews();
+
         }
         catch (JSONException e)
         {
             e.printStackTrace();
         }
 
-        if (courseScheduleList.size() == 0) {
+        if (callback_count == 0 && courseScheduleList.size() == 0) {
 
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
 
-        } else {
-
-            Toast.makeText(getApplicationContext(), "" + courseScheduleList.size(),
-                    Toast.LENGTH_LONG).show();
         }
-        if ((-- callback_count)<= 0)
-            InitializeListViews();
     }
 
     @Override

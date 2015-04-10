@@ -15,23 +15,20 @@ import java.util.List;
  * Created by Corneliu on 06-Apr-2015.
  */
 public class ArrayListFragment extends ListFragment {
+
     private int mNum;
     List<Schedule> scheduleList;
 
     private ArrayListFragment(List<Schedule> scheduleList){
         this.scheduleList = scheduleList;
+        this.mNum = scheduleList.size();
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        get this fragment's number
-        if (getArguments() != null) {
-            mNum = getArguments().getInt("num");
-        } else {
-            mNum = 1;
-        }
+
     }
 
     /**
@@ -60,6 +57,6 @@ public class ArrayListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Toast.makeText(getActivity(), "List " + (mNum + 1) + " selected item: " + (position + 1), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "List " + (mNum + 1) + " selected item: " + (position + 1), Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/table_row_padding_right"
     android:paddingTop="@dimen/table_row_padding_top"
     android:paddingBottom="@dimen/table_row_padding_bottom"
-    tools:context="com.mobile.umontreal.schedule.CoursesActivity">
+    tools:context="com.mobile.umontreal.schedule.CoursesActivity"
+    android:gravity="left|center_vertical">
 
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

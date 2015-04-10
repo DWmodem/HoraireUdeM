@@ -181,6 +181,7 @@ public class DetailsCourseActivity extends ActionBarActivity
                     intent.putExtra(Config.JSON_COURSE_NUM, extras.getString(Config.JSON_COURSE_NUM));
                     intent.putExtra(Config.JSON_SESSION, extras.getString(Config.JSON_SESSION));
                     intent.putExtra(Config.JSON_SECTIONS, courseSection.getSectionList());
+                    intent.putExtra(Config.JSON_COURSE_TITLE, extras.getString(Config.JSON_COURSE_TITLE));
                     startActivity(intent);
                 }
             });
