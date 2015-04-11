@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 import com.mobile.umontreal.schedule.objects.SectionType;
 
@@ -19,6 +20,8 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private int tabNumber;
     private String[] tabTitles;
     private Context context;
+    private int tabIcons[] = {R.mipmap.ic_lab, R.mipmap.ic_exam, R.mipmap.ic_theory};
+
     List<CourseSectionSchedule> scheduleList;
 
     public ScheduleFragmentPagerAdapter(FragmentManager fragmentManager, String[] tabTitles, List<CourseSectionSchedule> scheduleList) {
@@ -38,12 +41,6 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
          return ArrayListFragment.createNewFragmentToDisplay(position, scheduleList.get(position).getSchedule());
     }
 
-//    @Override
-//    public ListFragment getItem(int position) {
-//        return ScheduleFragment.createNewFragmentToDisplay(position);
-//    }
-
-//    @Override
     public CharSequence getPageTitle(int position) {
 
         // Generate title based on item position
@@ -53,4 +50,5 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
             return tabTitles[position];
         }
     }
+
 }

@@ -43,7 +43,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     /** Called when the activity is first created. */
     private Context mContext;
     private Vector<View> pages;
-    private ViewPager viewPager;
+    private TextView courseCurrentSection;
     private TextView courseTitle;
 
     private Integer callback_count = 0;
@@ -63,6 +63,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
         // Set name of course
         courseTitle = (TextView) findViewById(R.id.course_title);
+        courseCurrentSection = (TextView) findViewById(R.id.course_section);
 
         InitializeTabStrip();
     }
@@ -83,6 +84,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         if (sectionList.size() > 0) {
 
             courseScheduleList  = new ArrayList<CourseSectionSchedule>();
+            courseCurrentSection.setText(getString(R.string.course_section) + ": " +
+                    sectionList.get(0));
 
             // Build a the tabs
             tabs = new String[sectionList.size()];
@@ -123,8 +126,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         tabsStrip.setIndicatorColorResource(R.color.white);
         tabsStrip.setDividerColorResource(R.color.white);
         tabsStrip.setViewPager(viewPager);
-
-
+        tabsStrip.setShouldExpand(true);
 
         // Attach the page change listener to tab strip and **not** the view pager inside the activity
         tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -132,6 +134,11 @@ public class FullDetailsCourseActivity extends ActionBarActivity
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
+
+                if (sectionList.get(position).length() == 1) {
+                    courseCurrentSection.setText(getString(R.string.course_section) + ": " +
+                            sectionList.get(position));
+                }
 
             }
 

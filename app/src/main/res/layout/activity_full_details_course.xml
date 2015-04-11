@@ -27,15 +27,37 @@
             android:background="@color/table_title_background_color">
             <TextView
                 android:id="@+id/course_title"
+                android:paddingLeft="@dimen/padding_table_row"
+                android:paddingTop="@dimen/padding_table_row"
+                android:textStyle="bold"
                 android:text="@string/course_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_title_size"
-                android:layout_span="2"
-                android:textColor="@color/table_title_color"
-                android:padding="@dimen/padding_table_row"/>
+                android:textColor="@color/table_title_color"/>
 
         </TableRow>
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="left"
+            android:background="@color/table_title_background_color">
+
+            <TextView
+                android:id="@+id/course_section"
+                android:paddingLeft="@dimen/padding_table_row"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:text="@string/course_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_description_size"
+                android:textStyle="bold"
+                android:textColor="@color/theme_accent_1"/>
+
+        </TableRow>
+
 
         <TableRow>
 
