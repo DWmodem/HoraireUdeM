@@ -6,9 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
-import com.mobile.umontreal.schedule.objects.SectionType;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private int tabNumber;
     private String[] tabTitles;
     private Context context;
-    private int tabIcons[] = {R.mipmap.ic_lab, R.mipmap.ic_exam, R.mipmap.ic_theory};
+//    private int tabIcons[] = {R.mipmap.ic_lab, R.mipmap.ic_exam, R.mipmap.ic_theory};
 
     List<CourseSectionSchedule> scheduleList;
 
@@ -43,11 +41,15 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     public CharSequence getPageTitle(int position) {
 
+        CharSequence section = tabTitles[position].substring(0, 1);
+
         // Generate title based on item position
-        if (scheduleList.get(position).getCourseSection().getSectionType() == SectionType.Theory) {
+        // scheduleList.get(position).getCourseSection().getSectionType() == SectionType.Theory
+        if (tabTitles[position].length() == 1) {
             return tabTitles[position];
         } else {
-            return tabTitles[position];
+            return scheduleList.get(position).getSchedule().get(0).getDescription() +
+                    " ( " + tabTitles[position] + " )";
         }
     }
 

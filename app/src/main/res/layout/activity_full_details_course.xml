@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/table_row_padding_right"
     android:paddingTop="@dimen/table_row_padding_top"
     android:orientation="vertical"
-    tools:context="com.mobile.umontreal.schedule.CoursesActivity">
+    tools:context="com.mobile.umontreal.schedule.FullDetailsCourseActivity">
 
     <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -103,7 +103,14 @@
                 android:textSize="@dimen/text_button_size"
                 android:textColor="@color/button_text_color"
                 android:gravity="center"
-                android:background="@color/button_background_color" />
+                android:background="@color/button_background_color"
+                android:onClick="buttonClick" />
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/sample_content_fragment"-->
+                <!--android:layout_span="2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="0px" />-->
 
         </TableRow>
 

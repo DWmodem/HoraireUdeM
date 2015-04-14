@@ -1,6 +1,7 @@
 package com.mobile.umontreal.schedule;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
 import com.mobile.umontreal.schedule.gui.ScheduleFragmentPagerAdapter;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
@@ -28,7 +30,7 @@ import java.util.Vector;
 
 
 public class FullDetailsCourseActivity extends ActionBarActivity
-        implements ActionBar.OnNavigationListener, Callable {
+        implements ActionBar.OnNavigationListener, Callable{
 
     // Log view class
     private String LOG_TAG = FullDetailsCourseActivity.class.getSimpleName();
@@ -36,6 +38,9 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     // Action bar
     private ActionBar actionBar;
 
+    // Data Base
+    UDMDatabaseManager dbh;
+    SQLiteDatabase db;
 
     private ArrayList<String> sectionList;
     private ArrayList<CourseSectionSchedule> courseScheduleList;
@@ -52,6 +57,13 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_details_course);
+//
+//        if (savedInstanceState == null) {
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            FloatingActionButtonBasicFragment fragment = new FloatingActionButtonBasicFragment();
+//            transaction.replace(R.id.sample_content_fragment, fragment);
+//            transaction.commit();
+//        }
 
         mContext = this;
         pages = new Vector<View>();
@@ -134,12 +146,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
-
-                if (sectionList.get(position).length() == 1) {
                     courseCurrentSection.setText(getString(R.string.course_section) + ": " +
-                            sectionList.get(position));
-                }
-
+                            sectionList.get(position).substring(0, 1));
             }
 
             // This method will be invoked when the current page is scrolled
@@ -219,4 +227,16 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     public boolean onNavigationItemSelected(int i, long l) {
         return false;
     }
+
+    public void buttonClick(View v) {
+
+       dbh = new  UDMDatabaseManager(mContext);
+
+
+
+
+
+    }
+
+
 }

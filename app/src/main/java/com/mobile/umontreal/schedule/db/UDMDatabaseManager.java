@@ -1,9 +1,13 @@
 package com.mobile.umontreal.schedule.db;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.HashMap;
 
 /**
  * Created by Philippe on 13/03/2015.
@@ -101,4 +105,50 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.execSQL("drop table if exists "+TABLE_PERIODECOURS);
         onCreate(db);
     }
+
+    public void insertData(HashMap<String, String> queryValues, String tableName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        for (HashMap.Entry<String, String> entry : queryValues.entrySet())
+        {
+            contentValues.put(entry.getKey(), entry.getValue());
+        }
+
+        db.insert(tableName, null, contentValues);
+        db.close();
+    }
+
+    public Cursor getData(int id, String tableName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "SELECT * FROM " + tableName + " WHERE "
+                        + tableName.substring(6,1)+"_ID = ? ",
+                        new String[] { Integer.toString(id) });
+        return res;
+    }
+
+    public boolean updateData (Integer id, HashMap<String, String> queryValues, String tableName)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        for (HashMap.Entry<String, String> entry : queryValues.entrySet()) {
+            contentValues.put(entry.getKey(), entry.getValue());
+        }
+
+        db.update(tableName, contentValues,
+                tableName.substring(6,1)+"_ID= ? ",
+                new String[] { Integer.toString(id) } );
+        return true;
+    }
+
+    public Integer deleteData (Integer id, String tableName)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(tableName,
+                tableName.substring(6,1)+"_ID = ? ",
+                new String[] { Integer.toString(id) });
+    }
+
 }
