@@ -71,14 +71,14 @@ public class Config {
 
     public static Date parsingDate(String date, String format) throws ParseException {
 //
-//        SimpleDateFormat dateFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
-//        return dateFormat.parse(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CANADA_FRENCH);
+        return dateFormat.parse(date);
 
-        SimpleDateFormat originalFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
-        SimpleDateFormat targetFormat = new SimpleDateFormat(format, TIME_LOCALE_EN);
-        Date dateOrignial = originalFormat.parse(date);
-        String dateTarged = targetFormat.format(dateOrignial);
-        return originalFormat.parse(dateTarged);
+//        SimpleDateFormat originalFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
+//        SimpleDateFormat targetFormat = new SimpleDateFormat(format, TIME_LOCALE_EN);
+//        Date dateOrignial = originalFormat.parse(date);
+//        String dateTarged = targetFormat.format(dateOrignial);
+//        return originalFormat.parse(dateTarged);
 
     }
 

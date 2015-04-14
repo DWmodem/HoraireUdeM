@@ -65,6 +65,7 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
         holder.schedule_date.setText(
                 Config.printDateTime(Config.PATTERN_FOR_PRINT_DATA, schedule.getStartDate()));
+
         holder.schedule_hours.setText(
                 Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getStartHour()) + " - " +
                         Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getEndHour()));
