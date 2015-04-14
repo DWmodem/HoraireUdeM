@@ -58,11 +58,11 @@ public class Config {
     public static final String JSON_SCHEDULE_DESCRIPTION    = "description";
 
     // Shorthand for some units of time
-    public static final String PARSING_DATE_FORMAT          = "yyyy-mm-dd";
+    public static final String PARSING_DATE_FORMAT          = "yyyy-MM-dd";
     public static final String PATTERN_FOR_PRINT_DATA       = "dd MMMM yyyy";
 
-    public static final String SCHEDULE_PATTERN_DATE_TIME   = "yyyy-mm-dd HH:mm";
-    public static final String SCHEDULE_PATTERN_DATE        = "yyyy-mm-dd";
+    public static final String SCHEDULE_PATTERN_DATE_TIME   = "yyyy-MM-dd HH:mm";
+    public static final String SCHEDULE_PATTERN_DATE        = "yyyy-MM-dd";
     public static final String SCHEDULE_PATTERN_HOUR        = "HH:mm";
     public static final String SCHEDULE_PATTERN_DAY         = "E";
 
@@ -71,14 +71,14 @@ public class Config {
 
     public static Date parsingDate(String date, String format) throws ParseException {
 //
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CANADA_FRENCH);
-        return dateFormat.parse(date);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CANADA_FRENCH);
+//        return dateFormat.parse(date);
 
-//        SimpleDateFormat originalFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
-//        SimpleDateFormat targetFormat = new SimpleDateFormat(format, TIME_LOCALE_EN);
-//        Date dateOrignial = originalFormat.parse(date);
-//        String dateTarged = targetFormat.format(dateOrignial);
-//        return originalFormat.parse(dateTarged);
+        SimpleDateFormat originalFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
+        SimpleDateFormat targetFormat = new SimpleDateFormat(format, TIME_LOCALE_EN);
+        Date dateOrignial = originalFormat.parse(date);
+        String dateTarged = targetFormat.format(dateOrignial);
+        return originalFormat.parse(dateTarged);
 
     }
 
