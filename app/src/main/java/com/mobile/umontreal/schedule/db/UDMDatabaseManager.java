@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.mobile.umontreal.schedule.objects.Course;
+import com.mobile.umontreal.schedule.objects.CourseSection;
+import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
+
 import java.util.HashMap;
 
 /**
@@ -50,6 +54,12 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     static final String P_LOCAL = "local";
     static final String P_PROF = "prof";
     static final String P_DESCRIPTION = "description";
+
+
+    //The unique IDs for the database to manage
+    static int periodeCoursID;
+    static int coursID;
+    static int departmentID;
 
     public UDMDatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -149,6 +159,26 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         return db.delete(tableName,
                 tableName.substring(6,1)+"_ID = ? ",
                 new String[] { Integer.toString(id) });
+    }
+    public int getCoursePeriodID(){
+
+        periodeCoursID++;
+        return periodeCoursID;
+    }
+    public void addCoursePeriod(CourseSectionSchedule course)
+    {
+        String query = "INSERT INTO PERIODECOURS VALUES (" +getCoursePeriodID()+", " +
+                                                        "";
+
+ /*       +P_ID+" integer, "
+                +P_DATE+" text, "
+                +P_JOUR+" text, "
+                +P_HEUREDEBUT+" text, "
+                +P_HEUREFIN+" text, "
+                +P_LOCAL+" text, "
+                +P_PROF+" text, "
+                +P_DESCRIPTION+" text, " */
+
     }
 
 }

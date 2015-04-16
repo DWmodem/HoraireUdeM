@@ -1,6 +1,7 @@
 package com.mobile.umontreal.schedule;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.adapters.SessionNavigationAdapter;
+import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.ConnectionDetector;
 import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
@@ -32,9 +34,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
+//Departments activity is the start launch activity
 public class DepartmentsActivity extends ActionBarActivity
         implements ActionBar.OnNavigationListener, Callable {
+
+    // Data Base
+    UDMDatabaseManager dbh;
+    SQLiteDatabase db;
 
     // Log view class
     private String LOG_TAG = DepartmentsActivity.class.getSimpleName();
@@ -58,6 +64,13 @@ public class DepartmentsActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        // Connection to DataBase
+        dbh = new UDMDatabaseManager(this);
+        db = dbh.getWritableDatabase();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departments);
 

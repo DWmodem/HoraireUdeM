@@ -25,9 +25,7 @@ public class MainActivity extends ListActivity {
 
     private ProgressDialog pDialog;
 
-    // Data Base
-    UDMDatabaseManager dbh;
-    SQLiteDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +33,7 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Connection DataBase
-        dbh = new UDMDatabaseManager(this);
-        db = dbh.getWritableDatabase();
+
 
         Toast.makeText(this, "App started", Toast.LENGTH_SHORT).show();
         Log.d(LOG_TAG,"App started" );

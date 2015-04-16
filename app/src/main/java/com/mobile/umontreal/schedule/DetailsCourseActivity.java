@@ -172,6 +172,8 @@ public class DetailsCourseActivity extends ActionBarActivity
 
                 public void onClick(View v) {
 
+                    Toast.makeText(getApplicationContext(), "Follow + clicked",
+                            Toast.LENGTH_SHORT).show();
                     Bundle extras = getIntent().getExtras();
                     // Launching new Activity
                     Intent intent = new Intent(getApplicationContext(), FullDetailsCourseActivity.class);

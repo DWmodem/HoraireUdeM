@@ -112,11 +112,13 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
                     tabs[i] = sectionList.get(i);
 
+                    //Get the file containing the relevant data
                     url = Config.URL_API_UDEM +
-                            tagSession + "-" +
-                            tagAcronym.toLowerCase() + "-" +
-                            tagCourseNum + "-" +
-                            tabs[i].toUpperCase() + ".json";
+                            tagSession + "-" +                      //Eg: H15
+                            tagAcronym.toLowerCase() + "-" +        //Eg: ift
+                            tagCourseNum + "-" +                    //Eg: 1015
+                            tabs[i].toUpperCase() + ".json";        //Eg: A102      ----> H15-ift-1015-A102.json
+
 
                     UDMJsonData data = new UDMJsonData(url);
                     data.execute(this);
@@ -231,6 +233,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     public void buttonClick(View v) {
 
        dbh = new  UDMDatabaseManager(mContext);
+        Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  ",
+                Toast.LENGTH_SHORT).show();
 
 
 
