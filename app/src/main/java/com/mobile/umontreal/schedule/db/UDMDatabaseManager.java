@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.mobile.umontreal.schedule.objects.Course;
-import com.mobile.umontreal.schedule.objects.CourseSection;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 
 import java.util.HashMap;
@@ -140,6 +138,12 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                         + tableName.substring(6,1)+"_ID = ? ",
                         new String[] { Integer.toString(id) });
         return res;
+    }
+
+    public boolean isEmpty(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery("SELECT * FROM COURS", null);
+        return res.getCount() == 0 ? false : true;
     }
 
     public boolean updateData (Integer id, HashMap<String, String> queryValues, String tableName)

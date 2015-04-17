@@ -1,5 +1,6 @@
 package com.mobile.umontreal.schedule;
 
+<<<<<<< Updated upstream
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -56,11 +57,25 @@ public class ScheduleActivity extends ActionBarActivity implements  AdapterView.
 
     Cursor ListeCours;
     Cursor ListeHoraire;
+=======
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.mobile.umontreal.schedule.misc.MenuHelper;
+
+
+public class ScheduleActivity extends ActionBarActivity
+        implements ActionBar.OnNavigationListener {
+>>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+<<<<<<< Updated upstream
         //listCours= (ListView)findViewById(R.id.expandableListView);
         Log.d("Start horaire","Horaire est partie");
         //on charge la base de donner et on donne les droits d'écrire
@@ -181,4 +196,24 @@ public class ScheduleActivity extends ActionBarActivity implements  AdapterView.
 
     }*/
 
+=======
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+          return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int i, long l) {
+        return false;
+    }
+>>>>>>> Stashed changes
 }
