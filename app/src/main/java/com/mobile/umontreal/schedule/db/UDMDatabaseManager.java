@@ -175,23 +175,22 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         String[] columns = {UDMDatabaseManager.P_ID};
         Cursor cursor = db.query(UDMDatabaseManager.TABLE_PERIODECOURS, columns, null, null, null, null, null);
         int pcID = 0;
-        while(cursor.moveToNext()){
+    while(cursor.moveToNext()){
 
-            int IDcolumnIndex = cursor.getColumnIndex(UDMDatabaseManager.P_ID);
+        int IDcolumnIndex = cursor.getColumnIndex(UDMDatabaseManager.P_ID);
 
-            //Get the ID of this row
-            int currentID = cursor.getInt(IDcolumnIndex);
+        //Get the ID of this row
+        int currentID = cursor.getInt(IDcolumnIndex);
 
-            //Keep this value if it is the max
-            if(currentID >= pcID){
-                pcID = currentID;
-            }
+        //Keep this value if it is the max
+        if(currentID >= pcID){
+            pcID = currentID;
         }
-        return pcID;
     }
+    return pcID;
+}
 
-
-    public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
+   public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
     {
 
         int nextID = getCoursePeriodID(db);

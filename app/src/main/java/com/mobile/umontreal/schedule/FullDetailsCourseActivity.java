@@ -171,6 +171,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
 
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
