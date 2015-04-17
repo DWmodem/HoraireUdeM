@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.R;
+import com.mobile.umontreal.schedule.ScheduleActivity;
 import com.mobile.umontreal.schedule.SettingsActivity;
 import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 
@@ -103,6 +104,8 @@ public class MenuHelper {
             }
             case R.id.action_schedule:
             {
+                Intent myIntent= new Intent(activity, ScheduleActivity.class);
+                activity.startActivity(myIntent);
                 Toast.makeText(context, "Schedule Item clicked", Toast.LENGTH_SHORT).show();
                 Log.d("MENUITEM", "Schedule has been run");
                 return true;
@@ -144,6 +147,7 @@ public class MenuHelper {
                 GoogleIntegrationManager.loginAction(activity);
                 return true;
             }
+
             default:
             {
 

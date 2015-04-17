@@ -44,7 +44,16 @@
     <string name="search_department">Search department</string>
     <string name="search_course">Search course</string>
 
+    <string name="Sigle_Cours"> Sigle+cours</string>
+    <string name="Teacher">Teacher:</string>
+    <string name="Groupe">Group:</string>
+    <string name="Next_Class"> Next Class:</string>
+
+
+    <string name="Cours_Activity">Cours</string>
     <string name="hello_world">Hello world!</string>
+
+
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="tab_stream">Stream</string>

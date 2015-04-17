@@ -49,6 +49,8 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     static final String P_ID = "_pid";
     static final String P_DATE = "date";
     static final String P_JOUR = "jour";
+    static final String P_SIGLE = "_sigle";
+    static final String P_COURSNUM = "_coursnum";
     static final String P_HEUREDEBUT = "heuredebut";
     static final String P_HEUREFIN = "heurefin";
     static final String P_LOCAL = "local";
@@ -93,6 +95,8 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 +P_ID+" integer, "
                 +P_DATE+" text, "
                 +P_JOUR+" text, "
+                +P_SIGLE + " text, "
+                +P_COURSNUM +" text, "
                 +P_HEUREDEBUT+" text, "
                 +P_HEUREFIN+" text, "
                 +P_LOCAL+" text, "

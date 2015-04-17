@@ -239,6 +239,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     public void buttonClick(View v) {
 
        dbh = new  UDMDatabaseManager(mContext);
+
+
         Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  ",
                 Toast.LENGTH_SHORT).show();
 
