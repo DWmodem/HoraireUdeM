@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 
@@ -48,6 +49,8 @@ public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
         if (tabTitles[position].length() == 1) {
             return tabTitles[position];
         } else {
+
+
             return scheduleList.get(position).getSchedule().get(0).getDescription() +
                     " ( " + tabTitles[position] + " )";
         }

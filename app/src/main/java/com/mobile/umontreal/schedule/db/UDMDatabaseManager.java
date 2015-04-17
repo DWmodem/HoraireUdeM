@@ -56,6 +56,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     static final String P_DESCRIPTION = "description";
 
 
+
     //The unique IDs for the database to manage
     static int periodeCoursID;
     static int coursID;
@@ -103,9 +104,8 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.execSQL(departementTableCreationQuery);
         db.execSQL(coursTableCreationQuery);
         db.execSQL(periodecoursTableCreationQuery);
+
         Log.d("DB", "DB created");
-
-
     }
 
     @Override
@@ -160,14 +160,34 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 tableName.substring(6,1)+"_ID = ? ",
                 new String[] { Integer.toString(id) });
     }
-    public int getCoursePeriodID(){
 
-        periodeCoursID++;
-        return periodeCoursID;
+    //Returns the next period ID needed into the database
+    public int getCoursePeriodID(SQLiteDatabase db){
+
+        String[] columns = {UDMDatabaseManager.P_ID};
+        Cursor cursor = db.query(UDMDatabaseManager.TABLE_PERIODECOURS, columns, null, null, null, null, null);
+        int pcID = 0;
+        while(cursor.moveToNext()){
+
+            int IDcolumnIndex = cursor.getColumnIndex(UDMDatabaseManager.P_ID);
+
+            //Get the ID of this row
+            int currentID = cursor.getInt(IDcolumnIndex);
+
+            //Keep this value if it is the max
+            if(currentID >= pcID){
+                pcID = currentID;
+            }
+        }
+        return pcID;
     }
-    public void addCoursePeriod(CourseSectionSchedule course)
+
+
+    public void addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
     {
-        String query = "INSERT INTO PERIODECOURS VALUES (" +getCoursePeriodID()+", " +
+
+        int nextID = getCoursePeriodID(db);
+        String query = "INSERT INTO PERIODECOURS VALUES (" +", " +
                                                         "";
 
  /*       +P_ID+" integer, "

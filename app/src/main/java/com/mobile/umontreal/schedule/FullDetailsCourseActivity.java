@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -205,8 +206,13 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
         // Convert JSON to object. Sort the list.
         try {
-            for (JSONObject csc : data.getItems())
-                courseScheduleList.add(new CourseSectionSchedule(csc));
+            for (JSONObject csc : data.getItems()){
+                CourseSectionSchedule theCourseSection = new CourseSectionSchedule(csc);
+                courseScheduleList.add(theCourseSection);
+
+            }
+
+
 
             if ((-- callback_count)<= 0)
                 InitializeListViews();
