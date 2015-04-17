@@ -183,12 +183,23 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     }
 
 
-    public void addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
+    public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
     {
 
         int nextID = getCoursePeriodID(db);
-        String query = "INSERT INTO PERIODECOURS VALUES (" +", " +
-                                                        "";
+        ContentValues cv = new ContentValues();
+        cv.put(UDMDatabaseManager.P_ID, nextID);
+        cv.put(UDMDatabaseManager.P_DATE, nextID);  //Course.getDate()
+        cv.put(UDMDatabaseManager.P_JOUR, nextID);
+        cv.put(UDMDatabaseManager.P_HEUREDEBUT, nextID);
+        cv.put(UDMDatabaseManager.P_HEUREFIN, nextID);
+        cv.put(UDMDatabaseManager.P_LOCAL, nextID);
+        cv.put(UDMDatabaseManager.P_PROF, nextID);
+        cv.put(UDMDatabaseManager.P_DESCRIPTION, nextID);
+
+        long err = db.insert(UDMDatabaseManager.TABLE_PERIODECOURS,null, cv);
+        return err;
+
 
  /*       +P_ID+" integer, "
                 +P_DATE+" text, "
