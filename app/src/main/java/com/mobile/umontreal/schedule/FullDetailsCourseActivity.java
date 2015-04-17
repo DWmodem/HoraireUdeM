@@ -239,9 +239,12 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     public void buttonClick(View v) {
 
        dbh = new  UDMDatabaseManager(mContext);
+        db=dbh.getWritableDatabase();
 
 
-        Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  ",
+
+
+        Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  "+courseScheduleList.size(),
                 Toast.LENGTH_SHORT).show();
 
 

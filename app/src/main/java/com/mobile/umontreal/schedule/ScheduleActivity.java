@@ -46,10 +46,11 @@ import com.mobile.umontreal.schedule.objects.Schedule;
  */
 public class ScheduleActivity extends ActionBarActivity implements  AdapterView.OnItemClickListener  {
 
+//ajout test pour push
 
     UDMDatabaseManager dbh;
     SQLiteDatabase db;
-
+    SQLiteDatabase db2;
     ListView listCours;
     //BDAdapter adapter;
 
