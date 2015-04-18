@@ -94,6 +94,8 @@ public class CourseSectionSchedule {
         String dateDropValue        = json.getString(Config.JSON_SECTION_DROP);
         String dateDropLimitValue   = json.getString(Config.JSON_SECTION_DROP_LIMIT);
         String description          = json.getString(Config.JSON_COURSE_DESCRIPTION);
+        String GroupSection         = json.getString(Config.JSON_GROUP_SECTION);
+
 
         try {
 
@@ -140,6 +142,9 @@ public class CourseSectionSchedule {
             // Set description
             section.setDescription(description);
 
+            // set Group
+            section.setSection(GroupSection);
+
             // Set section
             setSection(section);
 
@@ -162,6 +167,8 @@ public class CourseSectionSchedule {
 
                 Schedule schedule = new Schedule();
 
+                schedule.setDay(day);
+
                 schedule.setStartDate(Config.parsingDate(startDate,
                         Config.SCHEDULE_PATTERN_DATE));
 
@@ -178,6 +185,7 @@ public class CourseSectionSchedule {
                 schedule.setLocation(local);
                 schedule.setDescription(scheduleDescription);
                 scheduleList.add(schedule);
+
             }
 
             setDateDebut(scheduleList.get(0).getStartDate());

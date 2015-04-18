@@ -10,6 +10,7 @@ import android.util.Log;
 import com.mobile.umontreal.schedule.objects.Course;
 import com.mobile.umontreal.schedule.objects.CourseSection;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
+import com.mobile.umontreal.schedule.objects.Schedule;
 
 import java.util.HashMap;
 
@@ -189,20 +190,30 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
 
     public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
     {
+        long err =0;
+        Schedule HoraireCours ;
+        for (int index =0 ; index< course.getSchedule().size() ;index ++)
+        {
+           HoraireCours= course.getSchedule().get(index);
+            int nextID = getCoursePeriodID(db)+1;
+            ContentValues cv = new ContentValues();
+            cv.put(UDMDatabaseManager.P_ID, nextID);
+            cv.put(UDMDatabaseManager.P_DATE, HoraireCours.getEndDate().toString());  //Course.getDate()
+            cv.put(UDMDatabaseManager.P_JOUR, HoraireCours.getDay());
+            cv.put(UDMDatabaseManager.P_HEUREDEBUT, HoraireCours.getStartHour().toString());
+            cv.put(UDMDatabaseManager.P_HEUREFIN, HoraireCours.getEndHour().toString());
+            cv.put(UDMDatabaseManager.P_LOCAL, HoraireCours.getLocation());
+            cv.put(UDMDatabaseManager.P_PROF, HoraireCours.getProfessor());
+            cv.put(UDMDatabaseManager.P_DESCRIPTION, HoraireCours.getDescription());
 
-        int nextID = getCoursePeriodID(db);
-        ContentValues cv = new ContentValues();
-        cv.put(UDMDatabaseManager.P_ID, nextID);
-        cv.put(UDMDatabaseManager.P_DATE, nextID);  //Course.getDate()
-        cv.put(UDMDatabaseManager.P_JOUR, nextID);
-        cv.put(UDMDatabaseManager.P_HEUREDEBUT, nextID);
-        cv.put(UDMDatabaseManager.P_HEUREFIN, nextID);
-        cv.put(UDMDatabaseManager.P_LOCAL, nextID);
-        cv.put(UDMDatabaseManager.P_PROF, nextID);
-        cv.put(UDMDatabaseManager.P_DESCRIPTION, nextID);
+            db.insert(UDMDatabaseManager.TABLE_PERIODECOURS,null,cv);
 
-        long err = db.insert(UDMDatabaseManager.TABLE_PERIODECOURS,null, cv);
+
+        }
+
         return err;
+
+
 
 
  /*       +P_ID+" integer, "

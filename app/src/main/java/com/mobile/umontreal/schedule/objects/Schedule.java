@@ -11,7 +11,7 @@ public class Schedule {
     Date startHour;
     Date endDate;
     Date endHour;
-    Date day;
+    String day;
 
     String location;
     String professor;
@@ -51,11 +51,11 @@ public class Schedule {
         this.endHour = endHour;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

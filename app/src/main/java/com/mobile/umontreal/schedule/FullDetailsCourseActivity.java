@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +80,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         courseCurrentSection = (TextView) findViewById(R.id.course_section);
 
         InitializeTabStrip();
+
     }
 
     private void InitializeTabStrip() {
@@ -241,17 +243,36 @@ public class FullDetailsCourseActivity extends ActionBarActivity
        dbh = new  UDMDatabaseManager(mContext);
         db=dbh.getWritableDatabase();
 
+        String Section = courseCurrentSection.getText().toString();
+        Section= Section.substring(Section.length()-1);
+
+        for (int index=0; index<courseScheduleList.size();index++)
+        {
+
+            String SectionIndex= courseScheduleList.get(index).getCourseSection().toString();
+            Toast.makeText(getApplicationContext(), "We have a var1:"+SectionIndex+ " and var 2:"+Section,
+                    Toast.LENGTH_SHORT).show();
+            //if (Section== SectionIndex.substring(0,1))
+            //{
+                dbh.addCoursePeriod(courseScheduleList.get(index),db);
+
+                Toast.makeText(getApplicationContext(), "We have a match"+courseScheduleList.get(index).getCourseSection(),
+                 Toast.LENGTH_SHORT).show();
+            //}
 
 
+        }
 
-        Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  "+courseScheduleList.size(),
-                Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  size cours "+courseScheduleList.size(),
+               // Toast.LENGTH_SHORT).show();
 
 
 
 
 
     }
+
 
 
 }

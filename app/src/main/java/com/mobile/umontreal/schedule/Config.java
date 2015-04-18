@@ -47,6 +47,7 @@ public class Config {
     public static final String JSON_SECTION_DROP_LIMIT      = "abandonlimite";
     public static final String JSON_SECTION_DESCRIPTION     = "description";
     public static final String JSON_SESSION_TYPE            = "session";
+    public static final String JSON_GROUP_SECTION           = "section";
 
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/A14-ift-1015-B02.json
     public static final String JSON_SCHEDULE_DATE           = "date";
