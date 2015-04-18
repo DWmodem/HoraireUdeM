@@ -1,4 +1,4 @@
-package com.mobile.umontreal.schedule.gui;
+package com.mobile.umontreal.schedule.schedule;
 
 import android.app.ListFragment;
 import android.os.Bundle;

@@ -21,6 +21,16 @@ public class CourseSectionSchedule {
     private String local;
     private String prof;
 
+    private String sessionPeriod;
+
+    public String getSessionPeriod() {
+        return sessionPeriod;
+    }
+
+    public void setSessionPeriod(String sessionPeriod) {
+        this.sessionPeriod = sessionPeriod;
+    }
+
     private CourseSectionScheduleType type;
 
     private List<Schedule> scheduleList;
@@ -85,7 +95,10 @@ public class CourseSectionSchedule {
 
         // Getting JSON data node
         String title                = json.getString(Config.JSON_COURSE_TITLE);
+        String sectionTitle         = json.getString(Config.JSON_SECTION_TITLE);
+        String acronym              = json.getString(Config.JSON_SIGLE);
         int courseNum               = json.getInt(Config.JSON_COURSE_NUM);
+
         String status               = json.getString(Config.JSON_COURSE_STATUS);
         String credits              = json.getString(Config.JSON_COURSE_CREDITS);
         String sectionType          = json.getString(Config.JSON_SECTION_TYPE);
@@ -99,10 +112,16 @@ public class CourseSectionSchedule {
 
             scheduleList = new ArrayList<Schedule>();
 
+            // Create a department
+            Department department = new Department();
+            department.setSigle(acronym);
+
             // Create a course field
             Course course = new Course();
+            course.setDepartment(department);
             course.setTitle(title);
             course.setCourseNumber(courseNum);
+
 
             // Create a section field
             section = new CourseSection();
@@ -139,6 +158,7 @@ public class CourseSectionSchedule {
 
             // Set description
             section.setDescription(description);
+            section.setSection(sectionTitle);
 
             // Set section
             setSection(section);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mobile.umontreal.schedule.gui;
+package com.mobile.umontreal.schedule.schedule;
 
 import android.content.Context;
 import android.graphics.Typeface;

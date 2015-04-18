@@ -1,51 +1,25 @@
 package com.mobile.umontreal.schedule;
 
-<<<<<<< Updated upstream
-import android.app.Activity;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import android.os.Bundle;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-
-
-
-import com.mobile.umontreal.schedule.misc.Callable;
-import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
-import com.mobile.umontreal.schedule.misc.MenuHelper;
-import com.mobile.umontreal.schedule.adapters.SessionNavigationAdapter;
-import com.mobile.umontreal.schedule.objects.Course;
-import com.mobile.umontreal.schedule.objects.Session;
-import com.mobile.umontreal.schedule.objects.SessionSeason;
-import com.mobile.umontreal.schedule.parsing.UDMJsonData;
-
 
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
-import com.mobile.umontreal.schedule.objects.Schedule;
+import com.mobile.umontreal.schedule.misc.MenuHelper;
 
 /**
  * Created by Luds on 2015-04-09./work in progress
  */
-public class ScheduleActivity extends ActionBarActivity implements  AdapterView.OnItemClickListener  {
+public class ScheduleActivity extends ActionBarActivity
+        implements  AdapterView.OnItemClickListener  {
 
 
     UDMDatabaseManager dbh;
@@ -57,25 +31,11 @@ public class ScheduleActivity extends ActionBarActivity implements  AdapterView.
 
     Cursor ListeCours;
     Cursor ListeHoraire;
-=======
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.mobile.umontreal.schedule.misc.MenuHelper;
-
-
-public class ScheduleActivity extends ActionBarActivity
-        implements ActionBar.OnNavigationListener {
->>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-<<<<<<< Updated upstream
         //listCours= (ListView)findViewById(R.id.expandableListView);
         Log.d("Start horaire","Horaire est partie");
         //on charge la base de donner et on donne les droits d'écrire
@@ -142,33 +102,24 @@ public class ScheduleActivity extends ActionBarActivity
 
 
  /*   public class BDAdapter extends CursorAdapter {
-
         LayoutInflater inflater;
-
         public BDAdapter (Context context,Cursor c){
             super(context,c,true);
             inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         }
         @Override
         public View getView(int position, View convertView,ViewGroup parent){
             View v= convertView;
             if(v== null){
                 v=inflater.inflate(R.layout.schedule_inflater_layout,parent,false);
-
             }
-
             TextView SigleCours= (TextView)v.findViewById(R.id.SigleCourse);
             TextView Group = (TextView)v.findViewById(R.id.Group);
             TextView Teacher = (TextView)v.findViewById(R.id.Teacher);
             TextView NextClass= (TextView)v.findViewById(R.id.NextClass);
-
-
-
             Cursor c=getCursor();
             c.moveToPosition(position);
             int id = c.getInt(c.getColumnIndex(UDMDatabaseManager.CI_ID));
-
             // création du titre complet du cour soit  ex:ift1025 programmation 1.
             String InfoCours = c.getString(c.getColumnIndex(UDMDatabaseManager.CI_SIGLE))
                     +c.getString(c.getColumnIndex(UDMDatabaseManager.CI_COURSNUM))+" "
@@ -176,44 +127,15 @@ public class ScheduleActivity extends ActionBarActivity
             SigleCours.setText(InfoCours);
             Group.setText(c.getString(c.getColumnIndex(UDMDatabaseManager.CI_SECTION)));
             Teacher.setText (c.getString(c.getColumnIndex(UDMDatabaseManager.CI_PROF)));
-
-
             return v;
                    }
-
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-
-
-
             return null;
         }
-
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-
         }
-
     }*/
 
-=======
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-          return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int i, long l) {
-        return false;
-    }
->>>>>>> Stashed changes
 }

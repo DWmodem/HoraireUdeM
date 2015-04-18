@@ -22,6 +22,7 @@ public class Config {
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/sigles.json
     public static final String JSON_SESSION                 = "trimestre";
     public static final String JSON_SIGLE                   = "sigle";
+    public static final String JSON_DEPARTMENT_TITLE        = "titre";
 
     public static final String JSON_COURSE_NUM              = "coursnum";
     public static final String JSON_COURSE_TYPE             = "type";
@@ -85,6 +86,13 @@ public class Config {
     public static String printDateTime (String pattern, Date date) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        return simpleDateFormat.format(date);
+
+    }
+
+    public static String printDateDefault (Date date) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PARSING_DATE_FORMAT, TIME_LOCALE_EN);
         return simpleDateFormat.format(date);
 
     }

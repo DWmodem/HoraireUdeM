@@ -1,12 +1,11 @@
 package com.mobile.umontreal.schedule;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,11 +16,11 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
-import com.mobile.umontreal.schedule.gui.ScheduleFragmentPagerAdapter;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
+import com.mobile.umontreal.schedule.schedule.ScheduleFragmentPagerAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,11 +39,10 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     private ActionBar actionBar;
 
     // Data Base
-    UDMDatabaseManager dbh;
-    SQLiteDatabase db;
+    UDMDatabaseManager dataBase;
 
     private ArrayList<String> sectionList;
-    private ArrayList<CourseSectionSchedule> courseScheduleList;
+    private ArrayList<CourseSectionSchedule> courseList;
 
     /** Called when the activity is first created. */
     private Context mContext;
@@ -54,6 +52,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
     private Integer callback_count = 0;
     private String[] tabs;
+    private String section;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +95,12 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
         if (sectionList.size() > 0) {
 
-            courseScheduleList  = new ArrayList<CourseSectionSchedule>();
-            courseCurrentSection.setText(getString(R.string.course_section) + ": " +
-                    sectionList.get(0));
+            courseList = new ArrayList<CourseSectionSchedule>();
+
+            // Default section
+            section = sectionList.get(0);
+            courseCurrentSection.setText(getString(R.string.course_section) + ": " + section.substring(0, 1));
+            courseCurrentSection.setContentDescription(section);
 
             // Build a the tabs
             tabs = new String[sectionList.size()];
@@ -133,7 +135,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     private void InitializeListViews() {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_viewer);
-        viewPager.setAdapter(new ScheduleFragmentPagerAdapter(getSupportFragmentManager(), tabs, courseScheduleList));
+        viewPager.setAdapter(new ScheduleFragmentPagerAdapter(getSupportFragmentManager(), tabs, courseList));
 
 
         // Give the PagerSlidingTabStrip the ViewPager
@@ -149,8 +151,11 @@ public class FullDetailsCourseActivity extends ActionBarActivity
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
-                    courseCurrentSection.setText(getString(R.string.course_section) + ": " +
-                            sectionList.get(position).substring(0, 1));
+
+                    // Selected section
+                    section = sectionList.get(position);
+                    courseCurrentSection.setText(getString(R.string.course_section) + ": " + section.substring(0, 1));
+                    courseCurrentSection.setContentDescription(section);
             }
 
             // This method will be invoked when the current page is scrolled
@@ -168,10 +173,6 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
         });
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -209,12 +210,10 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         // Convert JSON to object. Sort the list.
         try {
             for (JSONObject csc : data.getItems()){
-                CourseSectionSchedule theCourseSection = new CourseSectionSchedule(csc);
-                courseScheduleList.add(theCourseSection);
+                CourseSectionSchedule courseSectionSchedule = new CourseSectionSchedule(csc);
+                courseList.add(courseSectionSchedule);
 
             }
-
-
 
             if ((-- callback_count)<= 0)
                 InitializeListViews();
@@ -225,7 +224,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
             e.printStackTrace();
         }
 
-        if (callback_count == 0 && courseScheduleList.size() == 0) {
+        if (callback_count == 0 && courseList.size() == 0) {
 
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
@@ -240,17 +239,35 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
     public void buttonClick(View v) {
 
-       dbh = new  UDMDatabaseManager(mContext);
+        Bundle extras          = getIntent().getExtras();
+        String acronym         = extras.getString(Config.JSON_SIGLE);
+        String courseNum       = extras.getString(Config.JSON_COURSE_NUM);
+        String session         = extras.getString(Config.JSON_SESSION);
+        String title           = extras.getString(Config.JSON_COURSE_TITLE);
 
+        // Connection to DataBase
 
-        Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  ",
-                Toast.LENGTH_SHORT).show();
+        dataBase = new UDMDatabaseManager(mContext);
 
+        CourseSectionSchedule course = courseList.get(0);
+        course.setSessionPeriod(session);
 
+        if (course.getSchedule().size() > 0) {
 
+            int cursNum = course.getCourseSection().getCourse().getCourseNumber();
 
+            Cursor c = dataBase.getCourse(course.getCourseSection().getCourse().getTitle(), Integer.toString(cursNum));
 
+            if (c.getCount() != 0) {
+                Toast.makeText(getApplicationContext(),
+                        R.string.DB_ROW_EXIST,
+                        Toast.LENGTH_LONG).show();
+            } else {
+                dataBase.addCourse(course);
+                Toast.makeText(getApplicationContext(),
+                        R.string.DB_ROW_ADDED,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
     }
-
-
 }
