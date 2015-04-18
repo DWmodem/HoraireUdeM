@@ -7,8 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.mobile.umontreal.schedule.objects.Course;
-import com.mobile.umontreal.schedule.objects.CourseSection;
+import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 import com.mobile.umontreal.schedule.objects.Schedule;
 
@@ -24,46 +23,46 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
 
     //Schema
     //DEPARTEMENT;              Un département de l'UDM (ex: IFT - Informatique)
-    static final String TABLE_DEPARTEMENT = "DEPARTEMENT";
-    static final String DEP_SIGLE = "_sigle";       //Primary key
-    static final String DEP_TITRE = "titre";
-    static final String DEP_NBCOURS = "nbcours";
+    public static final String TABLE_DEPARTEMENT = "DEPARTEMENT";
+    public static final String D_SIGLE = "_sigle";       //Primary key
+    public static final String D_TITRE = "titre";
+    public static final String D_NBCOURS = "nbcours";
 
     //COURS;                    Un cours de l'UDM (ex: IFT2905, section A, Trimestre H15)
-    static final String TABLE_COURS = "COURS";
-    static final String C_ID = "_id";
-    static final String C_SIGLE = "_sigle";
-    static final String C_COURSNUM = "_coursnum";
-    static final String C_SECTION = "_section";
-    static final String C_TYPE = "type";
-    static final String C_TITRE = "titre";
-    static final String C_TRIMESTRE = "trimestre";
-    static final String C_STATUS = "status";
-    static final String C_SESSION = "session";
-    static final String C_CREDITS = "credits";
-    static final String C_ANNULATION = "annulation";
-    static final String C_ABANDON = "abandon";
-    static final String C_DESCRIPTION = "description";
+    public static final String TABLE_COURS = "COURS";
+    public static final String C_ID = "_id";
+    public static final String C_SIGLE = "_sigle";
+    public static final String C_COURSNUM = "_coursnum";
+    public static final String C_SECTION = "_section";
+    public static final String C_TYPE = "type";
+    public static final String C_TITRE = "titre";
+    public static final String C_TRIMESTRE = "trimestre";
+    public static final String C_STATUS = "status";
+    public static final String C_SESSION = "session";
+    public static final String C_CREDITS = "credits";
+    public static final String C_ANNULATION = "annulation";
+    public static final String C_ABANDON = "abandon";
+    public static final String C_DESCRIPTION = "description";
 
     //PERIODECOURS
     static final String TABLE_PERIODECOURS = "PERIODECOURS";
-    static final String P_ID = "_pid";
-    static final String P_DATE = "date";
-    static final String P_JOUR = "jour";
-    static final String P_SIGLE = "_sigle";
-    static final String P_COURSNUM = "_coursnum";
-    static final String P_HEUREDEBUT = "heuredebut";
-    static final String P_HEUREFIN = "heurefin";
-    static final String P_LOCAL = "local";
-    static final String P_PROF = "prof";
-    static final String P_DESCRIPTION = "description";
+    public static final String P_ID = "_pid";
+    public static final String P_DATE = "date";
+    public static final String P_JOUR = "jour";
+    public static final String P_SIGLE = "_sigle";
+    public static final String P_COURSNUM = "_coursnum";
+    public static final String P_HEUREDEBUT = "heuredebut";
+    public static final String P_HEUREFIN = "heurefin";
+    public static final String P_LOCAL = "local";
+    public static final String P_PROF = "prof";
+    public static final String P_DESCRIPTION = "description";
 
 
 
     //The unique IDs for the database to manage
-    static int periodeCoursID;
-    static int coursID;
-    static int departmentID;
+    public static int periodeCoursID;
+    public static int coursID;
+    public static int departmentID;
 
     public UDMDatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -73,15 +72,15 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String departementTableCreationQuery = "CREATE TABLE "+TABLE_DEPARTEMENT+" ("
-                +DEP_SIGLE+" text PRIMARY KEY, "
-                +DEP_TITRE+" text, "
-                +DEP_NBCOURS+" integer);";
+                +D_SIGLE+" text PRIMARY KEY, "
+                +D_TITRE+" text, "
+                +D_NBCOURS+" integer);";
 
         String coursTableCreationQuery = "CREATE TABLE "+TABLE_COURS+" ("
                 +C_ID+" integer PRIMARY KEY AUTOINCREMENT,"
                 +C_SIGLE+" text, "
                 +C_COURSNUM+" integer, "
-                +C_SECTION+" char, "
+                +C_SECTION+" text, "
                 +C_TYPE+" text, "
                 +C_TITRE+" text, "
                 +C_TRIMESTRE+" text, "
@@ -121,6 +120,79 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Adding new Course
+    public void addCourse(CourseSectionSchedule course) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(this.C_SIGLE,
+                course.getCourseSection().getCourse().getDepartment().getSigle());
+        values.put(this.C_COURSNUM,
+                course.getCourseSection().getCourse().getCourseNumber());
+        values.put(this.C_SECTION,
+                course.getCourseSection().getSection());
+        values.put(this.C_TYPE,
+                course.getCourseSection().getType());
+        values.put(this.C_TITRE,
+                course.getCourseSection().getCourse().getTitle());
+        values.put(this.C_TRIMESTRE, course.getSessionPeriod());
+        values.put(this.C_STATUS,
+                course.getCourseSection().getStatus().toString());
+        values.put(this.C_SESSION,
+                course.getCourseSection().getType());
+        values.put(this.C_CREDITS,
+                course.getCourseSection().getCredit());
+        values.put(this.C_ANNULATION,
+                Config.printDateDefault(course.getCourseSection().getCancel()));
+        values.put(this.C_ABANDON,
+                Config.printDateDefault(course.getCourseSection().getDrop()));
+        values.put(this.C_DESCRIPTION, course.getCourseSection().getDescription());
+
+        // Inserting Row
+        db.insert(TABLE_COURS, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public Cursor getCourse(String title, String courseNumber){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor result = db.rawQuery(
+                "SELECT * FROM " + TABLE_COURS + " WHERE " +
+                C_TITRE + " LIKE ?" + " AND " +
+                C_COURSNUM + " =?",
+                new String[] {title, courseNumber});
+        return result;
+    }
+
+    public Cursor getCourses(
+                String[] columns,
+                String selection,
+                String[] selectionArgs,
+                String groupBy,
+                String having,
+                String orderBy,
+                String limit){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                TABLE_COURS,              // The table to query
+                columns,                // The columns to return
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                groupBy,                // Group the rows
+                having,                 // Filter by row groups
+                orderBy,                // The sort order
+                limit                   // The limit
+
+        );
+
+        return cursor;
+    }
+
     public void insertData(HashMap<String, String> queryValues, String tableName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -135,12 +207,24 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Cursor getData(int id, String tableName){
+    public Cursor getRow(int id, String tableName){
+
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + tableName + " WHERE "
+
+        Cursor result = db.rawQuery( "SELECT * FROM " + tableName + " WHERE "
                         + tableName.substring(6,1)+"_ID = ? ",
                         new String[] { Integer.toString(id) });
-        return res;
+        return result;
+    }
+
+
+
+
+
+    public boolean isEmpty(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =  db.rawQuery("SELECT * FROM " + TABLE_COURS, null);
+        return cursor.getCount() == 0 ? true : false;
     }
 
     public boolean updateData (Integer id, HashMap<String, String> queryValues, String tableName)
@@ -172,23 +256,22 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         String[] columns = {UDMDatabaseManager.P_ID};
         Cursor cursor = db.query(UDMDatabaseManager.TABLE_PERIODECOURS, columns, null, null, null, null, null);
         int pcID = 0;
-        while(cursor.moveToNext()){
+    while(cursor.moveToNext()){
 
-            int IDcolumnIndex = cursor.getColumnIndex(UDMDatabaseManager.P_ID);
+        int IDcolumnIndex = cursor.getColumnIndex(UDMDatabaseManager.P_ID);
 
-            //Get the ID of this row
-            int currentID = cursor.getInt(IDcolumnIndex);
+        //Get the ID of this row
+        int currentID = cursor.getInt(IDcolumnIndex);
 
-            //Keep this value if it is the max
-            if(currentID >= pcID){
-                pcID = currentID;
-            }
+        //Keep this value if it is the max
+        if(currentID >= pcID){
+            pcID = currentID;
         }
-        return pcID;
     }
+    return pcID;
+}
 
-
-    public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
+   public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db)
     {
         long err =0;
         Schedule HoraireCours ;

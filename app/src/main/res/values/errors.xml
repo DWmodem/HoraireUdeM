@@ -5,5 +5,7 @@
     <string name="DATA_IS_NOT_AVAILABLE">The data is not available...</string>
 
     <string name="INTERNET_CONNECTION_ERROR">Please connect to working Internet connection</string>
+    <string name="DB_ROW_EXIST">The course is already registered</string>
+    <string name="DB_ROW_ADDED">The course is successfully registered</string>
 
 </resources>

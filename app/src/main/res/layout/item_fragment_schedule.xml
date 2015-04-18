@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/schedule_container">
 
-    <com.mobile.umontreal.schedule.gui.SlidingTabLayout
+    <com.mobile.umontreal.schedule.schedule.SlidingTabLayout
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

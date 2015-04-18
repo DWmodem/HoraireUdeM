@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 
 import com.mobile.umontreal.schedule.Config;
+import com.mobile.umontreal.schedule.DepartmentsActivity;
+import com.mobile.umontreal.schedule.MainActivity;
 import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.ScheduleActivity;
 import com.mobile.umontreal.schedule.SettingsActivity;
@@ -98,8 +100,10 @@ public class MenuHelper {
             }
             case R.id.action_calendar:
             {
-                Toast.makeText(context, "Calendar Item clicked", Toast.LENGTH_SHORT).show();
-                Log.d("MENUITEM", "Calendar has been run");
+                Intent myIntent = new Intent(activity, MainActivity.class);
+                activity.startActivity(myIntent);
+//                Toast.makeText(context, "Calendar Item clicked", Toast.LENGTH_SHORT).show();
+//                Log.d("MENUITEM", "Calendar has been run");
                 return true;
             }
             case R.id.action_schedule:
@@ -118,8 +122,10 @@ public class MenuHelper {
             }
             case R.id.action_add_new_course:
             {
-                Toast.makeText(context, "Add new course Item clicked", Toast.LENGTH_SHORT).show();
-                Log.d("MENUITEM", "Add new course has been run");
+                // Launching new Activity on selecting single List Item
+
+                Intent intent = new Intent(activity, DepartmentsActivity.class);
+                activity.startActivity(intent);
                 return true;
             }
             case R.id.action_synchronize:
