@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
-import com.mobile.umontreal.schedule.gui.ScheduleFragmentPagerAdapter;
+import com.mobile.umontreal.schedule.schedule.ScheduleFragmentPagerAdapter;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
@@ -236,19 +236,42 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         return false;
     }
 
-    public void buttonClick(View v) {
-
-       dbh = new  UDMDatabaseManager(mContext);
 
 
-        Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  ",
-                Toast.LENGTH_SHORT).show();
+        public void buttonClick(View v) {
+
+            dbh = new  UDMDatabaseManager(mContext);
+            db=dbh.getWritableDatabase();
+
+            String Section = courseCurrentSection.getText().toString();
+            Section= Section.substring(Section.length()-1);
+
+            for (int index=0; index<courseScheduleList.size();index++)
+            {
+
+                String SectionIndex= courseScheduleList.get(index).getCourseSection().toString();
+                Toast.makeText(getApplicationContext(), "We have a var1:"+SectionIndex+ " and var 2:"+Section,
+                        Toast.LENGTH_SHORT).show();
+                //if (Section== SectionIndex.substring(0,1))
+                //{
+                dbh.addCoursePeriod(courseScheduleList.get(index),db);
+
+                Toast.makeText(getApplicationContext(), "We have a match"+courseScheduleList.get(index).getCourseSection(),
+                        Toast.LENGTH_SHORT).show();
+                //}
+
+
+            }
+
+
+            //Toast.makeText(getApplicationContext(), "You have clicked \"add the course\"  size cours "+courseScheduleList.size(),
+            // Toast.LENGTH_SHORT).show();
 
 
 
 
 
-    }
+        }
 
 
 }

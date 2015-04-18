@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobile.umontreal.schedule.R;
+import com.mobile.umontreal.schedule.schedule.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +53,14 @@ public class SlidingTabsColorsFragment extends Fragment {
         }
 
         /**
-         * @return the color to be used for indicator on the {@link com.mobile.umontreal.schedule.gui.SlidingTabLayout}
+         * @return the color to be used for indicator on the {@link com.mobile.umontreal.schedule.schedule.SlidingTabLayout}
          */
         int getIndicatorColor() {
             return mIndicatorColor;
         }
 
         /**
-         * @return the color to be used for right divider on the {@link com.mobile.umontreal.schedule.gui.SlidingTabLayout}
+         * @return the color to be used for right divider on the {@link com.mobile.umontreal.schedule.schedule.SlidingTabLayout}
          */
         int getDividerColor() {
             return mDividerColor;
