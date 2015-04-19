@@ -60,6 +60,10 @@
     <string name="DB_ROW_EXIST">Ce cours est déjà enregistré</string>
     <string name="DB_ROW_ADDED">Ce cours à été enregistré avec succès</string>
 
+    <string name="added_course_part1">Nous avons: </string>
+    <string name="added_course_part2"> Groupe: </string>
+    <string name="match_found">Trouvé:  </string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="tab_stream">Stream</string>
     <string name="tab_messages">Messages</string>

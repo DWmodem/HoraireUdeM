@@ -72,6 +72,8 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(getApplicationContext(), DepartmentsActivity.class);
             startActivity(intent);
         }
+
+
     }
 
     @Override
