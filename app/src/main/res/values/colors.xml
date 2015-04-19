@@ -9,11 +9,6 @@
     <color name="accent_color">#FF80AB</color>
     <color name="accent_dark_color">#FF4081</color>
 
-    <color name="fab_color_1">#FF4081</color>
-    <color name="fab_color_1_muted">#FF80AB</color>
-    <color name="fab_color_2">#3F51B5</color>
-    <color name="fab_color_2_muted">#fff</color>
-
     <color name="theme_primary">#3f51b5</color>
     <color name="theme_primary_dark">#303f9f</color>
     <color name="theme_primary_light">#7986cb</color>

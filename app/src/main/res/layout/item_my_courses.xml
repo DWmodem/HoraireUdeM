@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_my_course_height"
+    android:background="@color/window_background">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -17,27 +19,32 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/sigle_cours"
                 android:id="@+id/sigle_cours"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp" />
+                android:paddingLeft="@dimen/padding_table_row"
+                android:paddingTop="@dimen/padding_table_row"
+                android:paddingBottom="5dp"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/group"
+                android:paddingLeft="@dimen/padding_table_row"
                 android:id="@+id/group"
                 android:layout_weight="1" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/teacher"
+                android:paddingLeft="@dimen/padding_table_row"
                 android:id="@+id/teacher"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />
@@ -45,8 +52,9 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/next_class"
+                android:paddingLeft="@dimen/padding_table_row"
                 android:id="@+id/next_class"
                 android:layout_weight="1"
                 android:layout_alignParentLeft="true"
@@ -58,8 +66,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button_delete_course"
-            android:layout_gravity="right"
+            android:layout_gravity="top|center_vertical"
             android:src="@android:drawable/ic_menu_delete"
+            android:background="@color/window_background"
+            android:padding="@dimen/padding_table_row"
             android:layout_weight="5"
             android:clickable="true" />
 

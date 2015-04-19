@@ -36,13 +36,9 @@
     <dimen name="tab_height">48dp</dimen>
     <dimen name="search_height">48dp</dimen>
     <dimen name="schedule_height">78dp</dimen>
+    <dimen name="item_my_course_height">100dp</dimen>
     <dimen name="schedule_width_date">138dp</dimen>
 
-    <dimen name="fab_elevation">8dp</dimen>
-    <dimen name="fab_press_translation_z">9dp</dimen>
-    <dimen name="fab_size">56dp</dimen>
-    <dimen name="fab_size_small">40dp</dimen>
-    <dimen name="fab_icon_size">24dp</dimen>
 
 
 </resources>

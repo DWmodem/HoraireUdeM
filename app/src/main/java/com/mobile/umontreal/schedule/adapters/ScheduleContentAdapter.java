@@ -85,9 +85,6 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
         }
 
-
-
-
         return convertView;
 
     }

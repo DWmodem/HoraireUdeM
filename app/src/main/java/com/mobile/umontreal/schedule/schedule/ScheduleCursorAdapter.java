@@ -4,35 +4,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
+import com.mobile.umontreal.schedule.objects.MyCourse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Corneliu on 18-Apr-2015.
  */
-public class ScheduleMyCoursesAdapter extends FragmentStatePagerAdapter {
+public class ScheduleCursorAdapter extends FragmentStatePagerAdapter {
 
     private int tabNumber;
     private String[] tabTitles;
 
-    List<CourseSectionSchedule> scheduleList;
+    List<ArrayList<MyCourse>> courseList;
 
-    public ScheduleMyCoursesAdapter(FragmentManager fragmentManager, String[] tabTitles, List<CourseSectionSchedule> scheduleList) {
+    public ScheduleCursorAdapter(FragmentManager fragmentManager, String[] tabTitles, List<ArrayList<MyCourse>> courseList) {
         super(fragmentManager);
 
         this.tabTitles = tabTitles;
         this.tabNumber = tabTitles.length;
-        this.scheduleList = scheduleList;
+        this.courseList = new ArrayList<ArrayList<MyCourse>>();
+        this.courseList.addAll(courseList);
     }
 
     public int getCount() {
         return tabNumber;
     }
 
-
     public Fragment getItem(int position) {
-            return ScheduleListFragment.createNewFragmentToDisplay(position, scheduleList.get(position).getSchedule());
+        return ScheduleCursorFragment.createNewFragmentToDisplay(position, courseList.get(position));
     }
 
     public CharSequence getPageTitle(int position) {

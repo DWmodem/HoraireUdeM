@@ -44,7 +44,14 @@
     <string name="search_department">Recherche departement</string>
     <string name="search_course">Recherche cours</string>
 
+    <string name="sigle_cours"> Sigle+cours</string>
+    <string name="teacher">Teacher:</string>
+    <string name="group">Group:</string>
+    <string name="next_class"> Next Class:</string>
+
+    <string name="cours_activity">Cours</string>
     <string name="hello_world">Bonjour tout le monde!</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="tab_stream">Stream</string>

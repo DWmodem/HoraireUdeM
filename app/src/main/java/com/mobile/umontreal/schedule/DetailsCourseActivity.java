@@ -147,17 +147,18 @@ public class DetailsCourseActivity extends ActionBarActivity
             dateCancellationView.setVisibility(View.GONE);
             dateDropView.setVisibility(View.GONE);
             dateDropLimitView.setVisibility(View.GONE);
-            buttonNext.setText(R.string.course_button_back);
+            buttonNext.setVisibility(View.GONE);
+//            buttonNext.setText(R.string.course_button_back);
 
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
 
-            buttonNext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+//            buttonNext.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    onBackPressed();
+//                }
+//            });
         } else {
 
             description.setText(courseSection.getDescription());

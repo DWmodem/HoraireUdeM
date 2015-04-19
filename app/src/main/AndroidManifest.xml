@@ -4,7 +4,7 @@
 
     <uses-sdk
         android:maxSdkVersion="21"
-        android:minSdkVersion="14"
+        android:minSdkVersion="15"
         android:targetSdkVersion="21" />
 
     <!-- Network State Permissions -->

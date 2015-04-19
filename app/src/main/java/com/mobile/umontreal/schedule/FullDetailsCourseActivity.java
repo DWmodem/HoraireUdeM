@@ -2,6 +2,7 @@ package com.mobile.umontreal.schedule;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -20,7 +21,7 @@ import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
-import com.mobile.umontreal.schedule.schedule.ScheduleFragmentPagerAdapter;
+import com.mobile.umontreal.schedule.schedule.ScheduleListAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +40,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     private ActionBar actionBar;
 
     // Data Base
-    UDMDatabaseManager dataBase;
+    private UDMDatabaseManager dataBase;
+    private SQLiteDatabase db;
 
     private ArrayList<String> sectionList;
     private ArrayList<CourseSectionSchedule> courseList;
@@ -122,7 +124,6 @@ public class FullDetailsCourseActivity extends ActionBarActivity
                             tagCourseNum + "-" +                    //Eg: 1015
                             tabs[i].toUpperCase() + ".json";        //Eg: A102      ----> H15-ift-1015-A102.json
 
-
                     UDMJsonData data = new UDMJsonData(url);
                     data.execute(this);
                     callback_count ++;
@@ -135,7 +136,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     private void InitializeListViews() {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_viewer);
-        viewPager.setAdapter(new ScheduleFragmentPagerAdapter(getSupportFragmentManager(), tabs, courseList));
+        viewPager.setAdapter(new ScheduleListAdapter(getSupportFragmentManager(), tabs, courseList));
 
 
         // Give the PagerSlidingTabStrip the ViewPager
@@ -239,15 +240,16 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
     public void buttonClick(View v) {
 
+        // Connection to DataBase
+        dataBase = new UDMDatabaseManager(mContext);
+        SQLiteDatabase dbw = dataBase.getWritableDatabase();
+        SQLiteDatabase dbr = dataBase.getReadableDatabase();
+
         Bundle extras          = getIntent().getExtras();
         String acronym         = extras.getString(Config.JSON_SIGLE);
         String courseNum       = extras.getString(Config.JSON_COURSE_NUM);
         String session         = extras.getString(Config.JSON_SESSION);
         String title           = extras.getString(Config.JSON_COURSE_TITLE);
-
-        // Connection to DataBase
-
-        dataBase = new UDMDatabaseManager(mContext);
 
         CourseSectionSchedule course = courseList.get(0);
         course.setSessionPeriod(session);
@@ -256,14 +258,15 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
             int cursNum = course.getCourseSection().getCourse().getCourseNumber();
 
-            Cursor c = dataBase.getCourse(course.getCourseSection().getCourse().getTitle(), Integer.toString(cursNum));
+            Cursor c = dataBase.getCourse(course.getCourseSection().getCourse().getTitle(), Integer.toString(cursNum), dbr);
 
             if (c.getCount() != 0) {
                 Toast.makeText(getApplicationContext(),
                         R.string.DB_ROW_EXIST,
                         Toast.LENGTH_LONG).show();
+
             } else {
-                dataBase.addCourse(course);
+                dataBase.addCourse(course, dbw);
                 Toast.makeText(getApplicationContext(),
                         R.string.DB_ROW_ADDED,
                         Toast.LENGTH_LONG).show();

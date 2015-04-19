@@ -5,39 +5,36 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.mobile.umontreal.schedule.adapters.ScheduleContentAdapter;
-import com.mobile.umontreal.schedule.objects.Schedule;
+import com.mobile.umontreal.schedule.adapters.ScheduleMyCoursesAdapter;
+import com.mobile.umontreal.schedule.objects.MyCourse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Corneliu on 06-Apr-2015.
  */
-public class ScheduleListFragment extends ListFragment {
+public class ScheduleCursorFragment extends ListFragment {
 
-    private List<Schedule> scheduleList;
+    private List<MyCourse> courseList;
 
-    private ScheduleListFragment(List<Schedule> scheduleList){
-        this.scheduleList = new ArrayList<Schedule>();
-        this.scheduleList.addAll(scheduleList);
+    private ScheduleCursorFragment(List<MyCourse> courseList){
+        this.courseList = courseList;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     /**
      * Create a new instance of our fragment, providing "num"
      * as an argument - it determines which page to display
      */
-    static ScheduleListFragment createNewFragmentToDisplay(int num, List<Schedule> scheduleList) {
-        ScheduleListFragment displayFragment = new ScheduleListFragment(scheduleList);
-        // Supply num input as an argument.
+    static ScheduleCursorFragment createNewFragmentToDisplay(int num, List<MyCourse> courseList) {
+        ScheduleCursorFragment displayFragment = new ScheduleCursorFragment(courseList);
+
         Bundle args = new Bundle();
-        args.putInt("num", num);
         displayFragment.setArguments(args);
         return displayFragment;
     }
@@ -47,10 +44,11 @@ public class ScheduleListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setListAdapter(new ScheduleContentAdapter(getActivity().getApplicationContext(),getActivity(),
-                android.R.layout.simple_list_item_1, scheduleList));
+        setListAdapter(new ScheduleMyCoursesAdapter(getActivity().getApplicationContext(),getActivity(),
+                android.R.layout.simple_list_item_1, courseList));
 
     }
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
