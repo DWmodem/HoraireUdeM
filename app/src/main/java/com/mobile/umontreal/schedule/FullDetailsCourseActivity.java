@@ -266,7 +266,28 @@ public class FullDetailsCourseActivity extends ActionBarActivity
                         Toast.LENGTH_LONG).show();
 
             } else {
+
+                String Section = courseCurrentSection.getText().toString();
+                Section = Section.substring(Section.length() - 1);
+
+                for (int index = 0; index < courseList.size(); index++) {
+
+                    dataBase.addCoursePeriod(courseList.get(index), dbw);
+
+                    String SectionIndex = courseList.get(index).getCourseSection().toString();
+
+                    Toast.makeText(getApplicationContext(),
+                            "We have a :" + SectionIndex + " and :" + Section, Toast.LENGTH_SHORT).show();
+
+                    if (Section == SectionIndex.substring(0, 1)) {
+                        dataBase.addCoursePeriod(courseList.get(index), db);
+                        Toast.makeText(getApplicationContext(),
+                             "We have a match" + courseList.get(index).getCourseSection(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
                 dataBase.addCourse(course, dbw);
+
                 Toast.makeText(getApplicationContext(),
                         R.string.DB_ROW_ADDED,
                         Toast.LENGTH_LONG).show();
