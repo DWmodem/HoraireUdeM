@@ -14,7 +14,7 @@
     <string name="course_type">Type: </string>
     <string name="course_cancellation">Cancellation: </string>
     <string name="course_drop">Course drop: </string>
-    <string name="course_drop_limit">Drop limit: </string>
+    <string name="course_drop_limit">Limit: </string>
 
     <string name="course_button_next">+Follow</string>
     <string name="course_button_back">Back</string>
@@ -53,7 +53,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
 
+    <string name="FILE_IS_EMPTY">No data has been loaded yet...</string>
+    <string name="DATA_IS_NOT_AVAILABLE">The data is not available...</string>
 
+    <string name="INTERNET_CONNECTION_ERROR">Please connect to working Internet connection</string>
+    <string name="DB_ROW_EXIST">The course is already registered</string>
+    <string name="DB_ROW_ADDED">The course is successfully registered</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="tab_stream">Stream</string>

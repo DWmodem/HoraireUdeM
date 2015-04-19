@@ -78,6 +78,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onPostResume() {
         super.onPostResume();
 
+
+
+        //Get the classes to display in the activity
         Cursor session = dataBase.getCourses(new String[]{
                         UDMDatabaseManager.C_TITRE,
                         UDMDatabaseManager.C_TRIMESTRE

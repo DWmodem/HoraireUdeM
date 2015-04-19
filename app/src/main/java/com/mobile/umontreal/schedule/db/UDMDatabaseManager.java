@@ -51,6 +51,8 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     public static final String P_JOUR = "jour";
     public static final String P_SIGLE = "_sigle";
     public static final String P_COURSNUM = "_coursnum";
+    public static final String P_SECTION = "_section";
+    public static final String P_TYPE = "_type";
     public static final String P_HEUREDEBUT = "heuredebut";
     public static final String P_HEUREFIN = "heurefin";
     public static final String P_LOCAL = "local";
@@ -91,12 +93,15 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 +C_ABANDON+" text, "
                 +C_DESCRIPTION+" text"+" );";
 
+        //Sigle, coursnum, section, type sert a rattacher la periode de cours a son cours
         String periodecoursTableCreationQuery = "CREATE TABLE "+TABLE_PERIODECOURS+" ("
                 +P_ID+" integer, "
                 +P_DATE+" text, "
                 +P_JOUR+" text, "
                 +P_SIGLE + " text, "
                 +P_COURSNUM +" text, "
+                +P_SECTION+" text, "
+                +P_TYPE+" text, "
                 +P_HEUREDEBUT+" text, "
                 +P_HEUREFIN+" text, "
                 +P_LOCAL+" text, "
@@ -274,6 +279,11 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
             int nextID = getCoursePeriodID(db) + 1;
             ContentValues cv = new ContentValues();
             cv.put(UDMDatabaseManager.P_ID, nextID);
+            cv.put(UDMDatabaseManager.P_SIGLE, course.getSigle());
+            cv.put(UDMDatabaseManager.P_COURSNUM, course.getCoursnum());
+            cv.put(UDMDatabaseManager.P_TYPE, course.getCType());
+            cv.put(UDMDatabaseManager.P_SECTION, course.getCSection());
+
             cv.put(UDMDatabaseManager.P_DATE, HoraireCours.getEndDate().toString());
             cv.put(UDMDatabaseManager.P_JOUR, HoraireCours.getDay());
             cv.put(UDMDatabaseManager.P_HEUREDEBUT, HoraireCours.getStartHour().toString());

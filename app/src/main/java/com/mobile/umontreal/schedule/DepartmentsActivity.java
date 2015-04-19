@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -82,9 +83,13 @@ public class DepartmentsActivity extends ActionBarActivity
             // stop executing code by return
             return;
         } else {
+            /*
             Toast.makeText(getApplicationContext(),
                     "connection to interent : " + connection.isConnectingToInternet(),
                     Toast.LENGTH_LONG).show();
+                    */
+            Log.d(LOG_TAG, "INTERNET CONNECTION SUCCESSFUL");
+
         }
 
 

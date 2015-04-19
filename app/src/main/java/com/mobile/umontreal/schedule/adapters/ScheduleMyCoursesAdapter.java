@@ -25,10 +25,10 @@ public class ScheduleMyCoursesAdapter extends ArrayAdapter<MyCourse> {
 
     public ScheduleMyCoursesAdapter(Context context,
         Activity activity, int textViewResourceId,
-        List<MyCourse> courseList) {
-        super(context, textViewResourceId, courseList);
+        List<MyCourse> givenCourses) {
+        super(context, textViewResourceId, givenCourses);
         this.courseList = new ArrayList<MyCourse>();
-        this.courseList.addAll(courseList);
+        this.courseList.addAll(givenCourses);
         this.activity = activity;
     }
 
@@ -68,6 +68,8 @@ public class ScheduleMyCoursesAdapter extends ArrayAdapter<MyCourse> {
                 + course.getCourseNumber() + " " + course.getTitle());
 
         holder.group.setText(getContext().getString(R.string.group) + " " + course.getSection());
+
+        holder.teacher.setText(getContext().getString(R.string.teacher) + " " + course.getProfessor());
 
         return convertView;
 

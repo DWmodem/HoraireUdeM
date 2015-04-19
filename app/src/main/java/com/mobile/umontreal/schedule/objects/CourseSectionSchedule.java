@@ -16,6 +16,13 @@ import java.util.List;
 public class CourseSectionSchedule {
 
     private CourseSection section;
+
+    //Pour fin d'identifier le cours auquel cette section appartient
+    //Pour retrouver le nom du prof
+    private String c_sigle;
+    private String c_coursnum;
+    private String c_type;
+    private String c_section;
     private Date dateDebut;
     private Date dateFin;
     private String local;
@@ -42,6 +49,22 @@ public class CourseSectionSchedule {
     public CourseSection getCourseSection() {
         return section;
     }
+
+    public String getSigle(){return c_sigle;}
+
+    public void setSigle(String newSigle){this.c_sigle = newSigle;}
+
+    public String getCoursnum(){return c_coursnum;}
+
+    public void setCoursnum(String newnum){this.c_coursnum = newnum;}
+
+    public String getCType(){return c_type;}
+
+    public void setCType(String type){this.c_type = type;}
+
+    public String getCSection(){return c_section;}
+
+    public void setCSection(String section){this.c_section= section;}
 
     public Date getDateDebut() {
         return dateDebut;
