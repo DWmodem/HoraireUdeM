@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +26,9 @@ public class CourseSection {
     private String description;
     private String type;
 
-    private List<String> sectionList;
+    private ArrayList<String> sectionList;
 
-    public List<String> getSectionList() {
+    public ArrayList<String> getSectionList() {
         return sectionList;
     }
 
@@ -124,7 +123,6 @@ public class CourseSection {
 
         // Getting JSON Array node
         JSONArray sections = json.getJSONArray(Config.JSON_SECTIONS);
-        SimpleDateFormat format = new SimpleDateFormat(Config.PARSING_DATE_FORMAT);
 
         try {
 
@@ -135,9 +133,16 @@ public class CourseSection {
 
                 if (i == 0) {
 
-                    Date dateCancellation = format.parse(c.getString(Config.JSON_SECTION_CANCELLATION));
-                    Date dateDrop = format.parse(c.getString(Config.JSON_SECTION_DROP));
-                    Date dateDropLimit = format.parse(c.getString(Config.JSON_SECTION_DROP_LIMIT));
+                    String dateCacncel = c.getString(Config.JSON_SECTION_CANCELLATION);
+                    String dateDropped = c.getString(Config.JSON_SECTION_DROP);
+                    String dateDroppedLimit = c.getString(Config.JSON_SECTION_DROP_LIMIT);
+
+                    Date dateCancellation = Config.parsingDate(dateCacncel,
+                            Config.PARSING_DATE_FORMAT);
+                    Date dateDrop = Config.parsingDate(dateDropped,
+                            Config.PARSING_DATE_FORMAT);
+                    Date dateDropLimit = Config.parsingDate(dateDroppedLimit,
+                            Config.PARSING_DATE_FORMAT);
 
                     this.setType(c.getString(Config.JSON_SECTION_TYPE));
                     this.setCancel(dateCancellation);

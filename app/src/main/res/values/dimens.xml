@@ -22,12 +22,22 @@
     <dimen name="text_item_list_view">14sp</dimen>
 
     <dimen name="text_button_size">14sp</dimen>
+    <dimen name="text_tab_size">12sp</dimen>
 
     <dimen name="padding_title_size">18dp</dimen>
     <dimen name="padding_table_row">18dp</dimen>
     <dimen name="padding_button_layout_margin_size">18dp</dimen>
     <dimen name="padding_item_list_view">18dp</dimen>
+    <dimen name="padding_top_element">14dp</dimen>
 
+    <dimen name="margin_bottom_view_pager">48dp</dimen>
+
+    <dimen name="title_height">48dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="search_height">48dp</dimen>
+    <dimen name="schedule_height">78dp</dimen>
+    <dimen name="item_my_course_height">100dp</dimen>
+    <dimen name="schedule_width_date">138dp</dimen>
 
 
 

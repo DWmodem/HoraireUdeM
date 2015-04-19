@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/schedule_height"
+        android:id="@+id/item_schedule"
+        android:padding="6dip">
+
+        <TextView
+            android:id="@+id/schedule_date"
+            android:text="2014-09-04"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_width="@dimen/schedule_width_date"
+            android:layout_height="@dimen/schedule_height"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center|top"
+            android:layout_marginRight="7dip" />
+
+        <TextView
+            android:id="@+id/schedule_hours"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/schedule_date"
+            android:gravity="center_vertical"
+            android:text="Hours"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/schedule_local"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/schedule_hours"
+            android:layout_toRightOf="@id/schedule_date"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Local"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/schedule_prof"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/schedule_local"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/schedule_date"
+            android:singleLine="true"
+            android:text="Prof"
+            android:textSize="12sp" />
+
+</RelativeLayout>

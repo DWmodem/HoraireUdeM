@@ -2,15 +2,21 @@ package com.mobile.umontreal.schedule.misc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Switch;
 import android.widget.Toast;
 
+
 import com.mobile.umontreal.schedule.Config;
+import com.mobile.umontreal.schedule.DepartmentsActivity;
+import com.mobile.umontreal.schedule.MainActivity;
 import com.mobile.umontreal.schedule.R;
+import com.mobile.umontreal.schedule.ScheduleActivity;
+import com.mobile.umontreal.schedule.SettingsActivity;
+import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 
 /**
  * Created by Philippe on 29/03/2015.
@@ -85,18 +91,25 @@ public class MenuHelper {
         switch(item.getItemId()){
             case R.id.action_settings:
             {
-                Toast.makeText(context, "Settings Item clicked", Toast.LENGTH_SHORT).show();
                 Log.d("MENUITEM", "Settings has been run");
+//  Toast.makeText(context, "Settings Item clicked", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(activity, SettingsActivity.class);
+                activity.startActivity(myIntent);
+
                 return true;
             }
             case R.id.action_calendar:
             {
-                Toast.makeText(context, "Calendar Item clicked", Toast.LENGTH_SHORT).show();
-                Log.d("MENUITEM", "Calendar has been run");
+                Intent myIntent = new Intent(activity, MainActivity.class);
+                activity.startActivity(myIntent);
+//                Toast.makeText(context, "Calendar Item clicked", Toast.LENGTH_SHORT).show();
+//                Log.d("MENUITEM", "Calendar has been run");
                 return true;
             }
             case R.id.action_schedule:
             {
+                Intent myIntent= new Intent(activity, ScheduleActivity.class);
+                activity.startActivity(myIntent);
                 Toast.makeText(context, "Schedule Item clicked", Toast.LENGTH_SHORT).show();
                 Log.d("MENUITEM", "Schedule has been run");
                 return true;
@@ -109,8 +122,10 @@ public class MenuHelper {
             }
             case R.id.action_add_new_course:
             {
-                Toast.makeText(context, "Add new course Item clicked", Toast.LENGTH_SHORT).show();
-                Log.d("MENUITEM", "Add new course has been run");
+                // Launching new Activity on selecting single List Item
+
+                Intent intent = new Intent(activity, DepartmentsActivity.class);
+                activity.startActivity(intent);
                 return true;
             }
             case R.id.action_synchronize:
@@ -138,6 +153,7 @@ public class MenuHelper {
                 GoogleIntegrationManager.loginAction(activity);
                 return true;
             }
+
             default:
             {
 

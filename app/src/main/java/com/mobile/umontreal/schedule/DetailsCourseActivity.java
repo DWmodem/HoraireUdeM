@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.misc.Callable;
-import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
+import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSection;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
@@ -46,7 +46,6 @@ public class DetailsCourseActivity extends ActionBarActivity
 
     // Buttons
     private Button buttonNext;
-    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class DetailsCourseActivity extends ActionBarActivity
         dateDropView = (TextView) findViewById(R.id.course_drop_limit);
         dateDropLimitView = (TextView) findViewById(R.id.course_drop);
         buttonNext = (Button) findViewById(R.id.course_button_next);
-        buttonBack = (Button) findViewById(R.id.course_button_back);
 
         // Action Bar settings
         actionBar = getSupportActionBar();
@@ -150,26 +148,26 @@ public class DetailsCourseActivity extends ActionBarActivity
             dateDropView.setVisibility(View.GONE);
             dateDropLimitView.setVisibility(View.GONE);
             buttonNext.setVisibility(View.GONE);
-            buttonBack.setVisibility(View.VISIBLE);
+//            buttonNext.setText(R.string.course_button_back);
 
             Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
                     Toast.LENGTH_LONG).show();
 
-            buttonBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+//            buttonNext.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    onBackPressed();
+//                }
+//            });
         } else {
 
             description.setText(courseSection.getDescription());
             dateCancellation.setText(DateFormat.
-                    format(Config.PRINT_DATE_FORMAT, courseSection.getCancel()).toString());
+                    format(Config.PATTERN_FOR_PRINT_DATA, courseSection.getCancel()).toString());
             dateDrop.setText(DateFormat.
-                    format(Config.PRINT_DATE_FORMAT, courseSection.getDrop()).toString());
+                    format(Config.PATTERN_FOR_PRINT_DATA, courseSection.getDrop()).toString());
             dateDropLimit.setText(DateFormat.
-                    format(Config.PRINT_DATE_FORMAT, courseSection.getDropLimit()).toString());
+                    format(Config.PATTERN_FOR_PRINT_DATA, courseSection.getDropLimit()).toString());
 
             buttonNext.setOnClickListener(new View.OnClickListener() {
 
@@ -183,6 +181,8 @@ public class DetailsCourseActivity extends ActionBarActivity
                     intent.putExtra(Config.JSON_SIGLE, extras.getString(Config.JSON_SIGLE));
                     intent.putExtra(Config.JSON_COURSE_NUM, extras.getString(Config.JSON_COURSE_NUM));
                     intent.putExtra(Config.JSON_SESSION, extras.getString(Config.JSON_SESSION));
+                    intent.putExtra(Config.JSON_SECTIONS, courseSection.getSectionList());
+                    intent.putExtra(Config.JSON_COURSE_TITLE, extras.getString(Config.JSON_COURSE_TITLE));
                     startActivity(intent);
                 }
             });

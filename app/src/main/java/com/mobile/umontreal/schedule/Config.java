@@ -1,5 +1,10 @@
 package com.mobile.umontreal.schedule;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by Corneliu on 25-Mar-2015.
  * General configuration
@@ -17,12 +22,17 @@ public class Config {
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/sigles.json
     public static final String JSON_SESSION                 = "trimestre";
     public static final String JSON_SIGLE                   = "sigle";
+    public static final String JSON_DEPARTMENT_TITLE        = "titre";
 
     public static final String JSON_COURSE_NUM              = "coursnum";
     public static final String JSON_COURSE_TYPE             = "type";
     public static final String JSON_COURSE_STATUS           = "status";
     public static final String JSON_COURSE_CREDITS          = "credits";
     public static final String JSON_COURSE_DESCRIPTION      = "description";
+
+    public static final String JSON_COURSE_STATUS_OPEN      = "Ouvert";
+    public static final String JSON_COURSE_TYPE_THEORY      = "TH";
+
 
     public static final String JSON_COURSE_SCHEDULE         = "horaire";
 
@@ -38,6 +48,7 @@ public class Config {
     public static final String JSON_SECTION_DROP_LIMIT      = "abandonlimite";
     public static final String JSON_SECTION_DESCRIPTION     = "description";
     public static final String JSON_SESSION_TYPE            = "session";
+    public static final String JSON_GROUP_SECTION           = "section";
 
     // http://www-labs.iro.umontreal.ca/~roys/horaires/json/A14-ift-1015-B02.json
     public static final String JSON_SCHEDULE_DATE           = "date";
@@ -49,10 +60,43 @@ public class Config {
     public static final String JSON_SCHEDULE_DESCRIPTION    = "description";
 
     // Shorthand for some units of time
-    public static final String PARSING_DATE_FORMAT          = "yyyy-mm-dd";
-    public static final String PRINT_DATE_FORMAT            = "dd MMMM yyyy";
-    public static final String SCHEDULE_DATE_FORMAT         = "yyyy-mm-dd HH:mm";
+    public static final String PARSING_DATE_FORMAT          = "yyyy-MM-dd";
+    public static final String PATTERN_FOR_PRINT_DATA       = "dd MMMM yyyy";
 
+    public static final String SCHEDULE_PATTERN_DATE_TIME   = "yyyy-MM-dd HH:mm";
+    public static final String SCHEDULE_PATTERN_DATE        = "yyyy-MM-dd";
+    public static final String SCHEDULE_PATTERN_HOUR        = "HH:mm";
+    public static final String SCHEDULE_PATTERN_DAY         = "E";
+
+    public static final Locale TIME_LOCALE_FR               = new Locale("fr", "FR");
+    public static final Locale TIME_LOCALE_EN               = new Locale("en", "US");
+
+    public static Date parsingDate(String date, String format) throws ParseException {
+//
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CANADA_FRENCH);
+//        return dateFormat.parse(date);
+
+        SimpleDateFormat originalFormat = new SimpleDateFormat(format, TIME_LOCALE_FR);
+        SimpleDateFormat targetFormat = new SimpleDateFormat(format, TIME_LOCALE_EN);
+        Date dateOrignial = originalFormat.parse(date);
+        String dateTarged = targetFormat.format(dateOrignial);
+        return originalFormat.parse(dateTarged);
+
+    }
+
+    public static String printDateTime (String pattern, Date date) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        return simpleDateFormat.format(date);
+
+    }
+
+    public static String printDateDefault (Date date) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PARSING_DATE_FORMAT, TIME_LOCALE_EN);
+        return simpleDateFormat.format(date);
+
+    }
 
     public static final long SECOND_MILLIS                  = 1000;
     public static final long MINUTE_MILLIS                  = 60 * SECOND_MILLIS;
@@ -63,14 +107,14 @@ public class Config {
     public static boolean isLoggedIn                        = false;
 
     //Google login constants
-    public static final int REQUEST_CODE_PICK_ACCOUNT      = 1000;
-    public static final int RESULT_OK                      = -1;
-    public static final int RESULT_CANCELED                = 0;
+    public static final int REQUEST_CODE_PICK_ACCOUNT       = 1000;
+    public static final int RESULT_OK                       = -1;
+    public static final int RESULT_CANCELED                 = 0;
 
     //User's google account email
     public static String userEmail;
 
-
-
+    //Scope
+    public static final String SCOPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile";
 
 }

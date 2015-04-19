@@ -18,6 +18,7 @@ public class Course {
     private Session session;
     private List<CourseSection> courseSection;
 
+
     public Department getDepartment() {
         return department;
     }

@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">HoraireUdeM</string>
+
+    <string name="title_activity_departments">Departements</string>
+    <string name="title_activity_courses">Cours</string>
+    <string name="title_activity_details_course">Détails du cours</string>
+    <string name="title_activity_full_details_course">Tout les détails du cours</string>
+
+    <string name="department_titre">Titre du département</string>
+
+    <string name="course_title">Nom du cours</string>
+    <string name="course_description">Description du cours:</string>
+    <string name="course_section">Section</string>
+    <string name="course_type">Type: </string>
+    <string name="course_cancellation">Annulation: </string>
+    <string name="course_drop">Date d\'Abandon: </string>
+    <string name="course_drop_limit">Date limite: </string>
+
+    <string name="course_button_next">+Suivre</string>
+    <string name="course_button_back">Retour</string>
+    <string name="course_button_add">Ajouter ce cours</string>
+    <string name="course_button_edit">Éditer</string>
+
+    <string name="schedule_theory">Théorie</string>
+    <string name="schedule_demo">Demo</string>
+    <string name="schedule_midterm">Intra</string>
+    <string name="schedule_final">Examen final</string>
+
+    <string name="action_calendar">Calendrier</string>
+    <string name="action_search" >Recherche</string>
+    <string name="action_schedule">Horaire</string>
+    <string name="action_timetable">Timetable</string>
+    <string name="action_add_new_course">Ajouter un nouveau cours</string>
+    <string name="action_synchronize">Synchronizer avec google</string>
+    <string name="action_share">Partager</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_log_out">Se déconnecter</string>
+    <string name="action_log_in">Se connecter</string>
+
+    <string name="season_winter">Hiver</string>
+    <string name="season_summer">Été</string>
+    <string name="season_autumn">Automne</string>
+
+    <string name="search_department">Recherche departement</string>
+    <string name="search_course">Recherche cours</string>
+
+    <string name="sigle_cours"> Sigle+cours</string>
+    <string name="teacher">Enseignant:</string>
+    <string name="group">Groupe:</string>
+    <string name="next_class"> Prochain cours:</string>
+
+    <string name="cours_activity">Cours</string>
+    <string name="hello_world">Bonjour tout le monde!</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
+
+    <string name="FILE_IS_EMPTY">La base de données est vide...</string>
+    <string name="DATA_IS_NOT_AVAILABLE">Les données ne sont pas disponibles...</string>
+
+    <string name="INTERNET_CONNECTION_ERROR">S.V.P. se brancher à l\'internet</string>
+    <string name="DB_ROW_EXIST">Ce cours est déjà enregistré</string>
+    <string name="DB_ROW_ADDED">Ce cours à été enregistré avec succès</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="tab_stream">Stream</string>
+    <string name="tab_messages">Messages</string>
+    <string name="tab_notifications">Notifications</string>
+    <string name="tab_photos">Photos</string>
+
+
+//MESSAGES TOASTS
+
+
+
+
+
+
+</resources>

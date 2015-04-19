@@ -1,99 +1,199 @@
 package com.mobile.umontreal.schedule;
 
-import android.app.ActionBar;
-import android.content.Intent;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
+import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
 import com.mobile.umontreal.schedule.misc.Callable;
-import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
-import com.mobile.umontreal.schedule.objects.CourseSection;
+import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
+import com.mobile.umontreal.schedule.schedule.ScheduleListAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Vector;
 
 
 public class FullDetailsCourseActivity extends ActionBarActivity
-        implements ActionBar.OnNavigationListener, Callable {
+        implements ActionBar.OnNavigationListener, Callable{
 
     // Log view class
     private String LOG_TAG = FullDetailsCourseActivity.class.getSimpleName();
 
     // Action bar
-    private android.support.v7.app.ActionBar actionBar;
+    private ActionBar actionBar;
 
-    // Course title and description
-    private TextView courseTitre;
-    private TextView description;
+    // Data Base
+    private UDMDatabaseManager dataBase;
+    private SQLiteDatabase db;
 
-    // Course dates
-    private TextView dateCancellation;
-    private TextView dateDrop;
-    private TextView dateDropLimit;
-    private TextView dateCancellationView;
-    private TextView dateDropView;
-    private TextView dateDropLimitView;
+    private ArrayList<String> sectionList;
+    private ArrayList<CourseSectionSchedule> courseList;
 
-    // Buttons
-    private Button buttonNext;
-    private Button buttonBack;
+    /** Called when the activity is first created. */
+    private Context mContext;
+    private Vector<View> pages;
+    private TextView courseCurrentSection;
+    private TextView courseTitle;
 
-    // Section
-    private CourseSection courseSection;
+    private Integer callback_count = 0;
+    private String[] tabs;
+    private String section;
 
-    // Session name
-    private String tagSession;
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_details_course);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+//
+//        if (savedInstanceState == null) {
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            FloatingActionButtonBasicFragment fragment = new FloatingActionButtonBasicFragment();
+//            transaction.replace(R.id.sample_content_fragment, fragment);
+//            transaction.commit();
+//        }
+
+        mContext = this;
+        pages = new Vector<View>();
 
         // Action Bar settings
         actionBar = getSupportActionBar();
-        Bundle extras = getIntent().getExtras();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
 
-        // Set title in ActionBar
-        String tagAcronym = extras.getString(Config.JSON_SIGLE);
-        String tagCourseNum = extras.getString(Config.JSON_COURSE_NUM);
-        String tagSession = extras.getString(Config.JSON_SESSION);
-        actionBar.setTitle(tagAcronym + " " + tagCourseNum + "-" + tagSession);
+        // Set name of course
+        courseTitle = (TextView) findViewById(R.id.course_title);
+        courseCurrentSection = (TextView) findViewById(R.id.course_section);
 
-        // Build a URL for json file
-        String url = Config.URL_API_UDEM + tagSession + "-" + tagAcronym.toLowerCase() + "-" + tagCourseNum + ".json";
-
-
+        InitializeTabStrip();
     }
 
+    private void InitializeTabStrip() {
+        // Set title in ActionBar
+        Bundle extras             = getIntent().getExtras();
+        String tagAcronym         = extras.getString(Config.JSON_SIGLE);
+        String tagCourseNum       = extras.getString(Config.JSON_COURSE_NUM);
+        String tagSession         = extras.getString(Config.JSON_SESSION);
+        actionBar.setTitle(tagAcronym + " " + tagCourseNum + "-" + tagSession);
+
+//        // Get the ViewPager and set it's PagerAdapter so that it can display items
+//        viewPager = (ViewPager) findViewById(R.id.schedule_viewer);
+        sectionList = extras.getStringArrayList(Config.JSON_SECTIONS);
+        courseTitle.setText(extras.getString(Config.JSON_COURSE_TITLE));
+
+        if (sectionList.size() > 0) {
+
+            courseList = new ArrayList<CourseSectionSchedule>();
+
+            // Default section
+            section = sectionList.get(0);
+            courseCurrentSection.setText(getString(R.string.course_section) + ": " + section.substring(0, 1));
+            courseCurrentSection.setContentDescription(section);
+
+            // Build a the tabs
+            tabs = new String[sectionList.size()];
+
+            // Build a URL for json file
+            String url;
+//            String tabTitle = this.getResources().getString(R.string.course_section);
+
+            for (int i = 0; i < sectionList.size(); i++) {
+
+                if (!sectionList.get(i).isEmpty()) {
+
+                    tabs[i] = sectionList.get(i);
+
+                    //Get the file containing the relevant data
+                    url = Config.URL_API_UDEM +
+                            tagSession + "-" +                      //Eg: H15
+                            tagAcronym.toLowerCase() + "-" +        //Eg: ift
+                            tagCourseNum + "-" +                    //Eg: 1015
+                            tabs[i].toUpperCase() + ".json";        //Eg: A102      ----> H15-ift-1015-A102.json
+
+                    UDMJsonData data = new UDMJsonData(url);
+                    data.execute(this);
+                    callback_count ++;
+                    pages.add(new ListView(mContext));
+                }
+            }
+        }
+    }
+
+    private void InitializeListViews() {
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_viewer);
+        viewPager.setAdapter(new ScheduleListAdapter(getSupportFragmentManager(), tabs, courseList));
+
+
+        // Give the PagerSlidingTabStrip the ViewPager
+        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabsStrip.setIndicatorColorResource(R.color.white);
+        tabsStrip.setDividerColorResource(R.color.white);
+        tabsStrip.setViewPager(viewPager);
+        tabsStrip.setShouldExpand(true);
+
+        // Attach the page change listener to tab strip and **not** the view pager inside the activity
+        tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            // This method will be invoked when a new page becomes selected.
+            @Override
+            public void onPageSelected(int position) {
+
+                    // Selected section
+                    section = sectionList.get(position);
+                    courseCurrentSection.setText(getString(R.string.course_section) + ": " + section.substring(0, 1));
+                    courseCurrentSection.setContentDescription(section);
+            }
+
+            // This method will be invoked when the current page is scrolled
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Code goes here
+            }
+
+            // Called when the scroll state changes:
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Code goes here
+            }
+
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_full_details_course, menu);
-        return true;
+
+        //Common create options menu code is in MenuHelper
+        MenuInflater inflater = getMenuInflater();
+        MenuHelper.onCreateOptionsMenu(menu, inflater);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+
+        //Common prepare options menu code is in MenuHelper
+        MenuHelper.onPrepareOptionsMenu(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
         switch (item.getItemId()) {
 
             case android.R.id.home:
@@ -106,33 +206,92 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
-    }
-
-    @Override
     public void OnCallback(UDMJsonData data) {
 
+        // Convert JSON to object. Sort the list.
+        try {
+            for (JSONObject csc : data.getItems()){
+                CourseSectionSchedule courseSectionSchedule = new CourseSectionSchedule(csc);
+                courseList.add(courseSectionSchedule);
+
+            }
+
+            if ((-- callback_count)<= 0)
+                InitializeListViews();
+
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        if (callback_count == 0 && courseList.size() == 0) {
+
+            Toast.makeText(getApplicationContext(), R.string.DATA_IS_NOT_AVAILABLE,
+                    Toast.LENGTH_LONG).show();
+
+        }
     }
 
     @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+    public boolean onNavigationItemSelected(int i, long l) {
         return false;
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+    public void buttonClick(View v) {
 
-        public PlaceholderFragment() {
-        }
+        // Connection to DataBase
+        dataBase = new UDMDatabaseManager(mContext);
+        SQLiteDatabase dbw = dataBase.getWritableDatabase();
+        SQLiteDatabase dbr = dataBase.getReadableDatabase();
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_full_details_course, container, false);
-            return rootView;
+        Bundle extras          = getIntent().getExtras();
+        String acronym         = extras.getString(Config.JSON_SIGLE);
+        String courseNum       = extras.getString(Config.JSON_COURSE_NUM);
+        String session         = extras.getString(Config.JSON_SESSION);
+        String title           = extras.getString(Config.JSON_COURSE_TITLE);
+
+        CourseSectionSchedule course = courseList.get(0);
+        course.setSessionPeriod(session);
+
+        if (course.getSchedule().size() > 0) {
+
+            int cursNum = course.getCourseSection().getCourse().getCourseNumber();
+
+            Cursor c = dataBase.getCourse(course.getCourseSection().getCourse().getTitle(), Integer.toString(cursNum), dbr);
+
+            if (c.getCount() != 0) {
+                Toast.makeText(getApplicationContext(),
+                        R.string.DB_ROW_EXIST,
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+
+                String Section = courseCurrentSection.getText().toString();
+                Section = Section.substring(Section.length() - 1);
+
+                for (int index = 0; index < courseList.size(); index++) {
+
+                    dataBase.addCoursePeriod(courseList.get(index), dbw);
+
+                    String SectionIndex = courseList.get(index).getCourseSection().toString();
+
+                    Toast.makeText(getApplicationContext(),
+                            "We have a :" + SectionIndex + " and :" + Section, Toast.LENGTH_SHORT).show();
+
+                    if (Section == SectionIndex.substring(0, 1)) {
+                        dataBase.addCoursePeriod(courseList.get(index), db);
+                        Toast.makeText(getApplicationContext(),
+                             "We have a match" + courseList.get(index).getCourseSection(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                dataBase.addCourse(course, dbw);
+
+                Toast.makeText(getApplicationContext(),
+                        R.string.DB_ROW_ADDED,
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

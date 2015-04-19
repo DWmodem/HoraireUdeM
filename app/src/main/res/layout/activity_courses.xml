@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -6,6 +7,7 @@
     android:paddingRight="@dimen/table_row_padding_right"
     android:paddingTop="@dimen/table_row_padding_top"
     android:paddingBottom="@dimen/table_row_padding_bottom"
+    android:gravity="left|center_vertical"
     tools:context="com.mobile.umontreal.schedule.CoursesActivity">
 
 <TableLayout
@@ -27,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/department_titre"
+            android:textStyle="bold"
             android:textColor="@color/table_title_color"
             android:textSize="@dimen/text_title_size"
             android:padding="@dimen/padding_table_row"/>
