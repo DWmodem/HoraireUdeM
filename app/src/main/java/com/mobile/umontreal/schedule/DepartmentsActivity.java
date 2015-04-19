@@ -1,5 +1,6 @@
-package com.mobile.umontreal.schedule;
+package com.example.leto.horaireudem;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,7 +9,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,12 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.mobile.umontreal.schedule.misc.Callable;
-import com.mobile.umontreal.schedule.misc.GoogleIntegrationManager;
-import com.mobile.umontreal.schedule.misc.MenuHelper;
-import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
-import com.mobile.umontreal.schedule.parsing.UDMJsonData;
-import com.mobile.umontreal.schedule.objects.Department;
+import com.example.leto.horaireudem.misc.SessionNavigationAdapter;
+import com.example.leto.horaireudem.misc.UDMJsonData;
+import com.example.leto.horaireudem.objects.Department;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,8 +29,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class DepartmentsActivity extends ActionBarActivity
-        implements ActionBar.OnNavigationListener, Callable {
+public class DepartmentsActivity extends ActionBarActivity implements ActionBar.OnNavigationListener, Callable {
 
     // Log view class
     private String LOG_TAG = DepartmentsActivity.class.getSimpleName();
@@ -65,6 +61,9 @@ public class DepartmentsActivity extends ActionBarActivity
         // Hide the action bar title
         actionBar.setDisplayShowTitleEnabled(true);
 
+        // Adding Drop-down Navigation
+        addBarNavigation();
+
         // Build a URL for json file
         String url = Config.URL_API_UDEM + "sigles.json";
 
@@ -87,8 +86,8 @@ public class DepartmentsActivity extends ActionBarActivity
                 Intent intent = new Intent(getApplicationContext(), CoursesActivity.class);
 
                 // Sending data to CourseActivity
-                intent.putExtra(Config.JSON_SIGLE, dep.getSigle());
-                intent.putExtra(Config.JSON_COURSE_TITLE, dep.getTitle());
+                intent.putExtra(Config.TAG_SIGLE, dep.getSigle());
+                intent.putExtra(Config.TAG_TITLE, dep.getTitle());
                 startActivity(intent);
             }
 
@@ -134,38 +133,26 @@ public class DepartmentsActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        //Common create options menu code is in MenuHelper
-        MenuInflater inflater = getMenuInflater();
-        MenuHelper.onCreateOptionsMenu(menu, inflater);
-        return super.onCreateOptionsMenu(menu);
-
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu (Menu menu) {
-
-        //Common prepare options menu code is in MenuHelper
-        MenuHelper.onPrepareOptionsMenu(menu);
-        return super.onPrepareOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
         switch (item.getItemId()) {
-
-            case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
-                this.finish();
+            case R.id.action_settings:
+                ActionBarHelper.openSettings(this);
                 return true;
             default:
-                return MenuHelper.onOptionsItemSelected(getApplicationContext(), item, this);
+                return super.onOptionsItemSelected(item);
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        GoogleIntegrationManager.onActivityResult(requestCode, resultCode, data, this);
+    // Adding Drop-down Navigation
+    private void addBarNavigation() {
+
     }
 
 
@@ -184,7 +171,7 @@ public class DepartmentsActivity extends ActionBarActivity
         }
         catch (JSONException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         Collections.sort(departmentList, new Comparator<Department>() {
