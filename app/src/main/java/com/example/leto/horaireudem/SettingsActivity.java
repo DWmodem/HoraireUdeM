@@ -18,6 +18,8 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 
 
+import com.mobile.umontreal.schedule.R;
+
 import java.util.List;
 
 /**
