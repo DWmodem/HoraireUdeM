@@ -24,6 +24,7 @@ public class ScheduleCursorAdapter extends FragmentStatePagerAdapter {
 
         this.tabTitles = tabTitles;
         this.tabNumber = tabTitles.length;
+
         this.courseList = new ArrayList<ArrayList<MyCourse>>();
         this.courseList.addAll(courseList);
     }

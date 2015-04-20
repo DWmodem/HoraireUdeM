@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class UDMDatabaseManager extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "UdeMcoursesDatabase";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 2;
 
     //Schema
     //DEPARTEMENT;              Un département de l'UDM (ex: IFT - Informatique)
@@ -159,6 +159,23 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    //Remove a course from the database. Also remove the course periods associated to that course.
+    public void removeCourse(CourseSectionSchedule course, SQLiteDatabase db){
+
+        //Delete from TABLE_COURS WHERE COURSE...
+        String query = "DELETE FROM " +UDMDatabaseManager.TABLE_COURS+  " WHERE "+
+                                                                        UDMDatabaseManager.C_SIGLE+" = " +course.getSigle()+
+                                                                        " AND "+
+                                                                        UDMDatabaseManager.C_COURSNUM+" = "+course.getCoursnum()+
+                                                                        " AND "+
+                                                                        UDMDatabaseManager.C_SECTION+" = "+course.getCSection()+
+                                                                        " AND "+
+                                                                        UDMDatabaseManager.C_TRIMESTRE+" = "+course.getSessionPeriod();
+
+        //Delete from TABLE_COURSEPERIOD WHERE COURSEPERIOD.SIGLE_COURSNUM_SECTION_TRIMESTRE
+
+    }
+
     public Cursor getCourse(String title, String courseNumber, SQLiteDatabase db){
 
         Cursor result = db.rawQuery(
@@ -168,6 +185,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 new String[] {title, courseNumber});
         return result;
     }
+
 
     public Cursor getCourses(
                 String[] columns,
