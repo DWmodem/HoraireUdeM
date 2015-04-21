@@ -71,6 +71,8 @@ public class ScheduleMyCoursesAdapter extends ArrayAdapter<MyCourse> {
 
         holder.teacher.setText(getContext().getString(R.string.teacher) + " " + course.getProfessor());
 
+        holder.button_delete_course.setContentDescription(""+course.get_id());
+
         return convertView;
 
     }

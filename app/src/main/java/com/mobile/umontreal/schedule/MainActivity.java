@@ -1,10 +1,8 @@
 package com.mobile.umontreal.schedule;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -32,17 +30,14 @@ import java.util.Vector;
  * */
 public class MainActivity extends ActionBarActivity {
 
+    //Tag for logging purposes
     private String LOG_TAG = MainActivity.class.getSimpleName();
-
-    private ProgressDialog pDialog;
 
     // Connection Internet Detector
     private ConnectionDetector connection;
 
     // Data Base
     private UDMDatabaseManager dataBase;
-    private SQLiteDatabase dbr;
-    private SQLiteDatabase dbw;
 
     /** Called when the activity is first created. */
     private ArrayList<ArrayList<MyCourse>> myList;
@@ -58,15 +53,14 @@ public class MainActivity extends ActionBarActivity {
 
         // Connection DataBase
         dataBase = new UDMDatabaseManager(this);
-        dbw = dataBase.getWritableDatabase();
-        dbr = dataBase.getReadableDatabase();
 
         myList = new ArrayList<ArrayList<MyCourse>>();
 
         mContext = this;
         pages = new Vector<View>();
 
-        if (dataBase.isEmpty(dbr)) {
+        //Before launching, verify the database state
+        if (dataBase.isEmpty()) {
 
             // Launching new Activity on selecting single List Item
             Intent intent = new Intent(getApplicationContext(), DepartmentsActivity.class);
@@ -92,8 +86,7 @@ public class MainActivity extends ActionBarActivity {
                 UDMDatabaseManager.C_TRIMESTRE,         // Group the rows
                 null,                                   // Filter by row groups
                 UDMDatabaseManager.C_ID + " DESC",      // The sort order
-                null,
-                dbr);                                   // The limit);
+                null);                                   // The limit);
 
 
         // Build a the tabs
@@ -104,6 +97,9 @@ public class MainActivity extends ActionBarActivity {
 
             tabs = new String[tabsNumber];
 
+
+            //For every session inscribed
+            //Produce the tabs
             for (Cursor data : new IterableCursor(session)) {
 
                 ArrayList<MyCourse> courseList = new ArrayList<MyCourse>();
@@ -128,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
                         null,                                       // Group the rows
                         null,                                       // Filter by row groups
                         UDMDatabaseManager.C_TITRE + " ASC",       // The sort order
-                        null, dbr);
+                        null);
 
                 c.moveToFirst();
 

@@ -67,6 +67,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 //            transaction.commit();
 //        }
 
+        //Initialization
         mContext = this;
         pages = new Vector<View>();
 
@@ -82,6 +83,8 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         InitializeTabStrip();
     }
 
+    //Download json
+    //Read the data to create tab strips associated with the course
     private void InitializeTabStrip() {
         // Set title in ActionBar
         Bundle extras             = getIntent().getExtras();
@@ -111,6 +114,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
             String url;
 //            String tabTitle = this.getResources().getString(R.string.course_section);
 
+            //Create json links for download
             for (int i = 0; i < sectionList.size(); i++) {
 
                 if (!sectionList.get(i).isEmpty()) {
@@ -242,8 +246,6 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
         // Connection to DataBase
         dataBase = new UDMDatabaseManager(mContext);
-        SQLiteDatabase dbw = dataBase.getWritableDatabase();
-        SQLiteDatabase dbr = dataBase.getReadableDatabase();
 
         Bundle extras          = getIntent().getExtras();
         String acronym         = extras.getString(Config.JSON_SIGLE);
@@ -251,14 +253,16 @@ public class FullDetailsCourseActivity extends ActionBarActivity
         String session         = extras.getString(Config.JSON_SESSION);
         String title           = extras.getString(Config.JSON_COURSE_TITLE);
 
+
         CourseSectionSchedule course = courseList.get(0);
         course.setSessionPeriod(session);
 
         if (course.getSchedule().size() > 0) {
 
             int cursNum = course.getCourseSection().getCourse().getCourseNumber();
+            course.setProf(course.getSchedule().get(0).getProfessor());
 
-            Cursor c = dataBase.getCourse(course.getCourseSection().getCourse().getTitle(), Integer.toString(cursNum), dbr);
+            Cursor c = dataBase.getCourse(course.getCourseSection().getCourse().getTitle(), Integer.toString(cursNum));
 
             if (c.getCount() != 0) {
                 Toast.makeText(getApplicationContext(),
@@ -272,7 +276,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
                 for (int index = 0; index < courseList.size(); index++) {
 
-                    dataBase.addCoursePeriod(courseList.get(index), dbw);
+                    dataBase.addCoursePeriod(courseList.get(index));
 
                     String SectionIndex = courseList.get(index).getCourseSection().toString();
 
@@ -280,13 +284,13 @@ public class FullDetailsCourseActivity extends ActionBarActivity
                             ""+getString(R.string.added_course_part1) +""+ SectionIndex + getString(R.string.added_course_part2) + Section, Toast.LENGTH_SHORT).show();
 
                     if (Section == SectionIndex.substring(0, 1)) {
-                        dataBase.addCoursePeriod(courseList.get(index), db);
+                        dataBase.addCoursePeriod(courseList.get(index));
                         Toast.makeText(getApplicationContext(),
                            "" + getString(R.string.match_found) + courseList.get(index).getCourseSection(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
-                dataBase.addCourse(course, dbw);
+                dataBase.addCourse(course);
 
                 Toast.makeText(getApplicationContext(),
                         getString(R.string.DB_ROW_ADDED),

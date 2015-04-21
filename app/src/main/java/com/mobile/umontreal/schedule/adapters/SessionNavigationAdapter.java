@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by Corneliu on 16-Mar-2015.
  */
+//Container class to manage different sessions
 public class SessionNavigationAdapter extends BaseAdapter {
 
     private TextView sessionTitle;
@@ -60,7 +61,8 @@ public class SessionNavigationAdapter extends BaseAdapter {
         return setViews(position, convertView, parent);
     }
 
-    private View setViews(int position, View convertView, ViewGroup parent) {
+    //Set the content adapter's fields and displays to the information given
+     private View setViews(int position, View convertView, ViewGroup parent) {
 
         String resKey = "season_" + session.get(position).getSeason().toString().toLowerCase();
         int resId = context.getResources().getIdentifier(resKey,"string",context.getPackageName());
@@ -77,7 +79,7 @@ public class SessionNavigationAdapter extends BaseAdapter {
         return convertView;
     }
 
-
+    //Dropdown
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

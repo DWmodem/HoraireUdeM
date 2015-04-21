@@ -127,7 +127,9 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     }
 
     // Adding new Course
-    public void addCourse(CourseSectionSchedule course, SQLiteDatabase db) {
+    public void addCourse(CourseSectionSchedule course) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
@@ -159,24 +161,9 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    //Remove a course from the database. Also remove the course periods associated to that course.
-    public void removeCourse(CourseSectionSchedule course, SQLiteDatabase db){
+    public Cursor getCourse(String title, String courseNumber){
 
-        //Delete from TABLE_COURS WHERE COURSE...
-        String query = "DELETE FROM " +UDMDatabaseManager.TABLE_COURS+  " WHERE "+
-                                                                        UDMDatabaseManager.C_SIGLE+" = " +course.getSigle()+
-                                                                        " AND "+
-                                                                        UDMDatabaseManager.C_COURSNUM+" = "+course.getCoursnum()+
-                                                                        " AND "+
-                                                                        UDMDatabaseManager.C_SECTION+" = "+course.getCSection()+
-                                                                        " AND "+
-                                                                        UDMDatabaseManager.C_TRIMESTRE+" = "+course.getSessionPeriod();
-
-        //Delete from TABLE_COURSEPERIOD WHERE COURSEPERIOD.SIGLE_COURSNUM_SECTION_TRIMESTRE
-
-    }
-
-    public Cursor getCourse(String title, String courseNumber, SQLiteDatabase db){
+        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor result = db.rawQuery(
                 "SELECT * FROM " + TABLE_COURS + " WHERE " +
@@ -186,7 +173,6 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         return result;
     }
 
-
     public Cursor getCourses(
                 String[] columns,
                 String selection,
@@ -194,8 +180,9 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 String groupBy,
                 String having,
                 String orderBy,
-                String limit,
-                SQLiteDatabase db){
+                String limit){
+
+        SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(
                 TABLE_COURS,              // The table to query
@@ -212,7 +199,9 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void insertData(HashMap<String, String> queryValues, String tableName, SQLiteDatabase db) {
+    public void insertData(HashMap<String, String> queryValues, String tableName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
 
@@ -225,7 +214,9 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Cursor getRow(int id, String tableName, SQLiteDatabase db){
+    public Cursor getRow(int id, String tableName){
+
+        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor result = db.rawQuery( "SELECT * FROM " + tableName + " WHERE "
                         + tableName.substring(6,1)+"_ID = ? ",
@@ -233,19 +224,19 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean isEmpty(){
 
-
-
-
-    public boolean isEmpty(SQLiteDatabase db){
+        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor =  db.rawQuery("SELECT * FROM " + TABLE_COURS, null);
         return cursor.getCount() == 0 ? true : false;
     }
 
-    public boolean updateData (Integer id, HashMap<String, String> queryValues, String tableName, SQLiteDatabase db)
+    public boolean updateData (Integer id, HashMap<String, String> queryValues, String tableName)
     {
-        db = this.getWritableDatabase();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
 
         for (HashMap.Entry<String, String> entry : queryValues.entrySet()) {
@@ -258,16 +249,20 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         return true;
     }
 
-    public Integer deleteData (Integer id, String tableName, SQLiteDatabase db)
+    public Integer deleteData (Integer id, String tableName)
     {
-        db = this.getWritableDatabase();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
         return db.delete(tableName,
                 tableName.substring(6,1)+"_ID = ? ",
                 new String[] { Integer.toString(id) });
     }
 
     //Returns the next period ID needed into the database
-    public int getCoursePeriodID(SQLiteDatabase db){
+    public int getCoursePeriodID(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
 
         String[] columns = {UDMDatabaseManager.P_ID};
         Cursor cursor = db.query(UDMDatabaseManager.TABLE_PERIODECOURS, columns, null, null, null, null, null);
@@ -287,14 +282,16 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     return pcID;
 }
 
-    public long addCoursePeriod(CourseSectionSchedule course, SQLiteDatabase db) {
+    public long addCoursePeriod(CourseSectionSchedule course) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
 
         long err = 0;
         Schedule HoraireCours;
         for (int index = 0; index < course.getSchedule().size(); index++) {
 
             HoraireCours = course.getSchedule().get(index);
-            int nextID = getCoursePeriodID(db) + 1;
+            int nextID = getCoursePeriodID() + 1;
             ContentValues cv = new ContentValues();
             cv.put(UDMDatabaseManager.P_ID, nextID);
             cv.put(UDMDatabaseManager.P_SIGLE, course.getSigle());

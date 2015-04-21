@@ -87,6 +87,7 @@ public class CoursesActivity extends ActionBarActivity
          * Listening to single list item on click
          * */
 
+        //When one clicks on the list view, launch intent linked to the clicked item
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -116,7 +117,7 @@ public class CoursesActivity extends ActionBarActivity
 
             @Override
             public void onTextChanged(CharSequence s, int start, int lengthBefore, int lengthAfter) {
-                // When user changed the Text
+                // When user changed the Text in the search
                 if (CoursesActivity.this.courseAdapter != null) {
                     CoursesActivity.this.courseAdapter.getFilter().filter(s);
                 }
@@ -134,6 +135,7 @@ public class CoursesActivity extends ActionBarActivity
         });
     }
 
+    //Read data online, then, fill the lists
     private void fillViewList(String url) {
 
         UDMJsonData data = new UDMJsonData(url);

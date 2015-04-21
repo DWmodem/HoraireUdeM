@@ -18,6 +18,9 @@ import java.util.List;
 /**
  * Created by Corneliu on 07-Apr-2015.
  */
+
+//Adapter to contain the schedule's content
+//Takes the schedule objects and lays them out
 public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
     private ArrayList<Schedule> scheduleList;
@@ -31,6 +34,7 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
         this.activity = activity;
     }
 
+    //One list item containing the relevant information
     private class ViewHolder {
         TextView schedule_date;
         TextView schedule_hours;
@@ -43,6 +47,8 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
         ViewHolder holder = null;
 
+        //If the view does not have associated information
+        //Initialise the views for treatment
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.item_schedule, null);
@@ -59,10 +65,13 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        //For this position
         Schedule schedule = scheduleList.get(position);
 
         String description = schedule.getDescription();
 
+
+        //Set the content for the views from the schedule object
         holder.schedule_date.setText(
                 Config.printDateTime(Config.PATTERN_FOR_PRINT_DATA, schedule.getStartDate()));
 
@@ -71,10 +80,14 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
                         Config.printDateTime(Config.SCHEDULE_PATTERN_HOUR, schedule.getEndHour()));
         holder.schedule_local.setText(schedule.getLocation());
 
+
+        //Set color for final exams
         if (description.equals("Examen final")) {
             convertView.setBackgroundResource(R.color.accent_color);
             holder.schedule_prof.setText(R.string.schedule_final);
         }
+
+        //Midterm color
         else if (description.equals("Examen intra")) {
             convertView.setBackgroundResource(R.color.theme_accent_1_light);
             holder.schedule_prof.setText(R.string.schedule_midterm);

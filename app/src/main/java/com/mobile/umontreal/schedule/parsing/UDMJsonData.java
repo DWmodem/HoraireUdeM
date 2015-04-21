@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by Corneliu on 13-Mar-2015.
  */
+//Extend from read data to read whole json files
 public class UDMJsonData extends ReadData {
 
     private String LOG_TAG = UDMJsonData.class.getSimpleName();
@@ -67,9 +68,10 @@ public class UDMJsonData extends ReadData {
 
             JSONArray jsonData = null;
 
-            try {
+            try {   //If the data is presented as array form
                 jsonData = new JSONArray(getData());
                 // Loop array
+                //To read every line
                 for (int i = 0; i < jsonData.length(); i++) {
 
                     // Read JSON objects
@@ -78,11 +80,12 @@ public class UDMJsonData extends ReadData {
                     Log.v(LOG_TAG, "row data : " + items.get(i).toString());
                 }
             }
-
+            //If the data is presented as object form
             catch (JSONException e) {
                 JSONObject jsonObject = new JSONObject(getData());
                 items.add(jsonObject);
             }
+
 
         } catch (JSONException jsonexception) {
             jsonexception.printStackTrace();
@@ -91,6 +94,7 @@ public class UDMJsonData extends ReadData {
 
     }
 
+    //Execute
     public class DownloadJsonData extends DownloadData {
 
         @Override

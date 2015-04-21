@@ -23,6 +23,7 @@ public class ReadData {
         private String data;
         private DownloadStatus downloadStatus;
 
+        //When reading data, set url
         public ReadData(String url) {
             this.url = url;
             downloadStatus = DownloadStatus.IDLE;
@@ -52,6 +53,7 @@ public class ReadData {
             downloadData.execute(url);
         }
 
+        //Download as async to free up the interface for better usability
         public class DownloadData extends AsyncTask<String, Void, String> {
 
             protected void onPostExecute(String webData) {
@@ -95,6 +97,7 @@ public class ReadData {
                     StringBuffer buffer = new StringBuffer();
                     reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
+                    //Clean the json from formatting artifacts
                     String line;
                     while ((line = reader.readLine()) != null) {
                         line = line.replaceAll("&#039;", "'");

@@ -49,9 +49,13 @@ public class DetailsCourseActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_course);
 
+
+        //Initiate all the views on the page
         courseTitre = (TextView) findViewById(R.id.course_title);
         description = (TextView) findViewById(R.id.course_description);
         dateCancellation = (TextView) findViewById(R.id.course_cancellation_value);
