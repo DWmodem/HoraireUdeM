@@ -1,5 +1,6 @@
 package com.mobile.umontreal.schedule;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -17,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mobile.umontreal.schedule.adapters.SessionNavigationAdapter;
+import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
 import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.ConnectionDetector;
@@ -57,6 +58,8 @@ public class DepartmentsActivity extends ActionBarActivity
     // Search EditText
     private EditText inputSearch;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,8 +74,15 @@ public class DepartmentsActivity extends ActionBarActivity
 
         // Action Bar settings
         actionBar = getSupportActionBar();
+
         // Show the action bar title
         actionBar.setDisplayShowTitleEnabled(true);
+
+        //ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(this.getApplicationContext());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMessage("On Progress...");
+        progressDialog.setCancelable(false);
 
         if (!connection.isConnectingToInternet()) {
 
@@ -91,8 +101,6 @@ public class DepartmentsActivity extends ActionBarActivity
             Log.d(LOG_TAG, "INTERNET CONNECTION SUCCESSFUL");
 
         }
-
-
 
         // Build a URL for json file
         String url = Config.URL_API_UDEM + "sigles.json";
@@ -153,7 +161,7 @@ public class DepartmentsActivity extends ActionBarActivity
      * */
 
     private void fillViewList(String url) {
-        UDMJsonData data = new UDMJsonData(url);
+        UDMJsonData data = new UDMJsonData(url, this);
         data.execute(this);
     }
 
@@ -224,4 +232,19 @@ public class DepartmentsActivity extends ActionBarActivity
         departmentAdapter = new ArrayAdapter<Department>(this, R.layout.item_department, departmentList);
         listView.setAdapter(departmentAdapter);
     }
+
+//    @Override
+//    public void onProgress() {
+//        progressDialog.show();
+//    }
+//
+//    @Override
+//    public void onResult(Boolean result) {
+//
+//    }
+//
+//    @Override
+//    public void onCancel(Boolean result) {
+//        progressDialog.dismiss();
+//    }
 }

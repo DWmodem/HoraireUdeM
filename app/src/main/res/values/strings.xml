@@ -53,6 +53,17 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
 
+    <string name="added_course_part1">We have a:</string>
+    <string name="added_course_part2"> Group: </string>
+    <string name="match_found">We have a match  </string>
+
+    <!-- Sliding TabStrip -->
+    <string name="tab_stream">Stream</string>
+    <string name="tab_messages">Messages</string>
+    <string name="tab_notifications">Notifications</string>
+    <string name="tab_photos">Photos</string>
+
+    <!-- Errors and toast messages -->
     <string name="FILE_IS_EMPTY">No data has been loaded yet...</string>
     <string name="DATA_IS_NOT_AVAILABLE">The data is not available...</string>
 
@@ -60,22 +71,27 @@
     <string name="DB_ROW_EXIST">The course is already registered</string>
     <string name="DB_ROW_ADDED">The course is successfully registered</string>
 
-    <string name="added_course_part1">We have a:</string>
-    <string name="added_course_part2"> Group: </string>
-    <string name="match_found">We have a match  </string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="tab_stream">Stream</string>
-    <string name="tab_messages">Messages</string>
-    <string name="tab_notifications">Notifications</string>
-    <string name="tab_photos">Photos</string>
+    <string name="progress_dialog_title">Please wait.</string>
+    <string name="progress_dialog_message">Processing ...</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Typeface names -->
+    <string name="typeface_roboto_regular">Roboto-Regular</string>
+    <string name="typeface_roboto_medium">Roboto-Medium</string>
+    <string name="title_activity_action_drawer">Navigation Drawer</string>
 
-
-
-
-
-
+    <!-- Seasons -->
+    <string name="H">Winter</string>
+    <string name="E">Summer</string>
+    <string name="A">Autumn</string>
+    <string name="S">Spring</string>
 
 </resources>

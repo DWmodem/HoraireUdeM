@@ -128,7 +128,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
                             tagCourseNum + "-" +                    //Eg: 1015
                             tabs[i].toUpperCase() + ".json";        //Eg: A102      ----> H15-ift-1015-A102.json
 
-                    UDMJsonData data = new UDMJsonData(url);
+                    UDMJsonData data = new UDMJsonData(url, this);
                     data.execute(this);
                     callback_count ++;
                     pages.add(new ListView(mContext));

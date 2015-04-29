@@ -1,8 +1,11 @@
 package com.mobile.umontreal.schedule.parsing;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.util.Log;
 
+import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.misc.Callable;
 
 import org.json.JSONArray;
@@ -21,14 +24,17 @@ public class UDMJsonData extends ReadData {
     private String LOG_TAG = UDMJsonData.class.getSimpleName();
     private Uri destinationUri;
     private Callable callback;
+    private Activity activity;
+
     public List<JSONObject> items;
 
     protected UDMJsonData getThis(){
         return  this;
     }
 
-    public UDMJsonData(String uri)  {
+    public UDMJsonData(String uri, Activity activity)  {
         super(null);
+        this.activity = activity;
         destinationUri = CreateUri(uri);
         items = new ArrayList<JSONObject>();
     }
@@ -46,10 +52,9 @@ public class UDMJsonData extends ReadData {
     public void execute(Callable c) {
 
         super.setUrl(destinationUri.toString());
-        callback = c;
+        this.callback = c;
         DownloadJsonData downloadData = new DownloadJsonData();
         downloadData.execute(destinationUri.toString());
-//        Log.v(LOG_TAG, "Built URI : " + destinationUri.toString());
 
     }
 
@@ -77,6 +82,7 @@ public class UDMJsonData extends ReadData {
                     // Read JSON objects
                     JSONObject jsonObject = jsonData.getJSONObject(i);
                     items.add(jsonObject);
+
                     Log.v(LOG_TAG, "row data : " + items.get(i).toString());
                 }
             }
@@ -97,8 +103,30 @@ public class UDMJsonData extends ReadData {
     //Execute
     public class DownloadJsonData extends DownloadData {
 
+        private ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+
+            dialog = new ProgressDialog(activity);
+            
+            dialog.setTitle(activity.getResources().getString(R.string.progress_dialog_title));
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            dialog.setMessage(activity.getResources().getString(R.string.progress_dialog_message));
+
+            if (!dialog.isShowing()) {
+                dialog.show();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            dialog.setProgress(Integer.valueOf(String.valueOf(values[0])));
+        }
+
         @Override
         protected String doInBackground(String... params) {
+            initiateLoading();
             return super.doInBackground(params);
         }
 
@@ -107,7 +135,21 @@ public class UDMJsonData extends ReadData {
             super.onPostExecute(webData);
             processResult();
             callback.OnCallback(getThis());
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
         }
+
+        private void initiateLoading() {
+
+            try {
+                Thread.sleep(500);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 

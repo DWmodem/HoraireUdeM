@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mobile.umontreal.schedule.schedule;
+package com.mobile.umontreal.schedule.navigation;
 
 import android.content.Context;
 import android.graphics.Typeface;

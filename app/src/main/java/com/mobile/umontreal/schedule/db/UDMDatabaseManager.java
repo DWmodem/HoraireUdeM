@@ -19,16 +19,17 @@ import java.util.HashMap;
 public class UDMDatabaseManager extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "UdeMcoursesDatabase";
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 3;
 
     //Schema
-    //DEPARTEMENT;              Un département de l'UDM (ex: IFT - Informatique)
+
+    //DEPARTMENT
     public static final String TABLE_DEPARTEMENT = "DEPARTEMENT";
-    public static final String D_SIGLE = "_sigle";       //Primary key
+    public static final String D_SIGLE = "_sigle";
     public static final String D_TITRE = "titre";
     public static final String D_NBCOURS = "nbcours";
 
-    //COURS;                    Un cours de l'UDM (ex: IFT2905, section A, Trimestre H15)
+    //COURSE
     public static final String TABLE_COURS = "COURS";
     public static final String C_ID = "_id";
     public static final String C_SIGLE = "_sigle";
@@ -44,7 +45,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     public static final String C_ABANDON = "abandon";
     public static final String C_DESCRIPTION = "description";
 
-    //PERIODECOURS
+    //PERIOD COURSE
     static final String TABLE_PERIODECOURS = "PERIODECOURS";
     public static final String P_ID = "_pid";
     public static final String P_DATE = "date";
@@ -58,8 +59,6 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     public static final String P_LOCAL = "local";
     public static final String P_PROF = "prof";
     public static final String P_DESCRIPTION = "description";
-
-
 
     //The unique IDs for the database to manage
     public static int periodeCoursID;

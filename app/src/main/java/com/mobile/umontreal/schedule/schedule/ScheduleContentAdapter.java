@@ -1,4 +1,4 @@
-package com.mobile.umontreal.schedule.adapters;
+package com.mobile.umontreal.schedule.schedule;
 
 import android.app.Activity;
 import android.content.Context;
@@ -83,13 +83,13 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
 
         //Set color for final exams
         if (description.equals("Examen final")) {
-            convertView.setBackgroundResource(R.color.accent_color);
+            convertView.setBackgroundResource(R.color.theme_accent_1_light);
             holder.schedule_prof.setText(R.string.schedule_final);
         }
 
         //Midterm color
         else if (description.equals("Examen intra")) {
-            convertView.setBackgroundResource(R.color.theme_accent_1_light);
+            convertView.setBackgroundResource(R.color.theme_accent_2_light);
             holder.schedule_prof.setText(R.string.schedule_midterm);
         }
         else {

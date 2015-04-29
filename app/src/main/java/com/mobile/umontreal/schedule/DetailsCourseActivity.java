@@ -84,7 +84,7 @@ public class DetailsCourseActivity extends ActionBarActivity
         // Build a URL for json file
         String url = Config.URL_API_UDEM + tagSession + "-" + tagAcronym.toLowerCase() + "-" + tagCourseNum + ".json";
 
-        UDMJsonData data = new UDMJsonData(url);
+        UDMJsonData data = new UDMJsonData(url, this);
         data.execute(this);
     }
 

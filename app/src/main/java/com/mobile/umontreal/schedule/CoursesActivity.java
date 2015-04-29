@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
-import com.mobile.umontreal.schedule.adapters.SessionNavigationAdapter;
+import com.mobile.umontreal.schedule.misc.SessionNavigationAdapter;
 import com.mobile.umontreal.schedule.objects.Course;
 import com.mobile.umontreal.schedule.objects.Session;
 import com.mobile.umontreal.schedule.objects.SessionSeason;
@@ -138,7 +138,7 @@ public class CoursesActivity extends ActionBarActivity
     //Read data online, then, fill the lists
     private void fillViewList(String url) {
 
-        UDMJsonData data = new UDMJsonData(url);
+        UDMJsonData data = new UDMJsonData(url, this);
         data.execute(this);
 
     }
@@ -210,7 +210,7 @@ public class CoursesActivity extends ActionBarActivity
         }
         catch (JSONException e)
         {
-             e.printStackTrace();
+            e.printStackTrace();
         }
 
         Collections.sort(courseList, new Comparator<Course>() {

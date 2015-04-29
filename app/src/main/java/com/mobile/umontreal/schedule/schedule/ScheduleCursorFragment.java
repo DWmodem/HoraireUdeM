@@ -5,7 +5,6 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.mobile.umontreal.schedule.adapters.ScheduleMyCoursesAdapter;
 import com.mobile.umontreal.schedule.objects.MyCourse;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class ScheduleCursorFragment extends ListFragment {
 
     private List<MyCourse> courseList;
 
-    private ScheduleCursorFragment(List<MyCourse> courseList){
+    public ScheduleCursorFragment(List<MyCourse> courseList){
         this.courseList = courseList;
     }
 
@@ -44,7 +43,7 @@ public class ScheduleCursorFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setListAdapter(new ScheduleMyCoursesAdapter(getActivity().getApplicationContext(),getActivity(),
+        setListAdapter(new ScheduleCoursesAdapter(getActivity().getApplicationContext(),getActivity(),
                 android.R.layout.simple_list_item_1, courseList));
 
     }

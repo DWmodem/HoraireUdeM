@@ -1,4 +1,4 @@
-package com.mobile.umontreal.schedule.adapters;
+package com.mobile.umontreal.schedule.misc;
 
 import android.app.Activity;
 import android.content.Context;
@@ -61,7 +61,6 @@ public class SessionNavigationAdapter extends BaseAdapter {
         return setViews(position, convertView, parent);
     }
 
-    //Set the content adapter's fields and displays to the information given
      private View setViews(int position, View convertView, ViewGroup parent) {
 
         String resKey = "season_" + session.get(position).getSeason().toString().toLowerCase();
@@ -79,7 +78,6 @@ public class SessionNavigationAdapter extends BaseAdapter {
         return convertView;
     }
 
-    //Dropdown
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

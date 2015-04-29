@@ -7,4 +7,7 @@ import com.mobile.umontreal.schedule.parsing.UDMJsonData;
  */
 public interface Callable {
     void OnCallback(UDMJsonData data);
+//    void onProgress();
+//    void onResult(Boolean result);
+//    void onCancel(Boolean result);
 }

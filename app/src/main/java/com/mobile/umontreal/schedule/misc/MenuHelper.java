@@ -9,10 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
 import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.DepartmentsActivity;
-import com.mobile.umontreal.schedule.MainActivity;
+import com.mobile.umontreal.schedule.NavigationActivity;
 import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.ScheduleActivity;
 import com.mobile.umontreal.schedule.SettingsActivity;
@@ -100,7 +99,7 @@ public class MenuHelper {
             }
             case R.id.action_calendar:
             {
-                Intent myIntent = new Intent(activity, MainActivity.class);
+                Intent myIntent = new Intent(activity, NavigationActivity.class);
                 activity.startActivity(myIntent);
 //                Toast.makeText(context, "Calendar Item clicked", Toast.LENGTH_SHORT).show();
 //                Log.d("MENUITEM", "Calendar has been run");

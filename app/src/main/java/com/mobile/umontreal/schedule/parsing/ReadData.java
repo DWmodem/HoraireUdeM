@@ -54,7 +54,7 @@ public class ReadData {
         }
 
         //Download as async to free up the interface for better usability
-        public class DownloadData extends AsyncTask<String, Void, String> {
+        public class DownloadData extends AsyncTask<String, Integer, String> {
 
             protected void onPostExecute(String webData) {
 
@@ -70,6 +70,7 @@ public class ReadData {
                     // success
                     downloadStatus = DownloadStatus.OK;
                 }
+
             }
 
             protected String doInBackground(String... params) {
@@ -99,11 +100,15 @@ public class ReadData {
 
                     //Clean the json from formatting artifacts
                     String line;
+                    int i = 0;
+
                     while ((line = reader.readLine()) != null) {
                         line = line.replaceAll("&#039;", "'");
                         line = line.replaceAll("<br />", "\n");
                         line = line.replaceAll("&nbsp;", " ");
                         buffer.append(line + "\n");
+                        i++;
+                        publishProgress((int) ((i / (float) line.length()) * 100));
                     }
 
                     return buffer.toString();
@@ -119,11 +124,13 @@ public class ReadData {
                     }
 
                     if (reader != null) {
+
                         try {
                             reader.close();
                         } catch (final IOException e) {
                             Log.e(LOG_TAG, "Error closing stream", e);
                         }
+
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.mobile.umontreal.schedule.adapters;
+package com.mobile.umontreal.schedule.schedule;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,14 +18,14 @@ import java.util.List;
 /**
  * Created by Corneliu on 07-Apr-2015.
  */
-public class ScheduleMyCoursesAdapter extends ArrayAdapter<MyCourse> {
+public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
 
     private List<MyCourse> courseList;
     private Activity activity;
 
-    public ScheduleMyCoursesAdapter(Context context,
-        Activity activity, int textViewResourceId,
-        List<MyCourse> givenCourses) {
+    public ScheduleCoursesAdapter(Context context,
+                                  Activity activity, int textViewResourceId,
+                                  List<MyCourse> givenCourses) {
         super(context, textViewResourceId, givenCourses);
         this.courseList = new ArrayList<MyCourse>();
         this.courseList.addAll(givenCourses);

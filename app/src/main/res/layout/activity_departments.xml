@@ -19,20 +19,26 @@
 
         <!-- Row 1 with single column :: Filter search -->
         <TableRow
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/search_height"
             android:layout_width="fill_parent"
             android:gravity="center_horizontal">
             <EditText
                 android:id="@+id/input_search"
+                android:layout_height="@dimen/search_height"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:hint="@string/search_department"
+                android:fontFamily="Roboto"
                 android:inputType="textVisiblePassword"
                 android:textSize="@dimen/text_search_size"
-                android:textColorHint="@color/accent_color"
-                android:textColor="@color/input_search_color"
-                android:padding="@dimen/padding_table_row"/>
+                android:textColor="@color/theme_accent_1"
+                android:padding="16dp"/>
         </TableRow>
+
+        <!--Hint and input font: Roboto Regular 16sp-->
+        <!--Label font: Roboto Regular 12sp-->
+        <!--Tile height: 72dp-->
+        <!--Text top and bottom padding: 16dp-->
+        <!--Text field divider padding: 8dp-->
 
         <!-- Row 2 with single column -->
         <TableRow
