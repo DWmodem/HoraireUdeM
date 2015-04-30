@@ -46,7 +46,7 @@
             android:hint="@string/search_course"
             android:inputType="textVisiblePassword"
             android:textSize="@dimen/text_search_size"
-            android:textColor="@color/theme_accent_1"
+            android:textColor="@color/theme_accent_2_light"
             android:padding="@dimen/padding_table_row"/>
     </TableRow>
 

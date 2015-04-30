@@ -63,7 +63,8 @@ public class Config {
     public static final String PARSING_DATE_FORMAT          = "yyyy-MM-dd";
     public static final String PATTERN_FOR_PRINT_DATA       = "dd MMMM yyyy";
 
-    public static final String SCHEDULE_PATTERN_DATE_TIME   = "yyyy-MM-dd HH:mm";
+    public static final String SCHEDULE_PATTERN_TIME_L      = "EEEE, dd MMM yyyy HH:mm";
+    public static final String SCHEDULE_PATTERN_TIME_S      = "EEEE, dd MMM yyyy";
     public static final String SCHEDULE_PATTERN_DATE        = "yyyy-MM-dd";
     public static final String SCHEDULE_PATTERN_HOUR        = "HH:mm";
     public static final String SCHEDULE_PATTERN_DAY         = "E";

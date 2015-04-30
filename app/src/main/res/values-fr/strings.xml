@@ -45,12 +45,13 @@
     <string name="search_department">Recherche departement</string>
     <string name="search_course">Recherche cours</string>
 
-    <string name="sigle_cours"> Sigle+cours</string>
+    <string name="sigle_cours">Sigle+cours</string>
     <string name="teacher">Enseignant:</string>
     <string name="group">Groupe:</string>
-    <string name="next_class"> Prochain cours:</string>
+    <string name="class_started_at">Class start:</string>
+    <string name="class_ended_at">Class end:</string>
 
-    <string name="cours_activity">Cours</string>
+    <string name="course_activity">Cours</string>
     <string name="hello_world">Bonjour tout le monde!</string>
 
     <string name="added_course_part1">Nous avons: </string>

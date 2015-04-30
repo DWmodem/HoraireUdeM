@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_my_course_height"
-    android:background="@color/window_background">
+    android:background="@color/windowBackground">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -54,14 +55,26 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/table_subtitle_color"
-                android:text="@string/next_class"
+                android:textColor="@color/body_text_2"
+                android:text="@string/class_started_at"
                 android:paddingLeft="@dimen/padding_table_row"
-                android:id="@+id/next_class"
+                android:id="@+id/start_class"
                 android:textSize="@dimen/text_item_size"
                 android:layout_weight="1"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/body_text_2"
+                android:text="@string/class_ended_at"
+                android:paddingLeft="@dimen/padding_table_row"
+                android:id="@+id/end_class"
+                android:textSize="@dimen/text_item_size"
+                android:layout_weight="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"/>
 
         </LinearLayout>
 

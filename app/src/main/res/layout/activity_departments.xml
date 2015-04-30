@@ -30,7 +30,7 @@
                 android:fontFamily="Roboto"
                 android:inputType="textVisiblePassword"
                 android:textSize="@dimen/text_search_size"
-                android:textColor="@color/theme_accent_1"
+                android:textColor="@color/theme_accent_2_light"
                 android:padding="16dp"/>
         </TableRow>
 

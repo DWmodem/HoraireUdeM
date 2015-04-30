@@ -18,19 +18,19 @@ import java.util.HashMap;
  */
 public class UDMDatabaseManager extends SQLiteOpenHelper {
 
-    static final String DATABASE_NAME = "UdeMcoursesDatabase";
-    static final int DATABASE_VERSION = 20;
+    static final String DATABASE_NAME = "UDEM_DB_COURSES";
+    static final int DATABASE_VERSION = 3;
 
     //Schema
 
     //DEPARTMENT
-    public static final String TABLE_DEPARTEMENT = "DEPARTEMENT";
+    public static final String TABLE_DEPARTMENT = "DEPARTMENTS";
     public static final String D_SIGLE = "_sigle";
     public static final String D_TITRE = "titre";
     public static final String D_NBCOURS = "nbcours";
 
     //COURSE
-    public static final String TABLE_COURS = "COURS";
+    public static final String TABLE_COURS = "COURSES";
     public static final String C_ID = "_id";
     public static final String C_SIGLE = "_sigle";
     public static final String C_COURSNUM = "_coursnum";
@@ -46,7 +46,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     public static final String C_DESCRIPTION = "description";
 
     //PERIOD COURSE
-    static final String TABLE_PERIODECOURS = "PERIODECOURS";
+    public static final String TABLE_PERIODECOURS = "PERIOD_COURSES";
     public static final String P_ID = "_id";
     public static final String P_DATE = "date";
     public static final String P_JOUR = "jour";
@@ -72,7 +72,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String departementTableCreationQuery = "CREATE TABLE "+TABLE_DEPARTEMENT+" ("
+        String departementTableCreationQuery = "CREATE TABLE "+ TABLE_DEPARTMENT +" ("
                 +D_SIGLE+" text PRIMARY KEY, "
                 +D_TITRE+" text, "
                 +D_NBCOURS+" integer);";
@@ -95,14 +95,14 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         //Sigle, coursnum, section, type sert a rattacher la periode de cours a son cours
         String periodecoursTableCreationQuery = "CREATE TABLE "+TABLE_PERIODECOURS+" ("
                 +P_ID+" integer, "
-                +P_DATE+" text, "
+                +P_DATE+" INTEGER, "
                 +P_JOUR+" text, "
                 +P_SIGLE + " text, "
                 +P_COURSNUM +" text, "
                 +P_SECTION+" text, "
                 +P_SESSION +" text, "
-                +P_HEUREDEBUT+" text, "
-                +P_HEUREFIN+" text, "
+                +P_HEUREDEBUT+" INTEGER, "
+                +P_HEUREFIN+" INTEGER, "
                 +P_LOCAL+" text, "
                 +P_PROF+" text, "
                 +P_DESCRIPTION+" text, "
@@ -118,7 +118,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("drop table if exists "+TABLE_DEPARTEMENT);
+        db.execSQL("drop table if exists "+ TABLE_DEPARTMENT);
         db.execSQL("drop table if exists "+TABLE_COURS);
         db.execSQL("drop table if exists "+TABLE_PERIODECOURS);
         onCreate(db);
@@ -308,10 +308,10 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
             cv.put(UDMDatabaseManager.P_COURSNUM, course.getCoursnum());
             cv.put(UDMDatabaseManager.P_SECTION, course.getCSection());
             cv.put(UDMDatabaseManager.P_SESSION, course.getCType());
-            cv.put(UDMDatabaseManager.P_DATE, HoraireCours.getStartDate().toString());
+            cv.put(UDMDatabaseManager.P_DATE, HoraireCours.getStartDate().getTime());
             cv.put(UDMDatabaseManager.P_JOUR, HoraireCours.getDay());
-            cv.put(UDMDatabaseManager.P_HEUREDEBUT, HoraireCours.getStartHour().toString());
-            cv.put(UDMDatabaseManager.P_HEUREFIN, HoraireCours.getEndHour().toString());
+            cv.put(UDMDatabaseManager.P_HEUREDEBUT, HoraireCours.getStartHour().getTime());
+            cv.put(UDMDatabaseManager.P_HEUREFIN, HoraireCours.getEndHour().getTime());
             cv.put(UDMDatabaseManager.P_LOCAL, HoraireCours.getLocation());
             cv.put(UDMDatabaseManager.P_PROF, HoraireCours.getProfessor());
             cv.put(UDMDatabaseManager.P_DESCRIPTION, HoraireCours.getDescription());

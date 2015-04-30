@@ -46,8 +46,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/next_class"
-                android:id="@+id/next_class"
+                android:text="@string/class_started_at"
+                android:id="@+id/start_class"
                 android:layout_weight="1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />
