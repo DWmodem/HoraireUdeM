@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/table_title_color"
                 android:text="@string/sigle_cours"
                 android:id="@+id/sigle_cours"
                 android:layout_alignParentLeft="true"
@@ -27,51 +27,43 @@
                 android:paddingLeft="@dimen/padding_table_row"
                 android:paddingTop="@dimen/padding_table_row"
                 android:paddingBottom="5dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_subtitle_size"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/table_subtitle_color"
                 android:text="@string/group"
                 android:paddingLeft="@dimen/padding_table_row"
                 android:id="@+id/group"
+                android:textSize="@dimen/text_item_size"
                 android:layout_weight="1" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/table_subtitle_color"
                 android:text="@string/teacher"
                 android:paddingLeft="@dimen/padding_table_row"
                 android:id="@+id/teacher"
+                android:textSize="@dimen/text_item_size"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/table_subtitle_color"
                 android:text="@string/next_class"
                 android:paddingLeft="@dimen/padding_table_row"
                 android:id="@+id/next_class"
+                android:textSize="@dimen/text_item_size"
                 android:layout_weight="1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />
 
         </LinearLayout>
-
-        <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_delete_course"
-            android:layout_gravity="top|center_vertical"
-            android:src="@android:drawable/ic_menu_delete"
-            android:background="@color/window_background"
-            android:padding="@dimen/padding_table_row"
-            android:layout_weight="5"
-            android:clickable="true" />
 
     </LinearLayout>
 

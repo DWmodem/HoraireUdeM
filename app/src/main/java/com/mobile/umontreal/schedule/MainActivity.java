@@ -26,7 +26,7 @@ import java.util.Vector;
 
 
 /**
- * Main Activity
+ * Main Activity is used for tests ...
  * */
 public class MainActivity extends ActionBarActivity {
 
@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
                                 UDMDatabaseManager.C_SECTION,
                                 UDMDatabaseManager.C_TITRE,
                                 UDMDatabaseManager.C_TRIMESTRE,
-                                UDMDatabaseManager.C_STATUS,
+                                UDMDatabaseManager.C_PROFESSOR,
                                 UDMDatabaseManager.C_ABANDON
                         },
                         UDMDatabaseManager.C_TRIMESTRE + " LIKE ?" , // The columns for the WHERE clause
@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
                     course.setSection(c.getString(c.getColumnIndex(UDMDatabaseManager.C_SECTION)));
                     course.setTitle(c.getString(c.getColumnIndex(UDMDatabaseManager.C_TITRE)));
                     course.setSession(c.getString(c.getColumnIndex(UDMDatabaseManager.C_TRIMESTRE)));
-                    course.setStatus(c.getString(c.getColumnIndex(UDMDatabaseManager.C_STATUS)));
+                    course.setStatus(c.getString(c.getColumnIndex(UDMDatabaseManager.C_PROFESSOR)));
                     course.setDrop(c.getString(c.getColumnIndex(UDMDatabaseManager.C_ABANDON)));
 
                     courseList.add(course);

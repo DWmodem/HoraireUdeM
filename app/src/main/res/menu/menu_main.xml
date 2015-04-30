@@ -16,15 +16,15 @@
         android:title="@string/action_calendar"
         app:showAsAction="always" />
 
-    <!-- Schedule -->
-    <item android:id="@+id/action_schedule"
-        android:title="@string/action_schedule"
-        app:showAsAction="never"/>
+    <!--&lt;!&ndash; Schedule &ndash;&gt;-->
+    <!--<item android:id="@+id/action_schedule"-->
+        <!--android:title="@string/action_schedule"-->
+        <!--app:showAsAction="never"/>-->
 
-    <!-- Timetable -->
-    <item android:id="@+id/action_timetable"
-        android:title="@string/action_timetable"
-        app:showAsAction="never"/>
+    <!--&lt;!&ndash; Timetable &ndash;&gt;-->
+    <!--<item android:id="@+id/action_timetable"-->
+        <!--android:title="@string/action_timetable"-->
+        <!--app:showAsAction="never"/>-->
 
     <!-- Add a new course -->
     <item android:id="@+id/action_add_new_course"

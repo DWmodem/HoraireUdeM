@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class UDMDatabaseManager extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "UdeMcoursesDatabase";
-    static final int DATABASE_VERSION = 3;
+    static final int DATABASE_VERSION = 20;
 
     //Schema
 
@@ -38,7 +38,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
     public static final String C_TYPE = "type";
     public static final String C_TITRE = "titre";
     public static final String C_TRIMESTRE = "trimestre";
-    public static final String C_STATUS = "status";
+    public static final String C_PROFESSOR = "prof";
     public static final String C_SESSION = "session";
     public static final String C_CREDITS = "credits";
     public static final String C_ANNULATION = "annulation";
@@ -47,13 +47,13 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
 
     //PERIOD COURSE
     static final String TABLE_PERIODECOURS = "PERIODECOURS";
-    public static final String P_ID = "_pid";
+    public static final String P_ID = "_id";
     public static final String P_DATE = "date";
     public static final String P_JOUR = "jour";
     public static final String P_SIGLE = "_sigle";
     public static final String P_COURSNUM = "_coursnum";
     public static final String P_SECTION = "_section";
-    public static final String P_TYPE = "_type";
+    public static final String P_SESSION = "_session";
     public static final String P_HEUREDEBUT = "heuredebut";
     public static final String P_HEUREFIN = "heurefin";
     public static final String P_LOCAL = "local";
@@ -85,7 +85,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 +C_TYPE+" text, "
                 +C_TITRE+" text, "
                 +C_TRIMESTRE+" text, "
-                +C_STATUS+" text, "
+                + C_PROFESSOR +" text, "
                 +C_SESSION+" text, "
                 +C_CREDITS+" text, "
                 +C_ANNULATION+" text, "
@@ -100,14 +100,13 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
                 +P_SIGLE + " text, "
                 +P_COURSNUM +" text, "
                 +P_SECTION+" text, "
-                +P_TYPE+" text, "
+                +P_SESSION +" text, "
                 +P_HEUREDEBUT+" text, "
                 +P_HEUREFIN+" text, "
                 +P_LOCAL+" text, "
                 +P_PROF+" text, "
                 +P_DESCRIPTION+" text, "
                 +"PRIMARY KEY("+P_ID+", "+P_DATE+"));";
-
 
         db.execSQL(departementTableCreationQuery);
         db.execSQL(coursTableCreationQuery);
@@ -123,6 +122,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         db.execSQL("drop table if exists "+TABLE_COURS);
         db.execSQL("drop table if exists "+TABLE_PERIODECOURS);
         onCreate(db);
+
     }
 
     // Adding new Course
@@ -143,8 +143,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         values.put(this.C_TITRE,
                 course.getCourseSection().getCourse().getTitle());
         values.put(this.C_TRIMESTRE, course.getSessionPeriod());
-        values.put(this.C_STATUS,
-                course.getCourseSection().getStatus().toString());
+        values.put(this.C_PROFESSOR, course.getProf());
         values.put(this.C_SESSION,
                 course.getCourseSection().getType());
         values.put(this.C_CREDITS,
@@ -184,7 +183,7 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(
-                TABLE_COURS,              // The table to query
+                TABLE_COURS,            // The table to query
                 columns,                // The columns to return
                 selection,              // The columns for the WHERE clause
                 selectionArgs,          // The values for the WHERE clause
@@ -196,6 +195,18 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
         );
 
         return cursor;
+    }
+
+    public Cursor getNextClass(String[] args) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT " + P_DATE + " FROM " + TABLE_PERIODECOURS +
+                " WHERE " + P_DATE + " >= ? " +
+                " AND   " + P_COURSNUM + " = ? " +
+                " AND   " + P_SESSION  + " LIKE ? " +
+                " ORDER BY " + P_DATE + " DESC", args);
+        return c;
     }
 
     public void insertData(HashMap<String, String> queryValues, String tableName) {
@@ -295,10 +306,9 @@ public class UDMDatabaseManager extends SQLiteOpenHelper {
             cv.put(UDMDatabaseManager.P_ID, nextID);
             cv.put(UDMDatabaseManager.P_SIGLE, course.getSigle());
             cv.put(UDMDatabaseManager.P_COURSNUM, course.getCoursnum());
-            cv.put(UDMDatabaseManager.P_TYPE, course.getCType());
             cv.put(UDMDatabaseManager.P_SECTION, course.getCSection());
-
-            cv.put(UDMDatabaseManager.P_DATE, HoraireCours.getEndDate().toString());
+            cv.put(UDMDatabaseManager.P_SESSION, course.getCType());
+            cv.put(UDMDatabaseManager.P_DATE, HoraireCours.getStartDate().toString());
             cv.put(UDMDatabaseManager.P_JOUR, HoraireCours.getDay());
             cv.put(UDMDatabaseManager.P_HEUREDEBUT, HoraireCours.getStartHour().toString());
             cv.put(UDMDatabaseManager.P_HEUREFIN, HoraireCours.getEndHour().toString());

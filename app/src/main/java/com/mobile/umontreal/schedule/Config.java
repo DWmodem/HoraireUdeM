@@ -68,6 +68,10 @@ public class Config {
     public static final String SCHEDULE_PATTERN_HOUR        = "HH:mm";
     public static final String SCHEDULE_PATTERN_DAY         = "E";
 
+    public static final String SCHEDULE_KEY_PAGE            = "_page";
+    public static final String SCHEDULE_KEY_ID              = "_id";
+    public static final String SCHEDULE_KEY_DATA            = "_data";
+
     public static final Locale TIME_LOCALE_FR               = new Locale("fr", "FR");
     public static final Locale TIME_LOCALE_EN               = new Locale("en", "US");
 

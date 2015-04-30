@@ -13,7 +13,6 @@ import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.DepartmentsActivity;
 import com.mobile.umontreal.schedule.NavigationActivity;
 import com.mobile.umontreal.schedule.R;
-import com.mobile.umontreal.schedule.ScheduleActivity;
 import com.mobile.umontreal.schedule.SettingsActivity;
 import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 
@@ -99,26 +98,28 @@ public class MenuHelper {
             }
             case R.id.action_calendar:
             {
-                Intent myIntent = new Intent(activity, NavigationActivity.class);
-                activity.startActivity(myIntent);
-//                Toast.makeText(context, "Calendar Item clicked", Toast.LENGTH_SHORT).show();
-//                Log.d("MENUITEM", "Calendar has been run");
+                // Launching new Activity
+                Intent intent = new Intent(activity, NavigationActivity.class);
+                // Sending data to NavigationActivity
+                intent.putExtra(Config.SCHEDULE_KEY_PAGE, "schedule");
+                // Start new Activity
+                activity.startActivity(intent);
                 return true;
             }
-            case R.id.action_schedule:
-            {
-                Intent myIntent= new Intent(activity, ScheduleActivity.class);
-                activity.startActivity(myIntent);
-                Toast.makeText(context, "Schedule Item clicked", Toast.LENGTH_SHORT).show();
-                Log.d("MENUITEM", "Schedule has been run");
-                return true;
-            }
-            case R.id.action_timetable:
-            {
-                Toast.makeText(context, "Timetable Item clicked", Toast.LENGTH_SHORT).show();
-                Log.d("MENUITEM", "Timetable has been run");
-                return true;
-            }
+//            case R.id.action_schedule:
+//            {
+//                Intent myIntent= new Intent(activity, ScheduleActivity.class);
+//                activity.startActivity(myIntent);
+//                Toast.makeText(context, "Schedule Item clicked", Toast.LENGTH_SHORT).show();
+//                Log.d("MENUITEM", "Schedule has been run");
+//                return true;
+//            }
+//            case R.id.action_timetable:
+//            {
+//                Toast.makeText(context, "Timetable Item clicked", Toast.LENGTH_SHORT).show();
+//                Log.d("MENUITEM", "Timetable has been run");
+//                return true;
+//            }
             case R.id.action_add_new_course:
             {
                 // Launching new Activity on selecting single List Item

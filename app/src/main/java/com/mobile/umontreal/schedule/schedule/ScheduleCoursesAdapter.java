@@ -5,14 +5,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mobile.umontreal.schedule.R;
 import com.mobile.umontreal.schedule.objects.MyCourse;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
     private List<MyCourse> courseList;
     private Activity activity;
 
+    private AdapterView.OnItemSelectedListener listener;
+
     public ScheduleCoursesAdapter(Context context,
                                   Activity activity, int textViewResourceId,
                                   List<MyCourse> givenCourses) {
@@ -30,6 +33,7 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
         this.courseList = new ArrayList<MyCourse>();
         this.courseList.addAll(givenCourses);
         this.activity = activity;
+
     }
 
     private class ViewHolder {
@@ -37,7 +41,6 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
         TextView    group;
         TextView    teacher;
         TextView    next_class;
-        ImageButton button_delete_course;
     }
 
     @Override
@@ -54,7 +57,6 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
             holder.group = (TextView) convertView.findViewById(R.id.group);
             holder.teacher = (TextView) convertView.findViewById(R.id.teacher);
             holder.next_class  = (TextView) convertView.findViewById(R.id.next_class);
-            holder.button_delete_course = (ImageButton) convertView.findViewById(R.id.button_delete_course);
             convertView.setTag(holder);
         }
 
@@ -71,12 +73,29 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
 
         holder.teacher.setText(getContext().getString(R.string.teacher) + " " + course.getProfessor());
 
-        holder.button_delete_course.setContentDescription(""+course.get_id());
+//        UDMDatabaseManager db = new UDMDatabaseManager(getContext());
+//
+//        Cursor cursor = db.getNextClass(
+//            new String[]{
+//                    Config.printDateDefault(new Date()),
+//                    Integer.toString(course.getCourseNumber()),
+//                    course.getSession()
+//            });
+//
+//        if (cursor != null) {
+//
+//            String next = "" + cursor.getString(0);
+//            holder.next_class.setText(next);
+//        }
+//
+//        cursor.close();
+//        db.close();
 
         return convertView;
-
     }
 
-
+    private static long compareTo( Date date1, Date date2 ) {
+        return date1.getTime() - date2.getTime();
+    }
 
 }

@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * Created by Corneliu on 06-Apr-2015.
  */
-public class ScheduleListFragment extends ListFragment {
+public class ScheduleSlidingTabFragment extends ListFragment {
 
     private List<Schedule> scheduleList;
 
-    private ScheduleListFragment(List<Schedule> scheduleList){
+    private ScheduleSlidingTabFragment(List<Schedule> scheduleList){
         this.scheduleList = new ArrayList<Schedule>();
         this.scheduleList.addAll(scheduleList);
     }
@@ -32,8 +32,8 @@ public class ScheduleListFragment extends ListFragment {
      * Create a new instance of our fragment, providing "num"
      * as an argument - it determines which page to display
      */
-    static ScheduleListFragment createNewFragmentToDisplay(int num, List<Schedule> scheduleList) {
-        ScheduleListFragment displayFragment = new ScheduleListFragment(scheduleList);
+    static ScheduleSlidingTabFragment createNewFragmentToDisplay(int num, List<Schedule> scheduleList) {
+        ScheduleSlidingTabFragment displayFragment = new ScheduleSlidingTabFragment(scheduleList);
         // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putInt("num", num);

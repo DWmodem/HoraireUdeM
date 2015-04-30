@@ -13,15 +13,15 @@ import java.util.List;
 /**
  * Created by Corneliu on 02-Apr-2015.
  */
-public class ScheduleListAdapter extends FragmentStatePagerAdapter {
+public class ScheduleSlidingTabAdapter extends FragmentStatePagerAdapter {
 
     private int tabNumber;
     private String[] tabTitles;
 
     List<CourseSectionSchedule> scheduleList;
 
-    public ScheduleListAdapter(FragmentManager fragmentManager,
-                               String[] tabTitles, List<CourseSectionSchedule> scheduleList) {
+    public ScheduleSlidingTabAdapter(FragmentManager fragmentManager,
+                                     String[] tabTitles, List<CourseSectionSchedule> scheduleList) {
         super(fragmentManager);
 
         this.tabTitles = tabTitles;
@@ -36,7 +36,7 @@ public class ScheduleListAdapter extends FragmentStatePagerAdapter {
 
 
     public Fragment getItem(int position) {
-         return ScheduleListFragment.createNewFragmentToDisplay(position, scheduleList.get(position).getSchedule());
+         return ScheduleSlidingTabFragment.createNewFragmentToDisplay(position, scheduleList.get(position).getSchedule());
     }
 
     public CharSequence getPageTitle(int position) {

@@ -4,6 +4,7 @@ import android.app.ListFragment;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
 import com.mobile.umontreal.schedule.objects.MyCourse;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class ScheduleCoursesFragment extends ListFragment {
 
     // Data Base
-    private UDMDatabaseManager dbase;
+    private UDMDatabaseManager db;
 
     // Called when the activity is first created.
     private ArrayList<MyCourse> scheduleList;
@@ -25,21 +26,21 @@ public class ScheduleCoursesFragment extends ListFragment {
           super.onCreate(savedInstanceState);
 
           // Connection DataBase
-          dbase = new UDMDatabaseManager(getActivity());
+          db = new UDMDatabaseManager(getActivity());
           scheduleList = new ArrayList<MyCourse>();
 
-          String sessionName = getArguments().getString("page");
+          String sessionName = getArguments().getString(Config.SCHEDULE_KEY_PAGE);
 
           if (sessionName != null) {
 
-              Cursor c = dbase.getCourses(new String[]{
+              Cursor c = db.getCourses(new String[]{
                       UDMDatabaseManager.C_ID,
                       UDMDatabaseManager.C_SIGLE,
                       UDMDatabaseManager.C_COURSNUM,
                       UDMDatabaseManager.C_SECTION,
                       UDMDatabaseManager.C_TITRE,
                       UDMDatabaseManager.C_TRIMESTRE,
-                      UDMDatabaseManager.C_STATUS,
+                      UDMDatabaseManager.C_PROFESSOR,
                       UDMDatabaseManager.C_ABANDON
               },
               UDMDatabaseManager.C_TRIMESTRE + " LIKE ?", // The columns for the WHERE clause
@@ -62,7 +63,7 @@ public class ScheduleCoursesFragment extends ListFragment {
                       course.setSection(c.getString(c.getColumnIndex(UDMDatabaseManager.C_SECTION)));
                       course.setTitle(c.getString(c.getColumnIndex(UDMDatabaseManager.C_TITRE)));
                       course.setSession(c.getString(c.getColumnIndex(UDMDatabaseManager.C_TRIMESTRE)));
-                      course.setStatus(c.getString(c.getColumnIndex(UDMDatabaseManager.C_STATUS)));
+                      course.setProfessor(c.getString(c.getColumnIndex(UDMDatabaseManager.C_PROFESSOR)));
                       course.setDrop(c.getString(c.getColumnIndex(UDMDatabaseManager.C_ABANDON)));
 
                       scheduleList.add(course);
@@ -76,7 +77,14 @@ public class ScheduleCoursesFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setListAdapter(new ScheduleCoursesAdapter(getActivity().getApplicationContext(),getActivity(),
-                android.R.layout.simple_list_item_1, scheduleList));
-    }
+
+        // Adapter instance
+        ScheduleCoursesAdapter listAdapter =
+                new ScheduleCoursesAdapter(getActivity().getApplicationContext(),getActivity(),
+                android.R.layout.simple_list_item_1, scheduleList);
+
+        setListAdapter(listAdapter);
+
+
+}
 }

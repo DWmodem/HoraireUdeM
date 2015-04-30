@@ -5,6 +5,7 @@
     <string name="title_activity_courses">Cours</string>
     <string name="title_activity_details_course">Détails du cours</string>
     <string name="title_activity_full_details_course">Tout les détails du cours</string>
+    <string name="title_activity_schedule">Horaire</string>
 
     <string name="department_titre">Titre du département</string>
 
@@ -51,7 +52,6 @@
 
     <string name="cours_activity">Cours</string>
     <string name="hello_world">Bonjour tout le monde!</string>
-    <string name="title_activity_schedule">ScheduleActivity</string>
 
     <string name="added_course_part1">Nous avons: </string>
     <string name="added_course_part2"> Groupe: </string>

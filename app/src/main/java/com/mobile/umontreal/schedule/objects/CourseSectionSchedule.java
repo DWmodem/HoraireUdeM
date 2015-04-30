@@ -147,7 +147,6 @@ public class CourseSectionSchedule {
             course.setTitle(title);
             course.setCourseNumber(courseNum);
 
-
             // Create a section field
             section = new CourseSection();
             section.setCourse(course);

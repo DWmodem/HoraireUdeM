@@ -21,7 +21,7 @@ import com.mobile.umontreal.schedule.misc.Callable;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.objects.CourseSectionSchedule;
 import com.mobile.umontreal.schedule.parsing.UDMJsonData;
-import com.mobile.umontreal.schedule.schedule.ScheduleListAdapter;
+import com.mobile.umontreal.schedule.schedule.ScheduleSlidingTabAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -140,7 +140,7 @@ public class FullDetailsCourseActivity extends ActionBarActivity
     private void InitializeListViews() {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_viewer);
-        viewPager.setAdapter(new ScheduleListAdapter(getSupportFragmentManager(), tabs, courseList));
+        viewPager.setAdapter(new ScheduleSlidingTabAdapter(getSupportFragmentManager(), tabs, courseList));
 
 
         // Give the PagerSlidingTabStrip the ViewPager
@@ -276,6 +276,10 @@ public class FullDetailsCourseActivity extends ActionBarActivity
 
                 for (int index = 0; index < courseList.size(); index++) {
 
+                    courseList.get(index).setCoursnum(courseNum);
+                    courseList.get(index).setSigle(acronym);
+                    courseList.get(index).setCSection(sectionList.get(index));
+                    courseList.get(index).setCType(session);
                     dataBase.addCoursePeriod(courseList.get(index));
 
                     String SectionIndex = courseList.get(index).getCourseSection().toString();

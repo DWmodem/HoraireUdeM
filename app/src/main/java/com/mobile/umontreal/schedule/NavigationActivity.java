@@ -40,6 +40,8 @@ public class NavigationActivity extends ActionBarActivity implements DrawerCallb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
 
         // Connection DataBase
         db = new UDMDatabaseManager(this);
@@ -53,8 +55,6 @@ public class NavigationActivity extends ActionBarActivity implements DrawerCallb
             this.startActivity(intent);
         }
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
         toolbar = (Toolbar) findViewById(id.toolbar_actionbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -71,6 +71,7 @@ public class NavigationActivity extends ActionBarActivity implements DrawerCallb
 
         navDrawerFragment = (NavDrawerFragment) getFragmentManager().findFragmentById(id.fragment_drawer);
         navDrawerFragment.setup(id.fragment_drawer, (DrawerLayout) findViewById(id.drawer), toolbar);
+
     }
 
     @Override
@@ -111,12 +112,13 @@ public class NavigationActivity extends ActionBarActivity implements DrawerCallb
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             ScheduleCoursesFragment fragment = new ScheduleCoursesFragment();
             Bundle args = new Bundle();
-            args.putString("page", _data.get(position).getSession());
+            args.putString(Config.SCHEDULE_KEY_PAGE, _data.get(position).getSession());
             fragment.setArguments(args);
             fragmentTransaction.replace(R.id.container, fragment);
             fragmentTransaction.commit();
 
         }
+
     }
 
     @Override
