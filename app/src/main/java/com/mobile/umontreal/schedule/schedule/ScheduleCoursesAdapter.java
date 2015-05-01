@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.R;
@@ -29,6 +33,8 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
 
     private AdapterView.OnItemSelectedListener listener;
 
+
+
     public ScheduleCoursesAdapter(Context context,
                                   Activity activity, int textViewResourceId,
                                   List<MyCourse> givenCourses) {
@@ -45,6 +51,7 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
         TextView    teacher;
         TextView    next_class;
         TextView    end_class;
+        LinearLayout editToolbar;
     }
 
     @Override
@@ -62,6 +69,7 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
             holder.teacher = (TextView) convertView.findViewById(R.id.teacher);
             holder.next_class  = (TextView) convertView.findViewById(R.id.start_class);
             holder.end_class  = (TextView) convertView.findViewById(R.id.end_class);
+            holder.editToolbar = (LinearLayout) convertView.findViewById(R.id.toolbar_edit);
             convertView.setTag(holder);
         }
 
@@ -144,8 +152,11 @@ public class ScheduleCoursesAdapter extends ArrayAdapter<MyCourse> {
             max.moveToNext();
         }
         max.close();
-
         return convertView;
+    }
+
+    public void ToastMsg(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

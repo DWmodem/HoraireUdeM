@@ -1,7 +1,9 @@
 package com.mobile.umontreal.schedule;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -12,12 +14,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.db.UDMDatabaseManager;
 import com.mobile.umontreal.schedule.googleI.GoogleIntegrationManager;
 import com.mobile.umontreal.schedule.misc.DataHolderClass;
 import com.mobile.umontreal.schedule.misc.MenuHelper;
 import com.mobile.umontreal.schedule.navigation.DrawerCallbacks;
+import com.mobile.umontreal.schedule.navigation.MyDialogFragment;
 import com.mobile.umontreal.schedule.navigation.NavDrawerFragment;
 import com.mobile.umontreal.schedule.navigation.NavItem;
 import com.mobile.umontreal.schedule.schedule.ScheduleCoursesFragment;
@@ -27,7 +31,8 @@ import java.util.List;
 import static com.mobile.umontreal.schedule.R.id;
 
 
-public class NavigationActivity extends ActionBarActivity implements DrawerCallbacks {
+public class NavigationActivity extends ActionBarActivity
+        implements DrawerCallbacks {
 
     //Tag for logging purposes
     private String LOG_TAG = NavigationActivity.class.getSimpleName();
@@ -116,7 +121,6 @@ public class NavigationActivity extends ActionBarActivity implements DrawerCallb
             fragment.setArguments(args);
             fragmentTransaction.replace(R.id.container, fragment);
             fragmentTransaction.commit();
-
         }
 
     }
@@ -127,5 +131,9 @@ public class NavigationActivity extends ActionBarActivity implements DrawerCallb
             navDrawerFragment.closeDrawer();
         else
             super.onBackPressed();
+    }
+
+    public void ToastMsg(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 }

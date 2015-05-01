@@ -4,12 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_my_course_height"
-    android:background="@color/windowBackground">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    android:background="@color/windowBackground"
+    android:id="@+id/item_my_courses">
 
         <LinearLayout
             android:orientation="vertical"
@@ -26,7 +22,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:paddingLeft="@dimen/padding_table_row"
-                android:paddingTop="@dimen/padding_table_row"
+                android:paddingTop="14dp"
                 android:paddingBottom="5dp"
                 android:textSize="@dimen/text_subtitle_size"
                 android:textStyle="bold" />
@@ -70,14 +66,16 @@
                 android:textColor="@color/body_text_2"
                 android:text="@string/class_ended_at"
                 android:paddingLeft="@dimen/padding_table_row"
+                android:paddingBottom="4dp"
                 android:id="@+id/end_class"
                 android:textSize="@dimen/text_item_size"
                 android:layout_weight="1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"/>
 
+            <include layout="@layout/toolbar_edit_item"/>
         </LinearLayout>
 
-    </LinearLayout>
+
 
 </RelativeLayout>

@@ -95,6 +95,13 @@
     <string name="A">Autumn</string>
     <string name="S">Spring</string>
 
+    <!-- Dialog List Items -->
+    <string-array name="dialog_items">
+        <item>Delete course</item>
+        <item>Show schedule</item>
+        <item>Update course</item>
+    </string-array>
+
 
 
 

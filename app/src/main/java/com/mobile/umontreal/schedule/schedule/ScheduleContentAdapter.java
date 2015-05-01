@@ -3,10 +3,12 @@ package com.mobile.umontreal.schedule.schedule;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.umontreal.schedule.Config;
 import com.mobile.umontreal.schedule.R;
@@ -64,6 +66,24 @@ public class ScheduleContentAdapter extends ArrayAdapter<Schedule> {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        parent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Toast.makeText(getContext(), "ACTION DOWN detected", Toast.LENGTH_LONG).show();
+                    case MotionEvent.ACTION_UP:
+                        Toast.makeText(getContext(), "ACTION UP detected", Toast.LENGTH_LONG).show();
+                        return false;
+                    default:
+                        break;
+                }
+                return false;
+            }
+
+
+        });
 
         //For this position
         Schedule schedule = scheduleList.get(position);
